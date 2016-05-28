@@ -46,7 +46,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include <stdio.h>
 #include "mcc_generated_files/mcc.h"
+#include "log.h"
 
+char log_level = DEBUG;
 /*
                          Main application
  */
@@ -55,7 +57,7 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize();
 
-    printf("PIC initialisation done.\n");
+    LOG_INFO("PIC initialisation done.\n");
 
     while (1)
     {

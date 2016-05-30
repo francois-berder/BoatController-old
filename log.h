@@ -11,7 +11,9 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
+#include <stdio.h>
+    
 enum LOG_LEVEL
 {
     DEBUG,

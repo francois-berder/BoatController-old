@@ -44,9 +44,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
  */
 
-#include <stdio.h>
 #include "mcc_generated_files/mcc.h"
 #include "log.h"
+#include "status.h"
 
 char log_level = DEBUG;
 /*
@@ -56,6 +56,7 @@ int main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
+    STATUS_set_mode(STATUS_SLOW_BLINK);
 
     LOG_INFO("PIC initialisation done.\n");
 

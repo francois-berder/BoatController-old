@@ -52,7 +52,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #pragma config DSBOREN = ON    // Deep Sleep BOR Enable bit->DSBOR Enabled
 #pragma config DSWDTEN = ON    // Deep Sleep Watchdog Timer Enable->DSWDT Enabled
 #pragma config DSSWEN = ON    // DSEN Bit Enable->Deep Sleep is controlled by the register bit DSEN
-#pragma config PLLDIV = NODIV    // USB 96 MHz PLL Prescaler Select bits->Oscillator input used directly (4 MHz input)
+#pragma config PLLDIV = PLL4X    // USB 96 MHz PLL Prescaler Select bits->4x PLL selected
 #pragma config I2C1SEL = DISABLE    // Alternate I2C1 enable bit->I2C1 uses SCL1 and SDA1 pins
 #pragma config IOL1WAY = ON    // PPS IOLOCK Set Only Once Enable bit->Once set, the IOLOCK bit cannot be cleared
 
@@ -95,6 +95,7 @@ void SYSTEM_Initialize(void)
     PIN_MANAGER_Initialize();
     INTERRUPT_Initialize();
     OSCILLATOR_Initialize();
+    TMR2_Initialize();
     UART1_Initialize();
 }
 
@@ -102,8 +103,8 @@ void OSCILLATOR_Initialize(void)
 {
     // CF no clock failure; NOSC FRCPLL; SOSCEN disabled; POSCEN disabled; CLKLOCK unlocked; OSWEN Switch is Complete; IOLOCK not-active; 
     __builtin_write_OSCCONL((uint8_t) (0x0100 & 0x00FF));
-    // CPDIV 1:1; PLLEN enabled; RCDIV FRC/2; DOZE 1:8; DOZEN disabled; ROI disabled; 
-    CLKDIV = 0x3120;
+    // CPDIV 1:1; PLLEN enabled; RCDIV FRC/1; DOZE 1:8; DOZEN disabled; ROI disabled; 
+    CLKDIV = 0x3020;
     // STOR disabled; STORPOL Interrupt when STOR is 1; STSIDL disabled; STLPOL Interrupt when STLOCK is 1; STLOCK disabled; STSRC SOSC; STEN disabled; TUN Center frequency; 
     OSCTUN = 0x0000;
     // ROEN disabled; ROSEL FOSC; ROSIDL disabled; ROSWEN disabled; ROOUT disabled; ROSLP disabled; 

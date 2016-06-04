@@ -54,6 +54,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 void INTERRUPT_Initialize (void)
 {
+    //    ICI_INT: IC1 - Input Capture 1
+    //    Priority: 1
+        IPC0bits.IC1IP = 1;
+    //    ICI_INT: IC2 - Input Capture 2
+    //    Priority: 1
+        IPC1bits.IC2IP = 1;
     //    TI: T2 - Timer2
     //    Priority: 1
         IPC1bits.T2IP = 1;

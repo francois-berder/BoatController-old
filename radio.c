@@ -6,9 +6,9 @@
 
 #define BUFFER_SIZE     (16)
 
-uint16_t start[CHANNEL_CNT] = { 0, 0 };
+static uint16_t start[CHANNEL_CNT] = { 0, 0 };
 
-struct 
+static struct 
 {
     uint16_t entries[BUFFER_SIZE];
     uint8_t entries_cnt;
@@ -23,9 +23,9 @@ static bool radio_is_buffer_full(const uint8_t channel)
 static void radio_enable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
-        IPC0bits.IC1IP = 1;
+        IEC0bits.IC1IE = true;
     else if (channel == POWER_CHANNEL)
-        IPC1bits.IC2IP = 1;
+        IEC0bits.IC2IE = true;
     else
         LOG_ERR("radio: cannot enable interrupts with invalid channel.");
 }
@@ -33,9 +33,9 @@ static void radio_enable_interrupts(const uint8_t channel)
 static void radio_disable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
-        IPC0bits.IC1IP = 0;
+        IEC0bits.IC1IE = false;
     else if (channel == POWER_CHANNEL)
-        IPC1bits.IC2IP = 0;
+        IEC0bits.IC2IE = false;
     else
         LOG_ERR("radio: cannot disable interrupts with invalid channel.");
 }

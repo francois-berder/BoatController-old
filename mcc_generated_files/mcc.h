@@ -55,6 +55,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "interrupt_manager.h"
 #include "tmr1.h"
 #include "tmr2.h"
+#include "tmr3.h"
+#include "tmr4.h"
 #include "uart1.h"
 
 #define _XTAL_FREQ  32000000UL

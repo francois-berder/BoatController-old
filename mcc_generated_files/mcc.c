@@ -58,7 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 // CONFIG3
 #pragma config WPFP = WPFP127    // Write Protection Flash Page Segment Boundary->Page 127 (0x1FC00)
-#pragma config SOSCSEL = ON    // SOSC Selection bits->SOSC circuit selected
+#pragma config SOSCSEL = OFF    // SOSC Selection bits->Digital (SCLKI) mode
 #pragma config WDTWIN = PS25_0    // Window Mode Watchdog Timer Window Width Select->Watch Dog Timer Window Width is 25 percent
 #pragma config PLLSS = PLL_FRC    // PLL Secondary Selection Configuration bit->PLL is fed by the on-chip Fast RC (FRC) oscillator
 #pragma config BOREN = ON    // Brown-out Reset Enable->Brown-out Reset Enable
@@ -97,6 +97,8 @@ void SYSTEM_Initialize(void)
     OSCILLATOR_Initialize();
     IC2_Initialize();
     UART1_Initialize();
+    TMR3_Initialize();
+    TMR4_Initialize();
     TMR2_Initialize();
     IC1_Initialize();
     TMR1_Initialize();

@@ -50,7 +50,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <xc.h>
 #include "ic2.h"
 #include "../radio.h"
-
 /**
   IC Mode.
 
@@ -70,10 +69,10 @@ static uint16_t         gIC2Mode;
 
 void IC2_Initialize (void)
 {
-    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL TMR1; ICI Every; 
-    IC2CON1 = 0x1001;
-    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Trigger; 
-    IC2CON2 = 0x0080;
+    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL FOSC/2; ICI Every; 
+    IC2CON1 = 0x1C01;
+    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
+    IC2CON2 = 0x0000;
     
     gIC2Mode = IC2CON1bits.ICM;
     

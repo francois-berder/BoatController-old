@@ -72,7 +72,7 @@ int main(void)
         
         while (radio_is_buffer_empty(DIRECTION_CHANNEL))
             ;
-        LOG_INFO("direction=%d", radio_buffer_read(DIRECTION_CHANNEL));
+        LOG_INFO("direction=%u", radio_buffer_read(DIRECTION_CHANNEL));
         /*
         while (radio_is_buffer_empty(POWER_CHANNEL))
             ;

@@ -70,10 +70,10 @@ static uint16_t         gIC1Mode;
 
 void IC1_Initialize (void)
 {
-    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL TMR1; ICI Every; 
-    IC1CON1 = 0x1001;
-    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Trigger; 
-    IC1CON2 = 0x0080;
+    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL FOSC/2; ICI Every; 
+    IC1CON1 = 0x1C01;
+    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
+    IC1CON2 = 0x0000;
     
     gIC1Mode = IC1CON1bits.ICM;
     

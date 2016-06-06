@@ -101,7 +101,6 @@ void SYSTEM_Initialize(void)
     TMR4_Initialize();
     TMR2_Initialize();
     IC1_Initialize();
-    TMR1_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)

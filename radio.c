@@ -24,7 +24,7 @@ static void radio_enable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         IEC0bits.IC1IE = true;
-    else if (channel == POWER_CHANNEL)
+    else if (channel == SPEED_CHANNEL)
         IEC0bits.IC2IE = true;
     else
         LOG_ERR("radio: cannot enable interrupts with invalid channel.");
@@ -34,7 +34,7 @@ static void radio_disable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         IEC0bits.IC1IE = false;
-    else if (channel == POWER_CHANNEL)
+    else if (channel == SPEED_CHANNEL)
         IEC0bits.IC2IE = false;
     else
         LOG_ERR("radio: cannot disable interrupts with invalid channel.");
@@ -44,7 +44,7 @@ static uint16_t radio_read_ic(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         return IC1_CaptureDataRead();
-    else if (channel == POWER_CHANNEL)
+    else if (channel == SPEED_CHANNEL)
         return IC2_CaptureDataRead();
     else {
         LOG_ERR("radio: Cannot read from IC with invalid channel");
@@ -70,7 +70,7 @@ static uint8_t radio_read_input_pin(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         return PORTBbits.RB0;
-    else if (channel == POWER_CHANNEL)
+    else if (channel == SPEED_CHANNEL)
         return PORTBbits.RB1;
     else {
         LOG_ERR("radio: Cannot check input pin state with invalid channel");

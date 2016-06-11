@@ -93,7 +93,7 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _ISR _IC2Interrupt( void )
 {
     if(IFS0bits.IC2IF)
     {
-        radio_update(POWER_CHANNEL);
+        radio_update(SPEED_CHANNEL);
         IFS0bits.IC2IF = 0;
     }
 }

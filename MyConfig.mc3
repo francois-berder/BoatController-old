@@ -1486,7 +1486,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="Custom Name RB1"/>
-         <value>PWR_CHANNEL</value>
+         <value>SPEED_CHANNEL</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TMR2" registerAlias="TI" settingAlias="flag"/>
@@ -4458,7 +4458,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="pin name RB1"/>
-         <value>PWR_CHANNEL</value>
+         <value>SPEED_CHANNEL</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="IC1" registerAlias="ICCON1" settingAlias="ICI" alias="Every"/>

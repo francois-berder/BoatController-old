@@ -16,7 +16,7 @@ extern "C" {
 #include <stdint.h>
     
 #define DIRECTION_CHANNEL       (0)
-#define POWER_CHANNEL           (1)
+#define SPEED_CHANNEL           (1)
 #define CHANNEL_CNT             (2)
     
 void radio_update(const uint8_t channel);

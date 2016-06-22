@@ -15,7 +15,7 @@
   @Description:
     This source file provides implementations for MPLAB(c) Code Configurator interrupts.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - v3.00
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC24FJ128GB202
         Version           :  1.02
     The generated drivers are tested against the following:
@@ -121,7 +121,7 @@
   @Example
     <code>
     // Toggle RA0
-    LEFT_RUDDER_SetToggle();
+    LEFT_RUDDER_Toggle();
     </code>
 
 */
@@ -267,7 +267,7 @@
   @Example
     <code>
     // Toggle RA1
-    RIGHT_RUDDER_SetToggle();
+    RIGHT_RUDDER_Toggle();
     </code>
 
 */
@@ -413,7 +413,7 @@
   @Example
     <code>
     // Toggle RA2
-    LEFT_MOTOR_SetToggle();
+    LEFT_MOTOR_Toggle();
     </code>
 
 */
@@ -559,7 +559,7 @@
   @Example
     <code>
     // Toggle RA3
-    RIGHT_MOTOR_SetToggle();
+    RIGHT_MOTOR_Toggle();
     </code>
 
 */
@@ -640,13 +640,13 @@
 #define RIGHT_MOTOR_SetDigitalOutput() _TRISA3 = 0
 /**
   @Summary
-    Sets the GPIO pin, RA3, high using LATA3.
+    Sets the GPIO pin, RB11, high using LATB11.
 
   @Description
-    Sets the GPIO pin, RA3, high using LATA3.
+    Sets the GPIO pin, RB11, high using LATB11.
 
   @Preconditions
-    The RA3 must be set to an output.
+    The RB11 must be set to an output.
 
   @Returns
     None.
@@ -656,21 +656,21 @@
 
   @Example
     <code>
-    // Set RA3 high (1)
-    RIGHT_MOTOR_SetHigh();
+    // Set RB11 high (1)
+    RB11_SetHigh();
     </code>
 
 */
-#define RIGHT_MOTOR_SetHigh()          _LATA3 = 1
+#define RB11_SetHigh()          _LATB11 = 1
 /**
   @Summary
-    Sets the GPIO pin, RA3, low using LATA3.
+    Sets the GPIO pin, RB11, low using LATB11.
 
   @Description
-    Sets the GPIO pin, RA3, low using LATA3.
+    Sets the GPIO pin, RB11, low using LATB11.
 
   @Preconditions
-    The RA3 must be set to an output.
+    The RB11 must be set to an output.
 
   @Returns
     None.
@@ -680,21 +680,21 @@
 
   @Example
     <code>
-    // Set RA3 low (0)
-    RIGHT_MOTOR_SetLow();
+    // Set RB11 low (0)
+    RB11_SetLow();
     </code>
 
 */
-#define RIGHT_MOTOR_SetLow()           _LATA3 = 0
+#define RB11_SetLow()           _LATB11 = 0
 /**
   @Summary
-    Toggles the GPIO pin, RA3, using LATA3.
+    Toggles the GPIO pin, RB11, using LATB11.
 
   @Description
-    Toggles the GPIO pin, RA3, using LATA3.
+    Toggles the GPIO pin, RB11, using LATB11.
 
   @Preconditions
-    The RA3 must be set to an output.
+    The RB11 must be set to an output.
 
   @Returns
     None.
@@ -704,18 +704,18 @@
 
   @Example
     <code>
-    // Toggle RA3
-    RIGHT_MOTOR_SetToggle();
+    // Toggle RB11
+    RB11_Toggle();
     </code>
 
 */
-#define RIGHT_MOTOR_Toggle()           _LATA3 ^= 1
+#define RB11_Toggle()           _LATB11 ^= 1
 /**
   @Summary
-    Reads the value of the GPIO pin, RA3.
+    Reads the value of the GPIO pin, RB11.
 
   @Description
-    Reads the value of the GPIO pin, RA3.
+    Reads the value of the GPIO pin, RB11.
 
   @Preconditions
     None.
@@ -730,18 +730,18 @@
     <code>
     uint16_t portValue;
 
-    // Read RA3
-    postValue = RIGHT_MOTOR_GetValue();
+    // Read RB11
+    postValue = RB11_GetValue();
     </code>
 
 */
-#define RIGHT_MOTOR_GetValue()         _RA3
+#define RB11_GetValue()         _RB11
 /**
   @Summary
-    Configures the GPIO pin, RA3, as an input.
+    Configures the GPIO pin, RB11, as an input.
 
   @Description
-    Configures the GPIO pin, RA3, as an input.
+    Configures the GPIO pin, RB11, as an input.
 
   @Preconditions
     None.
@@ -754,18 +754,18 @@
 
   @Example
     <code>
-    // Sets the RA3 as an input
-    RIGHT_MOTOR_SetDigitalInput();
+    // Sets the RB11 as an input
+    RB11_SetDigitalInput();
     </code>
 
 */
-#define RIGHT_MOTOR_SetDigitalInput()  _TRISA3 = 1
+#define RB11_SetDigitalInput()  _TRISB11 = 1
 /**
   @Summary
-    Configures the GPIO pin, RA3, as an output.
+    Configures the GPIO pin, RB11, as an output.
 
   @Description
-    Configures the GPIO pin, RA3, as an output.
+    Configures the GPIO pin, RB11, as an output.
 
   @Preconditions
     None.
@@ -778,158 +778,12 @@
 
   @Example
     <code>
-    // Sets the RA3 as an output
-    RIGHT_MOTOR_SetDigitalOutput();
+    // Sets the RB11 as an output
+    RB11_SetDigitalOutput();
     </code>
 
 */
-#define RIGHT_MOTOR_SetDigitalOutput() _TRISA3 = 0
-/**
-  @Summary
-    Sets the GPIO pin, RA3, high using LATA3.
-
-  @Description
-    Sets the GPIO pin, RA3, high using LATA3.
-
-  @Preconditions
-    The RA3 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RA3 high (1)
-    RIGHT_MOTOR_SetHigh();
-    </code>
-
-*/
-#define RIGHT_MOTOR_SetHigh()          _LATA3 = 1
-/**
-  @Summary
-    Sets the GPIO pin, RA3, low using LATA3.
-
-  @Description
-    Sets the GPIO pin, RA3, low using LATA3.
-
-  @Preconditions
-    The RA3 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RA3 low (0)
-    RIGHT_MOTOR_SetLow();
-    </code>
-
-*/
-#define RIGHT_MOTOR_SetLow()           _LATA3 = 0
-/**
-  @Summary
-    Toggles the GPIO pin, RA3, using LATA3.
-
-  @Description
-    Toggles the GPIO pin, RA3, using LATA3.
-
-  @Preconditions
-    The RA3 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RA3
-    RIGHT_MOTOR_SetToggle();
-    </code>
-
-*/
-#define RIGHT_MOTOR_Toggle()           _LATA3 ^= 1
-/**
-  @Summary
-    Reads the value of the GPIO pin, RA3.
-
-  @Description
-    Reads the value of the GPIO pin, RA3.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RA3
-    postValue = RIGHT_MOTOR_GetValue();
-    </code>
-
-*/
-#define RIGHT_MOTOR_GetValue()         _RA3
-/**
-  @Summary
-    Configures the GPIO pin, RA3, as an input.
-
-  @Description
-    Configures the GPIO pin, RA3, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RA3 as an input
-    RIGHT_MOTOR_SetDigitalInput();
-    </code>
-
-*/
-#define RIGHT_MOTOR_SetDigitalInput()  _TRISA3 = 1
-/**
-  @Summary
-    Configures the GPIO pin, RA3, as an output.
-
-  @Description
-    Configures the GPIO pin, RA3, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RA3 as an output
-    RIGHT_MOTOR_SetDigitalOutput();
-    </code>
-
-*/
-#define RIGHT_MOTOR_SetDigitalOutput() _TRISA3 = 0
+#define RB11_SetDigitalOutput() _TRISB11 = 0
 /**
   @Summary
     Sets the GPIO pin, RB13, high using LATB13.
@@ -997,299 +851,7 @@
   @Example
     <code>
     // Toggle RB13
-    STATUS_LED_SetToggle();
-    </code>
-
-*/
-#define STATUS_LED_Toggle()           _LATB13 ^= 1
-/**
-  @Summary
-    Reads the value of the GPIO pin, RB13.
-
-  @Description
-    Reads the value of the GPIO pin, RB13.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RB13
-    postValue = STATUS_LED_GetValue();
-    </code>
-
-*/
-#define STATUS_LED_GetValue()         _RB13
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an input.
-
-  @Description
-    Configures the GPIO pin, RB13, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an input
-    STATUS_LED_SetDigitalInput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalInput()  _TRISB13 = 1
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an output.
-
-  @Description
-    Configures the GPIO pin, RB13, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an output
-    STATUS_LED_SetDigitalOutput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalOutput() _TRISB13 = 0
-/**
-  @Summary
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 high (1)
-    STATUS_LED_SetHigh();
-    </code>
-
-*/
-#define STATUS_LED_SetHigh()          _LATB13 = 1
-/**
-  @Summary
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 low (0)
-    STATUS_LED_SetLow();
-    </code>
-
-*/
-#define STATUS_LED_SetLow()           _LATB13 = 0
-/**
-  @Summary
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Description
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RB13
-    STATUS_LED_SetToggle();
-    </code>
-
-*/
-#define STATUS_LED_Toggle()           _LATB13 ^= 1
-/**
-  @Summary
-    Reads the value of the GPIO pin, RB13.
-
-  @Description
-    Reads the value of the GPIO pin, RB13.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RB13
-    postValue = STATUS_LED_GetValue();
-    </code>
-
-*/
-#define STATUS_LED_GetValue()         _RB13
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an input.
-
-  @Description
-    Configures the GPIO pin, RB13, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an input
-    STATUS_LED_SetDigitalInput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalInput()  _TRISB13 = 1
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an output.
-
-  @Description
-    Configures the GPIO pin, RB13, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an output
-    STATUS_LED_SetDigitalOutput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalOutput() _TRISB13 = 0
-/**
-  @Summary
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 high (1)
-    STATUS_LED_SetHigh();
-    </code>
-
-*/
-#define STATUS_LED_SetHigh()          _LATB13 = 1
-/**
-  @Summary
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 low (0)
-    STATUS_LED_SetLow();
-    </code>
-
-*/
-#define STATUS_LED_SetLow()           _LATB13 = 0
-/**
-  @Summary
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Description
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RB13
-    STATUS_LED_SetToggle();
+    STATUS_LED_Toggle();
     </code>
 
 */

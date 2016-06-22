@@ -14,36 +14,35 @@
   @Description
     This source file provides APIs for driver for TMR2. 
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - v3.00
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC24FJ128GB202
-        Driver Version    :  0,5
+        Driver Version    :  0.5
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.26
         MPLAB 	          :  MPLAB X 3.20
 */
 
 /*
-Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+    (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
+    software and any derivatives exclusively with Microchip products.
 
-Microchip licenses to you the right to use, modify, copy and distribute
-Software only when embedded on a Microchip microcontroller or digital signal
-controller that is integrated into your product or third party product
-(pursuant to the sublicense terms in the accompanying license agreement).
+    THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+    EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+    WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+    PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION
+    WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
 
-You should refer to the license agreement accompanying this Software for
-additional information regarding your rights and obligations.
+    IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+    WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+    BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+    FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+    ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+    THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
-SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
-EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
-MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
-IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
-CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
-OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
-INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
-CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
-SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
-(INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
- */
+    MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
+    TERMS.
+*/
 
 /**
   Section: Included Files
@@ -90,7 +89,7 @@ void TMR2_Initialize (void)
 {
     //TMR2 0; 
     TMR2 = 0x0000;
-    //Period = 0,1 s; Frequency = 16000000 Hz; PR2 6250; 
+    //Period = 0.1 s; Frequency = 16000000 Hz; PR2 6250; 
     PR2 = 0x186A;
     //TCKPS 1:256; T32 16 Bit; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled; 
     T2CON = 0x8030;
@@ -101,14 +100,6 @@ void TMR2_Initialize (void)
 	
     tmr2_obj.timerElapsed = false;
 
-}
-
-/**
-    void DRV_TMR2_Initialize (void)
-*/
-void DRV_TMR2_Initialize (void)
-{
-    TMR2_Initialize ();
 }
 
 
@@ -139,25 +130,9 @@ void TMR2_Period16BitSet( uint16_t value )
     tmr2_obj.timerElapsed = false;
 }
 
-/**
-    void DRV_TMR2_Period16BitSet (uint16_t value)
-*/
-void DRV_TMR2_Period16BitSet (uint16_t value)
-{
-    TMR2_Period16BitSet (value);
-}
-
 uint16_t TMR2_Period16BitGet( void )
 {
     return( PR2 );
-}
-
-/**
-    uint16_t DRV_TMR2_Period16BitGet (void)
-*/
-uint16_t DRV_TMR2_Period16BitGet (void)
-{
-    return(TMR2_Period16BitGet ());
 }
 
 void TMR2_Counter16BitSet ( uint16_t value )
@@ -168,25 +143,9 @@ void TMR2_Counter16BitSet ( uint16_t value )
     tmr2_obj.timerElapsed = false;
 }
 
-/**
-    void DRV_TMR2_Counter16BitSet (uint16_t value)
-*/
-void DRV_TMR2_Counter16BitSet (uint16_t value)
-{
-    TMR2_Counter16BitSet (value);
-}
-
 uint16_t TMR2_Counter16BitGet( void )
 {
     return( TMR2 );
-}
-
-/**
-    uint16_t DRV_TMR2_Counter16BitGet (void)
-*/
-uint16_t DRV_TMR2_Counter16BitGet (void)
-{
-    return(TMR2_Counter16BitGet ());
 }
 
 
@@ -207,14 +166,6 @@ void TMR2_Start( void )
     T2CONbits.TON = 1;
 }
 
-/**
-    void DRV_TMR2_Start (void)
-*/
-void DRV_TMR2_Start (void)
-{
-    TMR2_Start ();
-}
-
 void TMR2_Stop( void )
 {
     /* Stop the Timer */
@@ -222,14 +173,6 @@ void TMR2_Stop( void )
 
     /*Disable the interrupt*/
     IEC0bits.T2IE = false;
-}
-
-/**
-    void DRV_TMR2_Stop (void)
-*/
-void DRV_TMR2_Stop (void)
-{
-    TMR2_Stop ();
 }
 
 bool TMR2_GetElapsedThenClear(void)
@@ -245,38 +188,14 @@ bool TMR2_GetElapsedThenClear(void)
     return status;
 }
 
-/**
-    bool DRV_TMR2_GetElapsedThenClear (void)
-*/
-bool DRV_TMR2_GetElapsedThenClear (void)
-{
-    return(TMR2_GetElapsedThenClear ());
-}
-
 int TMR2_SoftwareCounterGet(void)
 {
     return tmr2_obj.count;
 }
 
-/**
-    int DRV_TMR2_SoftwareCounterGet (void)
-*/
-int DRV_TMR2_SoftwareCounterGet (void)
-{
-    return(TMR2_SoftwareCounterGet ());
-}
-
 void TMR2_SoftwareCounterClear(void)
 {
     tmr2_obj.count = 0; 
-}
-
-/**
-    void DRV_TMR2_SoftwareCounterClear (void)
-*/
-void DRV_TMR2_SoftwareCounterClear (void)
-{
-    TMR2_SoftwareCounterClear ();
 }
 
 /**

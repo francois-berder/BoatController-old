@@ -1,26 +1,26 @@
 /**
-  @Generated MPLAB(c) Code Configurator Header File
+  System Traps Generated Driver File 
 
   @Company:
     Microchip Technology Inc.
 
   @File Name:
-    mcc.h
+    traps.h
 
   @Summary:
-    This is the mcc.h file generated using MPLAB(c) Code Configurator
+    This is the generated driver implementation file for handling traps
+    using MPLAB(c) Code Configurator
 
   @Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
-    Generation Information :
+    This source file provides implementations for MPLAB(c) Code Configurator traps.
+    Generation Information : 
         Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC24FJ128GB202
-        Version           :  1.02
+        Version           :  1.00
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.26
         MPLAB             :  MPLAB X 3.20
 */
-
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
     software and any derivatives exclusively with Microchip products.
@@ -43,52 +43,45 @@
     TERMS.
 */
 
-#ifndef MCC_H
-#define	MCC_H
-#include <xc.h>
-#include "pin_manager.h"
+#ifndef _TRAPS_H
+#define _TRAPS_H
+
 #include <stdint.h>
-#include <stdbool.h>
-#include "traps.h"
-#include "interrupt_manager.h"
-#include "uart1.h"
-#include "ic1.h"
-#include "i2c1.h"
-#include "ic2.h"
-#include "tmr4.h"
-#include "tmr3.h"
-#include "tmr2.h"
-
-#define _XTAL_FREQ  32000000UL
 
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the device to the default states configured in the
- *                  MCC GUI
- * @Example
-    SYSTEM_Initialize(void);
+ * Error codes
  */
-void SYSTEM_Initialize(void);
+typedef enum 
+{
+    /* ----- Traps ----- */
+    TRAPS_OSC_FAIL = 0, /** Oscillator Fail Trap vector */
+    TRAPS_STACK_ERR = 1, /** Stack Error Trap Vector */
+    TRAPS_ADDRESS_ERR = 2, /** Address Error Trap Vector */
+    TRAPS_MATH_ERR = 3, /** Math Error Trap Vector */
+} TRAPS_ERROR_CODE;
 
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the oscillator to the default states configured in the
- *                  MCC GUI
- * @Example
-    OSCILLATOR_Initialize(void);
- */
-void OSCILLATOR_Initialize(void);
+  @Summary
+    Default handler for the traps
 
+  @Description
+    This routine will be called whenever a trap happens. It stores the trap
+    error code and waits forever.
+    This routine has a weak attribute and can be over written.
 
-#endif	/* MCC_H */
-/**
- End of File
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    None.
+
 */
+void __attribute__((naked, noreturn, weak)) TRAPS_halt_on_error(uint16_t code);
+
+#endif

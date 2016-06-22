@@ -15,7 +15,7 @@
   @Description:
     This source file provides implementations for MPLAB(c) Code Configurator interrupts.
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - v3.00
+        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC24FJ128GB202
         Version           :  1.02
     The generated drivers are tested against the following:
@@ -58,32 +58,38 @@
 void PIN_MANAGER_Initialize(void)
 {
     /****************************************************************************
-     * Setting the GPIO of PORTB
+     * Setting the Output Latch SFR(s)
      ***************************************************************************/
-    LATB = 0x0;
- 
-    /****************************************************************************
-     * Setting the GPIO of PORTA
-     ***************************************************************************/
-    LATA = 0x0;
- 
-    /****************************************************************************
-     * Setting the GPIO of PORTB
-     ***************************************************************************/
-    TRISB = 0x4FEF;
- 
-    /****************************************************************************
-     * Setting the GPIO of PORTA
-     ***************************************************************************/
-    TRISA = 0x0;
- 
-
+    LATA = 0x0000;
+    LATB = 0x0000;
 
     /****************************************************************************
-     * Setting the Analog/Digital Configuration SFR
+     * Setting the GPIO Direction SFR(s)
      ***************************************************************************/
-    ANSB = 0x024C;
-    ANSA = 0x000E;
+    TRISA = 0x0000;
+    TRISB = 0x4CEF;
+
+    /****************************************************************************
+     * Setting the Weak Pull Up and Weak Pull Down SFR(s)
+     ***************************************************************************/
+    CNPD1 = 0x0000;
+    CNPD2 = 0x0000;
+    CNPD3 = 0x0000;
+    CNPU1 = 0x0000;
+    CNPU2 = 0x0000;
+    CNPU3 = 0x0000;
+
+    /****************************************************************************
+     * Setting the Open Drain SFR(s)
+     ***************************************************************************/
+    ODCA = 0x0000;
+    ODCB = 0x0000;
+
+    /****************************************************************************
+     * Setting the Analog/Digital Configuration SFR(s)
+     ***************************************************************************/
+    ANSA = 0x000F;
+    ANSB = 0xA04C;
 
     /****************************************************************************
      * Set the PPS
@@ -96,4 +102,6 @@ void PIN_MANAGER_Initialize(void)
     RPINR7bits.IC2R = 0x0001;   //RB1->IC2:IC2;
 
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock   PPS
+
 }
+

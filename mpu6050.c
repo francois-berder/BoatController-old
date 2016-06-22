@@ -10,6 +10,7 @@
 /* Register address*/
 #define WHO_AM_I            (0x75)
 #define CONFIG              (0x1A)
+#define GYRO_CONFIG         (0x1B)
 #define ACCEL_CONFIG        (0x1C)
 #define FIFO_CONFIG         (0x23)
 #define USER_CTRL           (0x6A)
@@ -31,6 +32,13 @@
 #define ACCEL_FIFO_EN       (0x08)
 #define FIFO_EN             (0x40)
 #define FIFO_RESET          (0x04)
+#define GYRO_RANGE_250      (0x00)
+#define GYRO_RANGE_500      (0x08)
+#define GYRO_RANGE_1000     (0x10)
+#define GYRO_RANGE_2000     (0x18)
+#define GYRO_X_FIFO_EN      (0x40)
+#define GYRO_Y_FIFO_EN      (0x20)
+#define GYRO_Z_FIFO_EN      (0x10)
 
 static uint8_t read_8bit_reg(uint8_t reg_address)
 {
@@ -76,10 +84,17 @@ void MPU6050_init(void)
     write_8bit_reg(USER_CTRL, FIFO_RESET);
     __delay_ms(10);
     write_8bit_reg(USER_CTRL, FIFO_EN);
-    write_8bit_reg(FIFO_CONFIG, ACCEL_FIFO_EN);
+    write_8bit_reg(FIFO_CONFIG, 
+                   GYRO_X_FIFO_EN | 
+                   GYRO_Y_FIFO_EN | 
+                   GYRO_Z_FIFO_EN |
+                   ACCEL_FIFO_EN);
     
     /* Configure accelerometer*/
     write_8bit_reg(ACCEL_CONFIG, ACCEL_RANGE_4G);
+    
+    /* Configure gyroscope */
+    write_8bit_reg(GYRO_CONFIG, GYRO_RANGE_500);
 }
 
 uint16_t MPU6050_get_samples_cnt(void)
@@ -108,7 +123,7 @@ void MPU6050_read_fifo(int16_t *samples, uint16_t samples_cnt)
     uint16_t i;
     
     for (i = 0; i < samples_cnt; ++i) {
-        uint8_t buffer[6];
+        uint8_t buffer[12];
         uint8_t reg = FIFO_DATA;
         I2C1_MasterWrite(&reg, 1, MPU6050_ADDRESS, &status);
         while(status == I2C1_MESSAGE_PENDING);
@@ -116,17 +131,31 @@ void MPU6050_read_fifo(int16_t *samples, uint16_t samples_cnt)
         I2C1_MasterRead(buffer, sizeof(buffer), MPU6050_ADDRESS, &status);
         while(status == I2C1_MESSAGE_PENDING);
 
-        samples[i*3] = buffer[0];
-        samples[i*3] <<= 8;
-        samples[i*3] |= buffer[1];
+        /* Fill accelerometer data */
+        samples[i*6] = buffer[0];
+        samples[i*6] <<= 8;
+        samples[i*6] |= buffer[1];
 
-        samples[i*3+1] = buffer[2];
-        samples[i*3+1] <<= 8;
-        samples[i*3+1] |= buffer[3];
+        samples[i*6+1] = buffer[2];
+        samples[i*6+1] <<= 8;
+        samples[i*6+1] |= buffer[3];
 
-        samples[i*3+2] = buffer[4];
-        samples[i*3+2] <<= 8;
-        samples[i*3+2] |= buffer[5];    
+        samples[i*6+2] = buffer[4];
+        samples[i*6+2] <<= 8;
+        samples[i*6+2] |= buffer[5];
+        
+        /* Fill gyroscope data */
+        samples[i*6+3] = buffer[6];
+        samples[i*6+3] <<= 8;
+        samples[i*6+3] |= buffer[7];
+
+        samples[i*6+4] = buffer[8];
+        samples[i*6+4] <<= 8;
+        samples[i*6+4] |= buffer[9];
+
+        samples[i*6+5] = buffer[10];
+        samples[i*6+5] <<= 8;
+        samples[i*6+5] |= buffer[11];
     }
 }
 

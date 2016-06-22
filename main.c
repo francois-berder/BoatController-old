@@ -47,7 +47,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "mcc_generated_files/mcc.h"
 #include "log.h"
 #include "status.h"
-#include "radio.h"
+#include "mpu6050.h"
 
 char log_level = DEBUG;
 /*
@@ -58,26 +58,11 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize();
     STATUS_set_mode(STATUS_SLOW_BLINK);
-
+    MPU6050_init();
     LOG_INFO("PIC initialisation done.\n");
 
     while (1)
     {
-        /*
-        uint8_t bufferStatus = IC1_IsCaptureBufferEmpty();
-        if(!bufferStatus)
-        {
-            LOG_DBG("%d", IC1_CaptureDataRead());
-        }    */
-        
-        while (radio_is_buffer_empty(DIRECTION_CHANNEL))
-            ;
-        LOG_INFO("direction=%u", radio_buffer_read(DIRECTION_CHANNEL));
-        /*
-        while (radio_is_buffer_empty(POWER_CHANNEL))
-            ;
-        LOG_INFO("power=%d", radio_buffer_read(POWER_CHANNEL));
-         */
     }
 
     return -1;

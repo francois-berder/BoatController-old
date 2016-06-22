@@ -48,7 +48,7 @@
 */
 #include <xc.h>
 #include "ic2.h"
-
+#include "../radio.h"
 /**
   IC Mode.
 
@@ -84,6 +84,7 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _ISR _IC2Interrupt( void )
 {
     if(IFS0bits.IC2IF)
     {
+        RADIO_update(SPEED_CHANNEL);
         IFS0bits.IC2IF = 0;
     }
 }

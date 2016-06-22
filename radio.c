@@ -15,12 +15,12 @@ static struct
     uint8_t head;                   /* position of oldest entry */
 } buffer[CHANNEL_CNT];
 
-static bool radio_is_buffer_full(const uint8_t channel)
+static bool RADIO_is_buffer_full(const uint8_t channel)
 {
     return buffer[channel].entries_cnt == BUFFER_SIZE;
 }
 
-static void radio_enable_interrupts(const uint8_t channel)
+static void RADIO_enable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         IEC0bits.IC1IE = true;
@@ -30,7 +30,7 @@ static void radio_enable_interrupts(const uint8_t channel)
         LOG_ERR("radio: cannot enable interrupts with invalid channel.");
 }
 
-static void radio_disable_interrupts(const uint8_t channel)
+static void RADIO_disable_interrupts(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         IEC0bits.IC1IE = false;
@@ -40,7 +40,7 @@ static void radio_disable_interrupts(const uint8_t channel)
         LOG_ERR("radio: cannot disable interrupts with invalid channel.");
 }
 
-static uint16_t radio_read_ic(const uint8_t channel)
+static uint16_t RADIO_read_ic(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         return IC1_CaptureDataRead();
@@ -52,11 +52,11 @@ static uint16_t radio_read_ic(const uint8_t channel)
     }
 }
 
-static void radio_add_entry(const uint8_t channel, const uint16_t data)
+static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 {
     uint8_t index;
     
-    if (radio_is_buffer_full(channel)) {
+    if (RADIO_is_buffer_full(channel)) {
         LOG_ERR("radio: Dropping data on channel %d", channel);
         return;
     }
@@ -66,7 +66,7 @@ static void radio_add_entry(const uint8_t channel, const uint16_t data)
     ++buffer[channel].entries_cnt;
 }
 
-static uint8_t radio_read_input_pin(const uint8_t channel)
+static uint8_t RADIO_read_input_pin(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL)
         return PORTBbits.RB0;
@@ -78,31 +78,31 @@ static uint8_t radio_read_input_pin(const uint8_t channel)
     }
 }
 
-void radio_update(const uint8_t channel)
+void RADIO_update(const uint8_t channel)
 {
-    if (radio_read_input_pin(channel) == 1) {
-            start[channel] = radio_read_ic(channel);
+    if (RADIO_read_input_pin(channel) == 1) {
+            start[channel] = RADIO_read_ic(channel);
     } else {
-        uint16_t end = radio_read_ic(channel);
-        radio_add_entry(channel, end - start[channel]);
+        uint16_t end = RADIO_read_ic(channel);
+        RADIO_add_entry(channel, end - start[channel]);
     }
 }
 
-bool radio_is_buffer_empty(const uint8_t channel)
+bool RADIO_is_buffer_empty(const uint8_t channel)
 {
     return buffer[channel].entries_cnt == 0;
 }
 
-uint16_t radio_buffer_read(const uint8_t channel)
+uint16_t RADIO_buffer_read(const uint8_t channel)
 {
     uint16_t data = 0;
     uint8_t index = 0;
     
-    radio_disable_interrupts(channel);
+    RADIO_disable_interrupts(channel);
     
-    if (radio_is_buffer_empty(channel)) {
+    if (RADIO_is_buffer_empty(channel)) {
         LOG_WARN("radio: read from empty buffer on channel %d", channel);
-        radio_enable_interrupts(channel);
+        RADIO_enable_interrupts(channel);
         return 0;
     }
     index = buffer[channel].head;
@@ -110,7 +110,7 @@ uint16_t radio_buffer_read(const uint8_t channel)
     --buffer[channel].entries_cnt;
     data = buffer[channel].entries[index];
     
-    radio_enable_interrupts(channel);
+    RADIO_enable_interrupts(channel);
     
     return data;
 }

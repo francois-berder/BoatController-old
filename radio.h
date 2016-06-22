@@ -19,9 +19,9 @@ extern "C" {
 #define SPEED_CHANNEL           (1)
 #define CHANNEL_CNT             (2)
     
-void radio_update(const uint8_t channel);
-bool radio_is_buffer_empty(const uint8_t channel);
-uint16_t radio_buffer_read(const uint8_t channel);
+void RADIO_update(const uint8_t channel);
+bool RADIO_is_buffer_empty(const uint8_t channel);
+uint16_t RADIO_buffer_read(const uint8_t channel);
 
 #ifdef	__cplusplus
 }

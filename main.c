@@ -47,26 +47,20 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "mcc_generated_files/mcc.h"
 #include "log.h"
 #include "status.h"
-#include "mpu6050.h"
+#include "simple_controller.h"
 
 char log_level = DEBUG;
-/*
-                         Main application
- */
+
 int main(void)
-{
+{    
     // initialize the device
     SYSTEM_Initialize();
     STATUS_set_mode(STATUS_SLOW_BLINK);
-    MPU6050_init();
+    //MPU6050_init();
     LOG_INFO("PIC initialisation done.\n");
 
     while (1)
-    {
-    }
+        simple_controller_update();
 
     return -1;
 }
-/**
- End of File
-*/

@@ -52,7 +52,7 @@
 #pragma config DSWDTEN = ON    // Deep Sleep Watchdog Timer Enable->DSWDT Enabled
 #pragma config DSSWEN = ON    // DSEN Bit Enable->Deep Sleep is controlled by the register bit DSEN
 #pragma config PLLDIV = PLL4X    // USB 96 MHz PLL Prescaler Select bits->4x PLL selected
-#pragma config I2C1SEL = DISABLE    // Alternate I2C1 enable bit->I2C1 uses SCL1 and SDA1 pins
+#pragma config I2C1SEL = ENABLE    // Alternate I2C1 enable bit->I2C1 uses ASCL1 and ASDA1 pins
 #pragma config IOL1WAY = ON    // PPS IOLOCK Set Only Once Enable bit->Once set, the IOLOCK bit cannot be cleared
 
 // CONFIG3
@@ -95,6 +95,7 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     OSCILLATOR_Initialize();
     IC2_Initialize();
+    SPI1_Initialize();
     I2C1_Initialize();
     UART1_Initialize();
     TMR3_Initialize();

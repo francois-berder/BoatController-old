@@ -51,7 +51,6 @@
 #include <xc.h>
 #include "tmr4.h"
 #include "../output.h"
-
 /**
   Section: Data Type Definitions
 */

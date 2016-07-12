@@ -49,11 +49,12 @@
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "spi1.h"
 #include "traps.h"
 #include "interrupt_manager.h"
 #include "uart1.h"
-#include "ic1.h"
 #include "i2c1.h"
+#include "ic1.h"
 #include "ic2.h"
 #include "tmr4.h"
 #include "tmr3.h"

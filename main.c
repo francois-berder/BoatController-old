@@ -56,6 +56,7 @@ int main(void)
     // initialize the device
     SYSTEM_Initialize();
     STATUS_set_mode(STATUS_SLOW_BLINK);
+    simple_controller_init();
     //MPU6050_init();
     LOG_INFO("PIC initialisation done.\n");
 

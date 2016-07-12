@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <string.h>
 #include "radio.h"
 #include "output.h"
 #include "log.h"
@@ -28,7 +29,7 @@ static bool get_input(uint8_t channel)
         
         /* Remove noise by ignoring some bits */
         filtered &= INPUT_VALID_BIT_MASK;
-        LOG_DBG("channel %u: %u (raw=)", channel, filtered, raw);
+        LOG_DBG("channel %u: %u (raw=%u)", channel, filtered, raw);
         
         input_data.last[channel][2] = input_data.last[channel][1];
         input_data.last[channel][1] = input_data.last[channel][0];
@@ -53,6 +54,12 @@ static void compute_output(void)
     output_data[RIGHT_MOTOR_CHANNEL] = input_data.value[SPEED_CHANNEL];
 
     OUTPUT_set_data(output_data);
+}
+
+void simple_controller_init(void)
+{
+    memset(&input_data, NEUTRAL_POS, sizeof(input_data));
+    compute_output();
 }
 
 void simple_controller_update(void)

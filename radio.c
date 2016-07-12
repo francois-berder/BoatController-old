@@ -83,8 +83,9 @@ void RADIO_update(const uint8_t channel)
     if (RADIO_read_input_pin(channel) == 1) {
             start[channel] = RADIO_read_ic(channel);
     } else {
-        uint16_t end = RADIO_read_ic(channel);
-        RADIO_add_entry(channel, end - start[channel]);
+        uint16_t entry = RADIO_read_ic(channel) - start[channel];
+        entry >>= 3;
+        RADIO_add_entry(channel, entry);
     }
 }
 

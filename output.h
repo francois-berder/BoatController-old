@@ -27,6 +27,9 @@ extern "C" {
 /* Must only be called by TMR3 callback */
 void OUTPUT_update(void);
 
+/*
+ * All entries must be in range 2000-4000
+ */
 void OUTPUT_set_data(uint16_t *data);
 
 /* Must only be called byt TMR4 callback */

@@ -1,18 +1,18 @@
 
 /**
-  TMR3 Generated Driver API Source File 
+  TMR5 Generated Driver API Source File 
 
   @Company
     Microchip Technology Inc.
 
   @File Name
-    tmr3.c
+    tmr5.c
 
   @Summary
-    This is the generated source file for the TMR3 driver using MPLAB(c) Code Configurator
+    This is the generated source file for the TMR5 driver using MPLAB(c) Code Configurator
 
   @Description
-    This source file provides APIs for driver for TMR3. 
+    This source file provides APIs for driver for TMR5. 
     Generation Information : 
         Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
         Device            :  PIC24FJ128GB202
@@ -49,8 +49,8 @@
 */
 
 #include <xc.h>
-#include "tmr3.h"
-#include "../output.h"
+#include "tmr5.h"
+
 /**
   Section: Data Type Definitions
 */
@@ -77,124 +77,109 @@ typedef struct _TMR_OBJ_STRUCT
 
 } TMR_OBJ;
 
-static TMR_OBJ tmr3_obj;
+static TMR_OBJ tmr5_obj;
 
 /**
   Section: Driver Interface
 */
 
 
-void TMR3_Initialize (void)
+void TMR5_Initialize (void)
 {
-    //TMR3 0; 
-    TMR3 = 0x0000;
-    //Period = 0.004 s; Frequency = 16000000 Hz; PR3 8000; 
-    PR3 = 0x1F40;
+    //TMR5 0; 
+    TMR5 = 0x0000;
+    //Period = 0.0327675 s; Frequency = 16000000 Hz; PR5 65535; 
+    PR5 = 0xFFFF;
     //TCKPS 1:8; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled; 
-    T3CON = 0x8010;
+    T5CON = 0x8010;
 
     
-    IFS0bits.T3IF = false;
-    IEC0bits.T3IE = true;
 	
-    tmr3_obj.timerElapsed = false;
+    tmr5_obj.timerElapsed = false;
 
 }
 
 
 
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _T3Interrupt (  )
+void TMR5_Tasks_16BitOperation( void )
 {
     /* Check if the Timer Interrupt/Status is set */
-
-    //***User Area Begin
-
-    // ticker function call;
-    // ticker is 1 -> Callback function gets called everytime this ISR executes
-    TMR3_CallBack();
-
-    //***User Area End
-
-    tmr3_obj.count++;
-    tmr3_obj.timerElapsed = true;
-    IFS0bits.T3IF = false;
+    if(IFS1bits.T5IF)
+    {
+        tmr5_obj.count++;
+        tmr5_obj.timerElapsed = true;
+        IFS1bits.T5IF = false;
+    }
 }
 
 
-void TMR3_Period16BitSet( uint16_t value )
+
+void TMR5_Period16BitSet( uint16_t value )
 {
     /* Update the counter values */
-    PR3 = value;
+    PR5 = value;
     /* Reset the status information */
-    tmr3_obj.timerElapsed = false;
+    tmr5_obj.timerElapsed = false;
 }
 
-uint16_t TMR3_Period16BitGet( void )
+uint16_t TMR5_Period16BitGet( void )
 {
-    return( PR3 );
+    return( PR5 );
 }
 
-void TMR3_Counter16BitSet ( uint16_t value )
+void TMR5_Counter16BitSet ( uint16_t value )
 {
     /* Update the counter values */
-    TMR3 = value;
+    TMR5 = value;
     /* Reset the status information */
-    tmr3_obj.timerElapsed = false;
+    tmr5_obj.timerElapsed = false;
 }
 
-uint16_t TMR3_Counter16BitGet( void )
+uint16_t TMR5_Counter16BitGet( void )
 {
-    return( TMR3 );
+    return( TMR5 );
 }
 
 
-void __attribute__ ((weak)) TMR3_CallBack(void)
-{
-    OUTPUT_update();
-}
 
-void TMR3_Start( void )
+void TMR5_Start( void )
 {
     /* Reset the status information */
-    tmr3_obj.timerElapsed = false;
+    tmr5_obj.timerElapsed = false;
 
-    /*Enable the interrupt*/
-    IEC0bits.T3IE = true;
 
     /* Start the Timer */
-    T3CONbits.TON = 1;
+    T5CONbits.TON = 1;
 }
 
-void TMR3_Stop( void )
+void TMR5_Stop( void )
 {
     /* Stop the Timer */
-    T3CONbits.TON = false;
+    T5CONbits.TON = false;
 
-    /*Disable the interrupt*/
-    IEC0bits.T3IE = false;
 }
 
-bool TMR3_GetElapsedThenClear(void)
+bool TMR5_GetElapsedThenClear(void)
 {
     bool status;
     
-    status = tmr3_obj.timerElapsed;
+    status = tmr5_obj.timerElapsed;
 
     if(status == true)
     {
-        tmr3_obj.timerElapsed = false;
+        tmr5_obj.timerElapsed = false;
     }
     return status;
 }
 
-int TMR3_SoftwareCounterGet(void)
+int TMR5_SoftwareCounterGet(void)
 {
-    return tmr3_obj.count;
+    return tmr5_obj.count;
 }
 
-void TMR3_SoftwareCounterClear(void)
+void TMR5_SoftwareCounterClear(void)
 {
-    tmr3_obj.count = 0; 
+    tmr5_obj.count = 0; 
 }
 
 /**

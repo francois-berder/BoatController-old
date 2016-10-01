@@ -49,6 +49,7 @@
 #include <xc.h>
 #include "ic1.h"
 #include "../radio.h"
+
 /**
   IC Mode.
 
@@ -68,10 +69,10 @@ static uint16_t         gIC1Mode;
 
 void IC1_Initialize (void)
 {
-    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL FOSC/2; ICI Every; 
-    IC1CON1 = 0x1C01;
-    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
-    IC1CON2 = 0x0000;
+    // ICSIDL disabled; ICM Simple Capture mode: Rising; ICTSEL TMR5; ICI Every; 
+    IC1CON1 = 0x0C03;
+    // SYNCSEL TMR5; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
+    IC1CON2 = 0x000F;
     
     gIC1Mode = IC1CON1bits.ICM;
     

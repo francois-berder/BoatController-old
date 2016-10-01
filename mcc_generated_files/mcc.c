@@ -100,6 +100,7 @@ void SYSTEM_Initialize(void)
     UART1_Initialize();
     TMR3_Initialize();
     TMR4_Initialize();
+    TMR5_Initialize();
     TMR2_Initialize();
     IC1_Initialize();
 }

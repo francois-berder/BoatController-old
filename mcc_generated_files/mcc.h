@@ -56,6 +56,7 @@
 #include "i2c1.h"
 #include "ic1.h"
 #include "ic2.h"
+#include "tmr5.h"
 #include "tmr4.h"
 #include "tmr3.h"
 #include "tmr2.h"

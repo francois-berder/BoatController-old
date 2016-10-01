@@ -68,10 +68,10 @@ static uint16_t         gIC2Mode;
 
 void IC2_Initialize (void)
 {
-    // ICSIDL disabled; ICM Edge Detect Capture; ICTSEL FOSC/2; ICI Every; 
-    IC2CON1 = 0x1C01;
-    // SYNCSEL None; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
-    IC2CON2 = 0x0000;
+    // ICSIDL disabled; ICM Simple Capture mode: Rising; ICTSEL TMR5; ICI Every; 
+    IC2CON1 = 0x0C03;
+    // SYNCSEL TMR5; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
+    IC2CON2 = 0x000F;
     
     gIC2Mode = IC2CON1bits.ICM;
     

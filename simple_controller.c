@@ -3,7 +3,7 @@
 #include "radio.h"
 #include "output.h"
 #include "log.h"
-#define QUEUE_SIZE      (3)
+#define QUEUE_SIZE      (1)
 #define INPUT_VALID_BIT_MASK    (0xFFF0)
 
 static struct {
@@ -16,24 +16,29 @@ static bool get_input(uint8_t channel)
     bool change = false;
    
     while (!RADIO_is_buffer_empty(channel)) {
+        uint8_t i;
+        uint16_t raw, filtered;
         change = true;
         
-        uint16_t raw = RADIO_buffer_read(channel);
+        raw = RADIO_buffer_read(channel);
         
         /* Do the average of the new value and the last three values. */
-        uint16_t filtered = raw;
-        filtered += input_data.last[channel][0];
-        filtered += input_data.last[channel][1];
-        filtered += input_data.last[channel][2];
-        filtered >>= 2;
+        filtered = raw;
+        for (i = 0; i < QUEUE_SIZE; ++i)
+            filtered += input_data.last[channel][i];
+
+        /* Assume that QUEUE_SIZE = 3 */
+        filtered >>= 1;
         
         /* Remove noise by ignoring some bits */
         filtered &= INPUT_VALID_BIT_MASK;
-        LOG_DBG("channel %u: %u (raw=%u)", channel, filtered, raw);
+        //LOG_DBG("channel %u: %u (raw=%u)", channel, filtered, raw);
         
-        input_data.last[channel][2] = input_data.last[channel][1];
-        input_data.last[channel][1] = input_data.last[channel][0];
+        for (i = QUEUE_SIZE - 1; i > 0; --i)
+            input_data.last[channel][i] = input_data.last[channel][i-1];
+
         input_data.last[channel][0] = raw;
+        input_data.value[channel] = filtered;
     }
     
     return change;

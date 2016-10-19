@@ -33,7 +33,7 @@
 #include "log.h"
 #include "radio.h"
 
-#define BUFFER_SIZE     (16)		/* Must be a power of 2 */
+#define BUFFER_SIZE     (16)        /* Must be a power of 2 */
 
 static uint16_t start[CHANNEL_CNT] = { 0, 0 };
 static bool pin_high[CHANNEL_CNT] = { false, false };
@@ -125,14 +125,10 @@ bool RADIO_is_buffer_empty(const uint8_t channel)
 
 uint16_t RADIO_buffer_read(const uint8_t channel)
 {
-    uint16_t data = 0;
     uint8_t index = 0;
-
-    //RADIO_disable_interrupts(channel);
 
     if (RADIO_is_buffer_empty(channel)) {
         LOG_WARN("radio: read from empty buffer on channel %d", channel);
-        //RADIO_enable_interrupts(channel);
         return 0;
     }
     index = buffer[channel].first_entry_index;
@@ -141,9 +137,6 @@ uint16_t RADIO_buffer_read(const uint8_t channel)
     buffer[channel].first_entry_index = (buffer[channel].first_entry_index + 1) & (BUFFER_SIZE - 1);
 
     --buffer[channel].entries_cnt;
-    data = buffer[channel].entries[index];
 
-    //RADIO_enable_interrupts(channel);
-
-    return data;
+    return buffer[channel].entries[index];
 }

@@ -45,31 +45,6 @@ static struct
     uint8_t head;                   /* position of oldest entry */
 } buffer[CHANNEL_CNT];
 
-static bool RADIO_is_buffer_full(const uint8_t channel)
-{
-    return buffer[channel].entries_cnt == BUFFER_SIZE;
-}
-
-static void RADIO_enable_interrupts(const uint8_t channel)
-{
-    if (channel == DIRECTION_CHANNEL)
-        IEC0bits.IC1IE = true;
-    else if (channel == SPEED_CHANNEL)
-        IEC0bits.IC2IE = true;
-    else
-        LOG_ERR("radio: cannot enable interrupts with invalid channel.");
-}
-
-static void RADIO_disable_interrupts(const uint8_t channel)
-{
-    if (channel == DIRECTION_CHANNEL)
-        IEC0bits.IC1IE = false;
-    else if (channel == SPEED_CHANNEL)
-        IEC0bits.IC2IE = false;
-    else
-        LOG_ERR("radio: cannot disable interrupts with invalid channel.");
-}
-
 /**
  * @brief Returns value recorded by IoC module using Timer 5.
  *

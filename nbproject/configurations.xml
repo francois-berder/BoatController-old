@@ -19,6 +19,7 @@
         <itemPath>mcc_generated_files/i2c1.h</itemPath>
         <itemPath>mcc_generated_files/traps.h</itemPath>
         <itemPath>mcc_generated_files/spi1.h</itemPath>
+        <itemPath>mcc_generated_files/tmr5.h</itemPath>
       </logicalFolder>
       <itemPath>log.h</itemPath>
       <itemPath>status.h</itemPath>
@@ -49,6 +50,7 @@
         <itemPath>mcc_generated_files/i2c1.c</itemPath>
         <itemPath>mcc_generated_files/traps.c</itemPath>
         <itemPath>mcc_generated_files/spi1.c</itemPath>
+        <itemPath>mcc_generated_files/tmr5.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>status.c</itemPath>
@@ -64,6 +66,9 @@
       <itemPath>/home/francois/programmation/BoatController/MyConfig.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>mcc_generated_files</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

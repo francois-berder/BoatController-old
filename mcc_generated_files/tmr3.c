@@ -150,7 +150,7 @@ uint16_t TMR3_Counter16BitGet( void )
 
 void __attribute__ ((weak)) TMR3_CallBack(void)
 {
-    OUTPUT_update();
+    OUTPUT_change_state();
 }
 
 void TMR3_Start( void )

@@ -48,14 +48,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "log.h"
 #include "status.h"
 #include "simple_controller.h"
-#include "radio.h"
 
 char log_level = DEBUG;
 
 int main(void)
 {    
     // initialize the device
-    RADIO_init();
     SYSTEM_Initialize();
     STATUS_set_mode(STATUS_SLOW_BLINK);
     simple_controller_init();

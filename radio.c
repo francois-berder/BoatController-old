@@ -40,10 +40,13 @@ static bool pin_high[CHANNEL_CNT] = { false, false };
 
 static struct
 {
-    uint16_t entries[BUFFER_SIZE];
     uint8_t entries_cnt;
-    uint8_t head;                   /* position of oldest entry */
-} buffer[CHANNEL_CNT];
+    uint8_t first_entry_index;
+    uint16_t entries[BUFFER_SIZE];
+} buffer[CHANNEL_CNT] = {
+    { 0, 0 },
+    { 0, 0 }
+};
 
 /**
  * @brief Returns value recorded by IoC module using Timer 5.
@@ -74,16 +77,9 @@ static uint16_t RADIO_read_ic(const uint8_t channel)
  */
 static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 {
-    uint8_t index = (buffer[channel].head + buffer[channel].entries_cnt) % BUFFER_SIZE;
+    uint8_t index = (buffer[channel].first_entry_index + buffer[channel].entries_cnt) % BUFFER_SIZE;
     buffer[channel].entries[index] = data;
     ++buffer[channel].entries_cnt;
-}
-
-void RADIO_init(void)
-{
-    memset(buffer, 0, sizeof(buffer));
-    memset(start, 0, sizeof(start));
-    memset(pin_high, false, sizeof(pin_high));
 }
 
 void RADIO_update(const uint8_t channel)
@@ -139,10 +135,10 @@ uint16_t RADIO_buffer_read(const uint8_t channel)
         //RADIO_enable_interrupts(channel);
         return 0;
     }
-    index = buffer[channel].head;
+    index = buffer[channel].first_entry_index;
 
 	/* head = (head + 1) % BUFFER_SIZE */
-    buffer[channel].head = (buffer[channel].head + 1) & (BUFFER_SIZE - 1);
+    buffer[channel].first_entry_index = (buffer[channel].first_entry_index + 1) & (BUFFER_SIZE - 1);
 
     --buffer[channel].entries_cnt;
     data = buffer[channel].entries[index];

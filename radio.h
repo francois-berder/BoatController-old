@@ -19,12 +19,6 @@ extern "C" {
 #define SPEED_CHANNEL           (1)
 #define CHANNEL_CNT             (2)
 
-/**
- * @brief Initialise variables to zero.
- *
- * Note that this function must be called before SYSTEM_Initialize()
- */
-void RADIO_init(void);
 
 /**
  * @brief Process an edge.

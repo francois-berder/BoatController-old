@@ -33,7 +33,8 @@ enum state {
     RIGHT_RUDDER,
     LEFT_MOTOR,
     RIGHT_MOTOR,
-    FETCH_DATA
+    FETCH_DATA,
+    STATE_CNT
 };
 
 static uint8_t state = FETCH_DATA;
@@ -104,7 +105,7 @@ static void OUTPUT_set_pin_high(void)
 void OUTPUT_change_state(void)
 {
     ++state;
-    if (state == 5)
+    if (state == STATE_CNT)
         state = 0;
 
     if (state == FETCH_DATA) {

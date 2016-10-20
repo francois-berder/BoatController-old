@@ -15,9 +15,9 @@
  *  Pulse Length: 1 ms  -------------- 1.5ms -------------- 2 ms
  *  Timer5 value: 2000                  3000                4000
  *
- * It has been found that the radio receiver skips pulses on channel 0.
- * Also, it happens that the falling edge is sometimes not detected. In
- * this case, around 50000 (equal to 25ms) is removed from the result.
+ * It has been found that the radio receiver skips pulses on channel 3. Hence,
+ * it must not be connected to any of the inputs of the radio module. It also
+ * discard any invalid inputs.
  *
  * The radio receiver sends a pulse on each channel every 25ms. Considering
  * that the radio overwrites existing data if the buffer is full, it is
@@ -99,13 +99,8 @@ void RADIO_update(const uint8_t channel)
         while (!IC1_IsCaptureBufferEmpty())
             end = RADIO_read_ic(channel);
         entry = end - start[channel];
-
-        /* It can happen that we skip one edge and take an extra 25ms
-         * These 25ms are roughly equal to 50150.
-         */
-        if (entry > 45000)
-            entry -= 50150;
         //LOG_DBG("entry%u= %u, start= %u, end= %u\n", channel, entry, start[channel], end);
+
         pin_high[channel] = false;
 
         /* interrupt on rising edge */
@@ -114,7 +109,9 @@ void RADIO_update(const uint8_t channel)
         else
             IC1CON1bits.ICM = 0x3;
 
-        RADIO_add_entry(channel, entry);
+        /* Ignore any invalid inputs */
+        if (!(entry < 2000 || entry > 4000))
+			RADIO_add_entry(channel, entry);
     }
 }
 

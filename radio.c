@@ -48,6 +48,26 @@ static struct
     { 0, 0 }
 };
 
+static void RADIO_enable_interrupts(const uint8_t channel)
+{
+    if (channel == DIRECTION_CHANNEL)
+        IEC0bits.IC1IE = true;
+    else if (channel == SPEED_CHANNEL)
+        IEC0bits.IC2IE = true;
+    else
+        LOG_ERR("radio: cannot enable interrupts with invalid channel.");
+}
+
+static void RADIO_disable_interrupts(const uint8_t channel)
+{
+    if (channel == DIRECTION_CHANNEL)
+        IEC0bits.IC1IE = false;
+    else if (channel == SPEED_CHANNEL)
+        IEC0bits.IC2IE = false;
+    else
+        LOG_ERR("radio: cannot disable interrupts with invalid channel.");
+}
+
 /**
  * @brief Returns value recorded by IoC module using Timer 5.
  *
@@ -130,10 +150,13 @@ uint16_t RADIO_buffer_read(const uint8_t channel)
     }
     index = buffer[channel].first_entry_index;
 
-	/* head = (head + 1) % BUFFER_SIZE */
+	/* first_entry_index = (first_entry_index + 1) % BUFFER_SIZE */
     buffer[channel].first_entry_index = (buffer[channel].first_entry_index + 1) & (BUFFER_SIZE - 1);
 
+    /* Prevent an interrupt to add an entry and increment entries_cnt */
+    RADIO_disable_interrupts(channel);
     --buffer[channel].entries_cnt;
+    RADIO_enable_interrupts(channel);
 
     return buffer[channel].entries[index];
 }

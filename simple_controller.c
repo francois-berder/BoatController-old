@@ -27,7 +27,7 @@ static bool get_input(uint8_t channel)
         for (i = 0; i < QUEUE_SIZE; ++i)
             filtered += input_data.last[channel][i];
 
-        /* Assume that QUEUE_SIZE = 3 */
+        /* Assume that QUEUE_SIZE = 1 */
         filtered >>= 1;
         
         /* Remove noise by ignoring some bits */

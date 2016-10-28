@@ -494,152 +494,6 @@
 #define RB11_SetDigitalOutput() _TRISB11 = 0
 /**
   @Summary
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, high using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 high (1)
-    STATUS_LED_SetHigh();
-    </code>
-
-*/
-#define STATUS_LED_SetHigh()          _LATB13 = 1
-/**
-  @Summary
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Description
-    Sets the GPIO pin, RB13, low using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RB13 low (0)
-    STATUS_LED_SetLow();
-    </code>
-
-*/
-#define STATUS_LED_SetLow()           _LATB13 = 0
-/**
-  @Summary
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Description
-    Toggles the GPIO pin, RB13, using LATB13.
-
-  @Preconditions
-    The RB13 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RB13
-    STATUS_LED_Toggle();
-    </code>
-
-*/
-#define STATUS_LED_Toggle()           _LATB13 ^= 1
-/**
-  @Summary
-    Reads the value of the GPIO pin, RB13.
-
-  @Description
-    Reads the value of the GPIO pin, RB13.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RB13
-    postValue = STATUS_LED_GetValue();
-    </code>
-
-*/
-#define STATUS_LED_GetValue()         _RB13
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an input.
-
-  @Description
-    Configures the GPIO pin, RB13, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an input
-    STATUS_LED_SetDigitalInput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalInput()  _TRISB13 = 1
-/**
-  @Summary
-    Configures the GPIO pin, RB13, as an output.
-
-  @Description
-    Configures the GPIO pin, RB13, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RB13 as an output
-    STATUS_LED_SetDigitalOutput();
-    </code>
-
-*/
-#define STATUS_LED_SetDigitalOutput() _TRISB13 = 0
-/**
-  @Summary
     Sets the GPIO pin, RB2, high using LATB2.
 
   @Description
@@ -930,6 +784,152 @@
 
 */
 #define RIGHT_RUDDER_SetDigitalOutput() _TRISB3 = 0
+/**
+  @Summary
+    Sets the GPIO pin, RB5, high using LATB5.
+
+  @Description
+    Sets the GPIO pin, RB5, high using LATB5.
+
+  @Preconditions
+    The RB5 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB5 high (1)
+    STATUS_LED_SetHigh();
+    </code>
+
+*/
+#define STATUS_LED_SetHigh()          _LATB5 = 1
+/**
+  @Summary
+    Sets the GPIO pin, RB5, low using LATB5.
+
+  @Description
+    Sets the GPIO pin, RB5, low using LATB5.
+
+  @Preconditions
+    The RB5 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB5 low (0)
+    STATUS_LED_SetLow();
+    </code>
+
+*/
+#define STATUS_LED_SetLow()           _LATB5 = 0
+/**
+  @Summary
+    Toggles the GPIO pin, RB5, using LATB5.
+
+  @Description
+    Toggles the GPIO pin, RB5, using LATB5.
+
+  @Preconditions
+    The RB5 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RB5
+    STATUS_LED_Toggle();
+    </code>
+
+*/
+#define STATUS_LED_Toggle()           _LATB5 ^= 1
+/**
+  @Summary
+    Reads the value of the GPIO pin, RB5.
+
+  @Description
+    Reads the value of the GPIO pin, RB5.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RB5
+    postValue = STATUS_LED_GetValue();
+    </code>
+
+*/
+#define STATUS_LED_GetValue()         _RB5
+/**
+  @Summary
+    Configures the GPIO pin, RB5, as an input.
+
+  @Description
+    Configures the GPIO pin, RB5, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB5 as an input
+    STATUS_LED_SetDigitalInput();
+    </code>
+
+*/
+#define STATUS_LED_SetDigitalInput()  _TRISB5 = 1
+/**
+  @Summary
+    Configures the GPIO pin, RB5, as an output.
+
+  @Description
+    Configures the GPIO pin, RB5, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB5 as an output
+    STATUS_LED_SetDigitalOutput();
+    </code>
+
+*/
+#define STATUS_LED_SetDigitalOutput() _TRISB5 = 0
 
 /**
     Section: Function Prototypes

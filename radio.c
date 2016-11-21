@@ -105,19 +105,29 @@ static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 void RADIO_update(const uint8_t channel)
 {
     if (pin_high[channel] == false) {
-        while (!IC1_IsCaptureBufferEmpty())
-            start[channel] = RADIO_read_ic(channel);
+		if(channel == DIRECTION_CHANNEL) {
+			while (!IC1_IsCaptureBufferEmpty())
+				start[channel] = RADIO_read_ic(channel);
+		} else {
+			while (!IC2_IsCaptureBufferEmpty())
+				start[channel] = RADIO_read_ic(channel);
+		}
         pin_high[channel] = true;
 
         /* interrupt on falling edge */
         if(channel == DIRECTION_CHANNEL)
             IC1CON1bits.ICM = 0x2;
         else
-            IC1CON1bits.ICM = 0x2;
+            IC2CON1bits.ICM = 0x2;
     } else {
         uint16_t end, entry;
-        while (!IC1_IsCaptureBufferEmpty())
-            end = RADIO_read_ic(channel);
+		if(channel == DIRECTION_CHANNEL) {
+			while (!IC1_IsCaptureBufferEmpty())
+				end = RADIO_read_ic(channel);
+		} else {
+			while (!IC2_IsCaptureBufferEmpty())
+				end = RADIO_read_ic(channel);
+		}
         entry = end - start[channel];
         //LOG_DBG("entry%u= %u, start= %u, end= %u\n", channel, entry, start[channel], end);
 
@@ -127,7 +137,7 @@ void RADIO_update(const uint8_t channel)
         if(channel == DIRECTION_CHANNEL)
             IC1CON1bits.ICM = 0x3;
         else
-            IC1CON1bits.ICM = 0x3;
+            IC2CON1bits.ICM = 0x3;
 
         /* Ignore any invalid inputs */
         if (!(entry < 2000 || entry > 4000))

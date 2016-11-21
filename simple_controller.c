@@ -52,12 +52,11 @@ static void compute_output(void)
     uint16_t output_data[OUTPUT_CHANNEL_CNT];
     
     /* Invert left/right for direction channel */
-    input_data.value[DIRECTION_CHANNEL] = MAX_POS + MIN_POS - input_data.value[DIRECTION_CHANNEL];
+	uint16_t inverted_dir = MAX_POS + MIN_POS - input_data.value[DIRECTION_CHANNEL];
 
-    LOG_DBG("output: %u\t%u", input_data.value[DIRECTION_CHANNEL],
-             input_data.value[SPEED_CHANNEL]);
-    output_data[LEFT_RUDDER_CHANNEL] = input_data.value[DIRECTION_CHANNEL];
-    output_data[RIGHT_RUDDER_CHANNEL] = input_data.value[DIRECTION_CHANNEL];
+    //LOG_DBG("output: %u\t%u", inverted_dir, input_data.value[SPEED_CHANNEL]);
+    output_data[LEFT_RUDDER_CHANNEL] = inverted_dir;
+    output_data[RIGHT_RUDDER_CHANNEL] = inverted_dir;
     output_data[LEFT_MOTOR_CHANNEL] = input_data.value[SPEED_CHANNEL];
     output_data[RIGHT_MOTOR_CHANNEL] = input_data.value[SPEED_CHANNEL];
 

@@ -65,7 +65,16 @@ static void compute_output(void)
 
 void simple_controller_init(void)
 {
-    memset(&input_data, NEUTRAL_POS, sizeof(input_data));
+	uint8_t i = 0;
+	
+	input_data.value[DIRECTION_CHANNEL] = NEUTRAL_POS;
+	input_data.value[SPEED_CHANNEL] = NEUTRAL_POS;
+
+	for (i = 0; i < QUEUE_SIZE; ++i) {
+		input_data.last[DIRECTION_CHANNEL][i] = NEUTRAL_POS;
+		input_data.last[SPEED_CHANNEL][i] = NEUTRAL_POS;
+	}
+	
     compute_output();
 }
 

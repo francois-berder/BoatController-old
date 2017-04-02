@@ -27,6 +27,7 @@
       <itemPath>output.h</itemPath>
       <itemPath>mpu6050.h</itemPath>
       <itemPath>simple_controller.h</itemPath>
+      <itemPath>sd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -58,6 +59,7 @@
       <itemPath>output.c</itemPath>
       <itemPath>mpu6050.c</itemPath>
       <itemPath>simple_controller.c</itemPath>
+      <itemPath>sd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

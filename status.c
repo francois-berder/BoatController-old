@@ -39,8 +39,8 @@ void STATUS_update(void)
             break;
         case STATUS_SLOW_BLINK:
             ++period;
-            if ((period == 1 && _LATB5)
-             || (period == SLOW_BLINK_PERIOD && _LATB5 == 0)) {
+            if ((period == 1 && _LATB13)
+             || (period == SLOW_BLINK_PERIOD && _LATB13 == 0)) {
                 STATUS_LED_Toggle();
                 period = 0;
             }

@@ -97,8 +97,8 @@ void SPI1_Initialize (void)
     SPI1URDTL = 0x0000;
     // SPI1URDTH 0; 
     SPI1URDTH = 0x0000;
-    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN enabled; MSTEN Master; MODE16 disabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Active to Idle; MODE32 disabled; SPISIDL disabled; ENHBUF disabled; DISSDI disabled; 
-    SPI1CON1L = 0x81A0;
+    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN disabled; MSTEN Master; MODE16 disabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Active to Idle; MODE32 disabled; SPISIDL disabled; ENHBUF enabled; DISSDI disabled; 
+    SPI1CON1L = 0x8121;
 
 }
 

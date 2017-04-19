@@ -19,7 +19,7 @@
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.26
         MPLAB             :  MPLAB X 3.20
-*/
+ */
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -46,22 +46,34 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "mcc_generated_files/mcc.h"
 #include "log.h"
+#include "sd.h"
 #include "status.h"
 #include "simple_controller.h"
 
 char log_level = DEBUG;
 
+static void panic(void)
+{
+    printf("PANIC!\n");
+    STATUS_set_mode(STATUS_FAST_BLINK);
+
+    while (1)
+        ;
+}
+
 int main(void)
-{    
-    // initialize the device
+{
     SYSTEM_Initialize();
-    STATUS_set_mode(STATUS_SLOW_BLINK);
+    STATUS_set_mode(STATUS_ON);
     simple_controller_init();
-    //MPU6050_init();
-    LOG_INFO("PIC initialisation done.\n");
+    if (sd_init())
+        panic();
+
+    LOG_INFO("BoatController initialisation finished with success.\n");
+    STATUS_set_mode(STATUS_SLOW_BLINK);
 
     while (1)
         simple_controller_update();
 
-    return -1;
+    return 0;
 }

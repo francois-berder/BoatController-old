@@ -56,8 +56,8 @@ uint32_t mbr_read(void)
         partition_size = read_32bit_le(&entry[12]);
         partition_size *= BLOCK_LENGTH;
         LOG_INFO("Found FAT16 partition in MBR (entry %u)", i);
-        LOG_INFO("start: %lu", (unsigned long)start_sector);
-        LOG_INFO("size: %lu", (unsigned long)partition_size);
+        LOG_INFO("start (sector): %lu", start_sector);
+        LOG_INFO("size (bytes): %lu", partition_size);
 
         return start_sector;
     }

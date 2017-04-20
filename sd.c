@@ -14,10 +14,11 @@ static inline void flush_spi_buffer(void)
 }
 
 enum {
-    GO_IDLE_STATE   = 0,
-    SEND_OP_COND    = 1,
-    SET_BLOCKLEN    = 16,
-    CRC_ON_OFF      = 59
+    GO_IDLE_STATE = 0,
+    SEND_OP_COND = 1,
+    SET_BLOCKLEN = 16,
+    READ_SINGLE_BLOCK = 17,
+    CRC_ON_OFF = 59
 };
 
 /*
@@ -100,6 +101,40 @@ uint8_t sd_init(void)
 
     /* Restore SPI clock to ~4MHz */
     SPI1BRGL = 1;
+
+    return 0;
+}
+
+uint8_t sd_read_block(uint8_t *buffer, uint32_t sector)
+{
+    uint16_t i;
+    flush_spi_buffer();
+
+    SPI_CS_SetLow();
+
+    SPI1_Exchange8bit(0x40 | READ_SINGLE_BLOCK);
+    SPI1_Exchange8bit(sector >> 15);
+    SPI1_Exchange8bit(sector >> 7);
+    SPI1_Exchange8bit(sector << 1);
+    SPI1_Exchange8bit(0x00);
+    SPI1_Exchange8bit(DUMMY_CRC);
+
+    /* Wait for SD card to be ready */
+    while (SPI1_Exchange8bit(0xFF) != 0)
+        ;
+
+    /* Wait for data start token */
+    while (SPI1_Exchange8bit(0xFF) != 0xFE)
+        ;
+
+    for (i = 0; i < BLOCK_LENGTH; ++i)
+        buffer[i] = SPI1_Exchange8bit(0xFF);
+
+    /* Discard CRC */
+    SPI1_Exchange8bit(0xFF);
+    SPI1_Exchange8bit(0xFF);
+
+    SPI_CS_SetHigh();
 
     return 0;
 }

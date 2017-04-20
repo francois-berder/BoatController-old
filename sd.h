@@ -15,7 +15,9 @@ extern "C" {
 
 #define BLOCK_LENGTH    (512)
 
-uint8_t sd_init(void);
+    uint8_t sd_init(void);
+
+    uint8_t sd_read_block(uint8_t *buffer, uint32_t sector);
 
 #ifdef	__cplusplus
 }

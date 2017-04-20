@@ -75,7 +75,7 @@
   @Description
     Dummy data to be sent, when no input buffer is specified in the buffer APIs.
  */
-#define SPI1_DUMMY_DATA 0x0
+#define SPI1_DUMMY_DATA 0xFF
         
 /**
   SPI1_FIFO_FILL_LIMIT

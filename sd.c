@@ -112,7 +112,14 @@ uint8_t sd_read_block(uint8_t *buffer, uint32_t sector)
 
 uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint16_t length)
 {
-    uint16_t i;
+    uint8_t cmd[] = {
+        0x40 | READ_SINGLE_BLOCK,
+        sector >> 15,
+        sector >> 7,
+        sector << 1,
+        0x00,
+        DUMMY_CRC
+    };
 
     if (offset + length > BLOCK_LENGTH)
         return 1;
@@ -121,12 +128,7 @@ uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint
 
     SPI_CS_SetLow();
 
-    SPI1_Exchange8bit(0x40 | READ_SINGLE_BLOCK);
-    SPI1_Exchange8bit(sector >> 15);
-    SPI1_Exchange8bit(sector >> 7);
-    SPI1_Exchange8bit(sector << 1);
-    SPI1_Exchange8bit(0x00);
-    SPI1_Exchange8bit(DUMMY_CRC);
+    SPI1_Exchange8bitBuffer(cmd, sizeof(cmd), NULL);
 
     /* Wait for SD card to be ready */
     while (SPI1_Exchange8bit(0xFF) != 0)
@@ -136,14 +138,9 @@ uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint
     while (SPI1_Exchange8bit(0xFF) != 0xFE)
         ;
 
-    for (i = 0; i < offset; ++i)
-        SPI1_Exchange8bit(0xFF);
-
-    for (i = 0; i < length; ++i)
-        buffer[i] = SPI1_Exchange8bit(0xFF);
-
-    for (; i < BLOCK_LENGTH; ++i)
-        SPI1_Exchange8bit(0xFF);
+    SPI1_Exchange8bitBuffer(NULL, offset, NULL);
+    SPI1_Exchange8bitBuffer(NULL, length, buffer);
+    SPI1_Exchange8bitBuffer(NULL, BLOCK_LENGTH - offset - length, NULL);
 
     /* Discard CRC */
     SPI1_Exchange8bit(0xFF);

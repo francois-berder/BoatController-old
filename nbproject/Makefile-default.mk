@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/tmr2.c mcc_generated_files/ic1.c mcc_generated_files/ic2.c mcc_generated_files/tmr3.c mcc_generated_files/tmr4.c mcc_generated_files/i2c1.c mcc_generated_files/traps.c mcc_generated_files/spi1.c mcc_generated_files/tmr5.c main.c status.c radio.c output.c mpu6050.c simple_controller.c sd.c mbr.c
+SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/tmr2.c mcc_generated_files/ic1.c mcc_generated_files/ic2.c mcc_generated_files/tmr3.c mcc_generated_files/tmr4.c mcc_generated_files/i2c1.c mcc_generated_files/traps.c mcc_generated_files/spi1.c mcc_generated_files/tmr5.c main.c status.c radio.c output.c mpu6050.c simple_controller.c sd.c mbr.c hal_sd.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/uart1.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/tmr2.o ${OBJECTDIR}/mcc_generated_files/ic1.o ${OBJECTDIR}/mcc_generated_files/ic2.o ${OBJECTDIR}/mcc_generated_files/tmr3.o ${OBJECTDIR}/mcc_generated_files/tmr4.o ${OBJECTDIR}/mcc_generated_files/i2c1.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/spi1.o ${OBJECTDIR}/mcc_generated_files/tmr5.o ${OBJECTDIR}/main.o ${OBJECTDIR}/status.o ${OBJECTDIR}/radio.o ${OBJECTDIR}/output.o ${OBJECTDIR}/mpu6050.o ${OBJECTDIR}/simple_controller.o ${OBJECTDIR}/sd.o ${OBJECTDIR}/mbr.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/uart1.o.d ${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/tmr2.o.d ${OBJECTDIR}/mcc_generated_files/ic1.o.d ${OBJECTDIR}/mcc_generated_files/ic2.o.d ${OBJECTDIR}/mcc_generated_files/tmr3.o.d ${OBJECTDIR}/mcc_generated_files/tmr4.o.d ${OBJECTDIR}/mcc_generated_files/i2c1.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/spi1.o.d ${OBJECTDIR}/mcc_generated_files/tmr5.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/status.o.d ${OBJECTDIR}/radio.o.d ${OBJECTDIR}/output.o.d ${OBJECTDIR}/mpu6050.o.d ${OBJECTDIR}/simple_controller.o.d ${OBJECTDIR}/sd.o.d ${OBJECTDIR}/mbr.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/uart1.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/tmr2.o ${OBJECTDIR}/mcc_generated_files/ic1.o ${OBJECTDIR}/mcc_generated_files/ic2.o ${OBJECTDIR}/mcc_generated_files/tmr3.o ${OBJECTDIR}/mcc_generated_files/tmr4.o ${OBJECTDIR}/mcc_generated_files/i2c1.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/spi1.o ${OBJECTDIR}/mcc_generated_files/tmr5.o ${OBJECTDIR}/main.o ${OBJECTDIR}/status.o ${OBJECTDIR}/radio.o ${OBJECTDIR}/output.o ${OBJECTDIR}/mpu6050.o ${OBJECTDIR}/simple_controller.o ${OBJECTDIR}/sd.o ${OBJECTDIR}/mbr.o ${OBJECTDIR}/hal_sd.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o.d ${OBJECTDIR}/mcc_generated_files/mcc.o.d ${OBJECTDIR}/mcc_generated_files/uart1.o.d ${OBJECTDIR}/mcc_generated_files/pin_manager.o.d ${OBJECTDIR}/mcc_generated_files/tmr2.o.d ${OBJECTDIR}/mcc_generated_files/ic1.o.d ${OBJECTDIR}/mcc_generated_files/ic2.o.d ${OBJECTDIR}/mcc_generated_files/tmr3.o.d ${OBJECTDIR}/mcc_generated_files/tmr4.o.d ${OBJECTDIR}/mcc_generated_files/i2c1.o.d ${OBJECTDIR}/mcc_generated_files/traps.o.d ${OBJECTDIR}/mcc_generated_files/spi1.o.d ${OBJECTDIR}/mcc_generated_files/tmr5.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/status.o.d ${OBJECTDIR}/radio.o.d ${OBJECTDIR}/output.o.d ${OBJECTDIR}/mpu6050.o.d ${OBJECTDIR}/simple_controller.o.d ${OBJECTDIR}/sd.o.d ${OBJECTDIR}/mbr.o.d ${OBJECTDIR}/hal_sd.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/uart1.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/tmr2.o ${OBJECTDIR}/mcc_generated_files/ic1.o ${OBJECTDIR}/mcc_generated_files/ic2.o ${OBJECTDIR}/mcc_generated_files/tmr3.o ${OBJECTDIR}/mcc_generated_files/tmr4.o ${OBJECTDIR}/mcc_generated_files/i2c1.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/spi1.o ${OBJECTDIR}/mcc_generated_files/tmr5.o ${OBJECTDIR}/main.o ${OBJECTDIR}/status.o ${OBJECTDIR}/radio.o ${OBJECTDIR}/output.o ${OBJECTDIR}/mpu6050.o ${OBJECTDIR}/simple_controller.o ${OBJECTDIR}/sd.o ${OBJECTDIR}/mbr.o
+OBJECTFILES=${OBJECTDIR}/mcc_generated_files/interrupt_manager.o ${OBJECTDIR}/mcc_generated_files/mcc.o ${OBJECTDIR}/mcc_generated_files/uart1.o ${OBJECTDIR}/mcc_generated_files/pin_manager.o ${OBJECTDIR}/mcc_generated_files/tmr2.o ${OBJECTDIR}/mcc_generated_files/ic1.o ${OBJECTDIR}/mcc_generated_files/ic2.o ${OBJECTDIR}/mcc_generated_files/tmr3.o ${OBJECTDIR}/mcc_generated_files/tmr4.o ${OBJECTDIR}/mcc_generated_files/i2c1.o ${OBJECTDIR}/mcc_generated_files/traps.o ${OBJECTDIR}/mcc_generated_files/spi1.o ${OBJECTDIR}/mcc_generated_files/tmr5.o ${OBJECTDIR}/main.o ${OBJECTDIR}/status.o ${OBJECTDIR}/radio.o ${OBJECTDIR}/output.o ${OBJECTDIR}/mpu6050.o ${OBJECTDIR}/simple_controller.o ${OBJECTDIR}/sd.o ${OBJECTDIR}/mbr.o ${OBJECTDIR}/hal_sd.o
 
 # Source Files
-SOURCEFILES=mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/tmr2.c mcc_generated_files/ic1.c mcc_generated_files/ic2.c mcc_generated_files/tmr3.c mcc_generated_files/tmr4.c mcc_generated_files/i2c1.c mcc_generated_files/traps.c mcc_generated_files/spi1.c mcc_generated_files/tmr5.c main.c status.c radio.c output.c mpu6050.c simple_controller.c sd.c mbr.c
+SOURCEFILES=mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/uart1.c mcc_generated_files/pin_manager.c mcc_generated_files/tmr2.c mcc_generated_files/ic1.c mcc_generated_files/ic2.c mcc_generated_files/tmr3.c mcc_generated_files/tmr4.c mcc_generated_files/i2c1.c mcc_generated_files/traps.c mcc_generated_files/spi1.c mcc_generated_files/tmr5.c main.c status.c radio.c output.c mpu6050.c simple_controller.c sd.c mbr.c hal_sd.c
 
 
 CFLAGS=
@@ -235,6 +235,13 @@ ${OBJECTDIR}/mbr.o: mbr.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mbr.c  -o ${OBJECTDIR}/mbr.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mbr.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/mbr.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/hal_sd.o: hal_sd.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hal_sd.o.d 
+	@${RM} ${OBJECTDIR}/hal_sd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  hal_sd.c  -o ${OBJECTDIR}/hal_sd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hal_sd.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/hal_sd.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.o: mcc_generated_files/interrupt_manager.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -382,6 +389,13 @@ ${OBJECTDIR}/mbr.o: mbr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/mbr.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mbr.c  -o ${OBJECTDIR}/mbr.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mbr.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/mbr.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/hal_sd.o: hal_sd.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hal_sd.o.d 
+	@${RM} ${OBJECTDIR}/hal_sd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  hal_sd.c  -o ${OBJECTDIR}/hal_sd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hal_sd.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/hal_sd.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

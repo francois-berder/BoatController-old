@@ -45,6 +45,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  */
 
 #include "mcc_generated_files/mcc.h"
+#include "hal_sd.h"
 #include "log.h"
 #include "mbr.h"
 #include "sd.h"
@@ -75,6 +76,7 @@ int main(void)
     start_sector = mbr_read();
     if (start_sector == 0)
         panic();
+    hal_set_start_sector(start_sector);
 
     LOG_INFO("BoatController initialisation finished with success.");
     STATUS_set_mode(STATUS_SLOW_BLINK);

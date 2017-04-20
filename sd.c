@@ -107,7 +107,16 @@ uint8_t sd_init(void)
 
 uint8_t sd_read_block(uint8_t *buffer, uint32_t sector)
 {
+    return sd_read_subblock(buffer, sector, 0, BLOCK_LENGTH);
+}
+
+uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint16_t length)
+{
     uint16_t i;
+
+    if (offset + length > BLOCK_LENGTH)
+        return 1;
+
     flush_spi_buffer();
 
     SPI_CS_SetLow();
@@ -127,8 +136,14 @@ uint8_t sd_read_block(uint8_t *buffer, uint32_t sector)
     while (SPI1_Exchange8bit(0xFF) != 0xFE)
         ;
 
-    for (i = 0; i < BLOCK_LENGTH; ++i)
+    for (i = 0; i < offset; ++i)
+        SPI1_Exchange8bit(0xFF);
+
+    for (i = 0; i < length; ++i)
         buffer[i] = SPI1_Exchange8bit(0xFF);
+
+    for (; i < BLOCK_LENGTH; ++i)
+        SPI1_Exchange8bit(0xFF);
 
     /* Discard CRC */
     SPI1_Exchange8bit(0xFF);

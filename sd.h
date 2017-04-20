@@ -19,6 +19,8 @@ extern "C" {
 
     uint8_t sd_read_block(uint8_t *buffer, uint32_t sector);
 
+    uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint16_t length);
+
 #ifdef	__cplusplus
 }
 #endif

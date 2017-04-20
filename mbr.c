@@ -28,7 +28,7 @@ uint32_t mbr_read(void)
     uint8_t i = 0;
     uint8_t partition_table[PARTITION_TABLE_SIZE];
 
-    LOG_INFO("Reading MBR at sector 0...\n");
+    LOG_INFO("Reading MBR at sector 0...");
 
     if (sd_read_subblock(partition_table, 0, BOOTSTRAP_CODE_SIZE, PARTITION_TABLE_SIZE) != 0)
         return 0;
@@ -55,9 +55,9 @@ uint32_t mbr_read(void)
         start_sector = read_32bit_le(&entry[8]);
         partition_size = read_32bit_le(&entry[12]);
         partition_size *= BLOCK_LENGTH;
-        LOG_INFO("Found FAT16 partition in MBR (entry %u)\n", i);
-        LOG_INFO("start: %lu\n", (unsigned long)start_sector);
-        LOG_INFO("size: %lu\n", (unsigned long)partition_size);
+        LOG_INFO("Found FAT16 partition in MBR (entry %u)", i);
+        LOG_INFO("start: %lu", (unsigned long)start_sector);
+        LOG_INFO("size: %lu", (unsigned long)partition_size);
 
         return start_sector;
     }

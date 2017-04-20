@@ -76,7 +76,7 @@ int main(void)
     if (start_sector == 0)
         panic();
 
-    LOG_INFO("BoatController initialisation finished with success.\n");
+    LOG_INFO("BoatController initialisation finished with success.");
     STATUS_set_mode(STATUS_SLOW_BLINK);
 
     while (1)

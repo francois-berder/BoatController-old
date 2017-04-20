@@ -13,6 +13,8 @@
 extern "C" {
 #endif
 
+#define BLOCK_LENGTH    (512)
+
 uint8_t sd_init(void);
 
 #ifdef	__cplusplus

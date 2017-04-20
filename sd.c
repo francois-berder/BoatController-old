@@ -95,7 +95,7 @@ uint8_t sd_init(void)
     }
 
     if (send_cmd(CRC_ON_OFF, 0, DUMMY_CRC)
-        || send_cmd(SET_BLOCKLEN, 512, DUMMY_CRC))
+        || send_cmd(SET_BLOCKLEN, BLOCK_LENGTH, DUMMY_CRC))
         return 1;
 
     /* Restore SPI clock to ~4MHz */

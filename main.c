@@ -46,6 +46,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "mcc_generated_files/mcc.h"
 #include "log.h"
+#include "mbr.h"
 #include "sd.h"
 #include "status.h"
 #include "simple_controller.h"
@@ -63,10 +64,16 @@ static void panic(void)
 
 int main(void)
 {
+    uint32_t start_sector;
+
     SYSTEM_Initialize();
     STATUS_set_mode(STATUS_ON);
     simple_controller_init();
     if (sd_init())
+        panic();
+
+    start_sector = mbr_read();
+    if (start_sector == 0)
         panic();
 
     LOG_INFO("BoatController initialisation finished with success.\n");

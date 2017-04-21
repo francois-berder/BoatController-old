@@ -29,6 +29,8 @@
       <itemPath>simple_controller.h</itemPath>
       <itemPath>sd.h</itemPath>
       <itemPath>mbr.h</itemPath>
+      <itemPath>fat16.h</itemPath>
+      <itemPath>hal_sd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -62,6 +64,8 @@
       <itemPath>simple_controller.c</itemPath>
       <itemPath>sd.c</itemPath>
       <itemPath>mbr.c</itemPath>
+      <itemPath>hal_sd.c</itemPath>
+      <itemPath>fat16.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

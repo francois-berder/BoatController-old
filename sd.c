@@ -11,6 +11,7 @@
 #define RESPONSE_ATTEMPT_COUNT_MAX      (128)
 #define DATA_START_TOKEN                (0xFE)
 #define CMD_TOKEN                       (0x40)
+#define DATA_ACCEPTED                   (0x05)
 
 static inline void flush_spi_buffer(void)
 {
@@ -34,6 +35,7 @@ enum {
     SEND_OP_COND = 1,
     SET_BLOCKLEN = 16,
     READ_SINGLE_BLOCK = 17,
+    WRITE_SINGLE_BLOCK = 24,
     CRC_ON_OFF = 59
 };
 
@@ -160,6 +162,53 @@ uint8_t sd_read_subblock(uint8_t *buffer, uint32_t sector, uint16_t offset, uint
     /* Discard CRC */
     SPI1_Exchange8bit(0xFF);
     SPI1_Exchange8bit(0xFF);
+
+    SPI_CS_SetHigh();
+
+    return SD_IO_OK;
+}
+
+uint8_t sd_write_block(uint8_t *buffer, uint32_t sector)
+{
+    uint8_t data_response;
+    uint8_t cmd[] = {
+        CMD_TOKEN | WRITE_SINGLE_BLOCK,
+        sector >> 15,
+        sector >> 7,
+        sector << 1,
+        0x00,
+        DUMMY_CRC
+    };
+
+    flush_spi_buffer();
+
+    SPI_CS_SetLow();
+
+    SPI1_Exchange8bitBuffer(cmd, sizeof(cmd), NULL);
+
+    /* Wait for SD card to be ready */
+    if (wait_for(0)) {
+        SPI_CS_SetHigh();
+        return SD_IO_ERROR;
+    }
+
+    SPI1_Exchange8bit(DATA_START_TOKEN);
+
+    SPI1_Exchange8bitBuffer(buffer, BLOCK_LENGTH, NULL);
+
+    /* Send dummy CRC */
+    SPI1_Exchange8bit(DUMMY_CRC);
+    SPI1_Exchange8bit(DUMMY_CRC);
+
+    data_response = SPI1_Exchange8bit(0xFF);
+    if ((data_response & 0x1F) != DATA_ACCEPTED) {
+        SPI_CS_SetHigh();
+        return SD_IO_ERROR;
+    }
+
+    /* Wait while the SD card is busy */
+    while (SPI1_Exchange8bit(0xFF) == 0)
+        ;
 
     SPI_CS_SetHigh();
 

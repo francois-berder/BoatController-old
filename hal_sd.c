@@ -91,10 +91,33 @@ int hal_seek(uint32_t address)
 
 int hal_write(uint8_t *buffer, uint32_t length)
 {
-    (void) buffer;
-    (void) length;
+    uint32_t count = 0;
+    LOG_DBG("hal_sd: Writing %lu bytes at address %08lX.", length, current_address);
+    while (count < length) {
+        uint32_t chunk = 0, bytes_remaining_sector = 0;
+        uint32_t offset = get_offset_from_address(current_address);
+        uint32_t current_sector_index = get_sector_from_address(current_address);
 
-    /* Not implemented, sd does not support write operations */
+        /* Check if sector is already loaded */
+        if (current_sector_index != sector_index) {
+            if (load_sector(current_sector_index))
+                return -1;
+        }
 
-    return -1;
+        /* Copy as many bytes from sector to buffer */
+        chunk = length;
+        bytes_remaining_sector = BLOCK_LENGTH - offset;
+        if (chunk > bytes_remaining_sector)
+            chunk = bytes_remaining_sector;
+
+        memcpy(&sector[offset], buffer, chunk);
+        current_address += chunk;
+        count += chunk;
+        buffer += chunk;
+
+        if (sd_write_block(sector, current_sector_index))
+            return -1;
+    }
+
+    return 0;
 }

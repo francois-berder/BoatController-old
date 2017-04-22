@@ -19,7 +19,7 @@ extern "C" {
     int hal_read_byte(uint8_t *data);
     int hal_seek(uint32_t address);
     int hal_write(uint8_t *buffer, uint32_t length);
-
+    void hal_flush(void);
 #ifdef	__cplusplus
 }
 #endif

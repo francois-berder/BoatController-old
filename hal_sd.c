@@ -9,6 +9,7 @@
  */
 #define INVALID_SECTOR_INDEX            (0)
 #define CACHE_ENTRY_COUNT               (4)
+#define DIRTY_FLAG                      (0x01)
 
 static uint32_t current_address = 0; /* In byte */
 
@@ -26,6 +27,7 @@ struct sector {
                              * is the oldest. A low value means the sector was
                              * used not long ago.
                              */
+    uint8_t flags;
 };
 
 static struct sector sectors[CACHE_ENTRY_COUNT];
@@ -81,6 +83,11 @@ static uint8_t get_entry_index(uint32_t sector_index)
         }
     }
 
+    /* If sector is dirty, let's write data to SD card */
+    if (sectors[i].index != INVALID_SECTOR_INDEX
+        && sectors[i].flags & DIRTY_FLAG)
+        sd_write_block(sectors[i].data, sectors[i].index);
+
     /* Load sector from SD card */
     LOG_DBG("hal_sd: Loading sector 0x%08lX in entry %u", sector_index, i);
     if (sd_read_block(sectors[i].data, sector_index)) {
@@ -89,6 +96,7 @@ static uint8_t get_entry_index(uint32_t sector_index)
     }
     sectors[i].index = sector_index;
     sectors[i].last_usage = 0;
+    sectors[i].flags = 0;
 
     return i;
 }
@@ -164,11 +172,25 @@ int hal_write(uint8_t *buffer, uint32_t length)
         count += chunk;
         buffer += chunk;
 
-        if (sd_write_block(sectors[index].data, current_sector_index))
-            return -1;
+        sectors[index].flags |= DIRTY_FLAG;
 
         update_last_usage(index);
     }
 
     return 0;
+}
+
+void hal_flush(void)
+{
+    uint8_t i = 0;
+
+    for (i = 0; i < CACHE_ENTRY_COUNT; ++i) {
+        if (sectors[i].index == INVALID_SECTOR_INDEX)
+            continue;
+
+        if (sectors[i].flags & DIRTY_FLAG) {
+            sd_write_block(sectors[i].data, sectors[i].index);
+            sectors[i].flags &= ~DIRTY_FLAG;
+        }
+    }
 }

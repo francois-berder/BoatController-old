@@ -883,6 +883,7 @@ int fat16_write(uint8_t handle, char *buffer, uint32_t count)
 
     /* Update size of file in root directory entry */
     update_size_file(handles[handle].entry_index, bytes_written_count);
+    hal_flush();
 
     return bytes_written_count;
 }
@@ -893,7 +894,7 @@ int fat16_close(uint8_t handle)
         LOG_ERR("fat16_write: Invalid handle.");
         return -1;
     }
-
+    hal_flush();
     handles[handle].filename[0] = 0;
     return 0;
 }

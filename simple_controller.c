@@ -11,6 +11,7 @@ static struct {
     uint16_t last[CHANNEL_CNT][QUEUE_SIZE];
     uint16_t value[CHANNEL_CNT];
 } input_data;
+static uint16_t output_data[OUTPUT_CHANNEL_CNT];
 
 static int file_handle = 0;
 
@@ -53,8 +54,6 @@ static bool get_input(uint8_t channel)
  */
 static void compute_output(void)
 {
-    uint16_t output_data[OUTPUT_CHANNEL_CNT];
-
     /* Invert left/right for direction channel */
     uint16_t inverted_dir = MAX_POS + MIN_POS - input_data.value[DIRECTION_CHANNEL];
 
@@ -81,7 +80,7 @@ int simple_controller_init(void)
 
     compute_output();
 
-    file_handle = fat16_open("RADIO.TXT", 'w');
+    file_handle = fat16_open("DATA.TXT", 'w');
     if (file_handle < 0)
         return file_handle;
 
@@ -91,6 +90,7 @@ int simple_controller_init(void)
 void simple_controller_update(void)
 {
     char buffer[64];
+
     bool change = false;
     if (get_input(DIRECTION_CHANNEL))
         change = true;
@@ -100,8 +100,12 @@ void simple_controller_update(void)
     if (change)
         compute_output();
 
-    sprintf(buffer, "%u,%u\n",
+    sprintf(buffer, "%u,%u,%u,%u,%u,%u\n",
         input_data.value[DIRECTION_CHANNEL],
-        input_data.value[SPEED_CHANNEL]);
+        input_data.value[SPEED_CHANNEL],
+        output_data[LEFT_RUDDER_CHANNEL],
+        output_data[RIGHT_RUDDER_CHANNEL],
+        output_data[LEFT_MOTOR_CHANNEL],
+        output_data[RIGHT_MOTOR_CHANNEL]);
     fat16_write(file_handle, buffer, strlen(buffer));
 }

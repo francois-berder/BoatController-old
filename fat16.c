@@ -356,10 +356,10 @@ static void move_to_fat_region(uint16_t cluster)
  * @param[in] filename name of the file in 8.3 format
  * @return -1 if it cannot find the entry, otherwise give the index (positive number)
  */
-static int find_root_directory_entry(char *filename)
+static long find_root_directory_entry(char *filename)
 {
     uint16_t i = 0;
-    int ret = -1;
+    long ret = -1;
 
     move_to_root_directory_region(0);
     for (i = 0; i < bpb.root_entry_count; ++i) {
@@ -404,7 +404,7 @@ static int find_root_directory_entry(char *filename)
  */
 static int fat16_open_read(uint8_t handle, char *filename)
 {
-    int entry_index = 0;
+    long entry_index = 0;
     struct dir_entry entry;
 
     /* Check that it is not opened for writing operations. */
@@ -436,7 +436,7 @@ static int fat16_open_read(uint8_t handle, char *filename)
  *
  * @return -1 if there is no available entry in the root directory, a positive number otherwise.
  */
-static int find_available_entry_in_root_directory(void)
+static long find_available_entry_in_root_directory(void)
 {
     uint16_t i = 0;
     do {
@@ -631,7 +631,7 @@ static uint16_t read_fat_entry(uint16_t cluster)
     return fat_entry;
 }
 
-static int allocate_cluster(uint16_t cluster)
+static long allocate_cluster(uint16_t cluster)
 {
     uint16_t next_cluster = FIRST_CLUSTER_INDEX_IN_FAT;
     /* Find an empty location in the FAT, skip first 3 entries in the FAT,
@@ -849,7 +849,7 @@ int fat16_write(uint8_t handle, char *buffer, uint32_t count)
         /* Check if we need to allocate a new cluster */
         if (handles[handle].cluster == 0
             || bytes_remaining_in_cluster == 0) {
-            int new_cluster = allocate_cluster(handles[handle].cluster);
+            long new_cluster = allocate_cluster(handles[handle].cluster);
             if (new_cluster < 0)
                 return -1;
 
@@ -920,7 +920,7 @@ int fat16_delete(char *filename)
     return delete_file(fat_filename);
 }
 
-int fat16_ls(int index, char *filename)
+long fat16_ls(long index, char *filename)
 {
     uint8_t name_length = 0, ext_length = 0;
     char fat_filename[11];

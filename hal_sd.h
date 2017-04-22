@@ -14,7 +14,7 @@ extern "C" {
 
 #include <stdint.h>
 
-    void hal_set_start_sector(uint32_t _start_sector);
+    void hal_init(uint32_t _start_sector);
     int hal_read(uint8_t *buffer, uint32_t length);
     int hal_read_byte(uint8_t *data);
     int hal_seek(uint32_t address);

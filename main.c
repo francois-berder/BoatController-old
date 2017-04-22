@@ -45,6 +45,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  */
 
 #include "mcc_generated_files/mcc.h"
+#include "fat16.h"
 #include "hal_sd.h"
 #include "log.h"
 #include "mbr.h"
@@ -63,20 +64,31 @@ static void panic(void)
         ;
 }
 
-int main(void)
+static void initialize_sdcard(void)
 {
     uint32_t start_sector;
 
-    SYSTEM_Initialize();
-    STATUS_set_mode(STATUS_ON);
-    simple_controller_init();
     if (sd_init())
         panic();
 
     start_sector = mbr_read();
     if (start_sector == 0)
         panic();
-    hal_set_start_sector(start_sector);
+    hal_init(start_sector);
+    if (fat16_init())
+        panic();
+}
+
+int main(void)
+{
+
+    SYSTEM_Initialize();
+    STATUS_set_mode(STATUS_ON);
+
+    initialize_sdcard();
+
+    if (simple_controller_init() < 0)
+        panic();
 
     LOG_INFO("BoatController initialisation finished with success.");
     STATUS_set_mode(STATUS_SLOW_BLINK);

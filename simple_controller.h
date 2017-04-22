@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-void simple_controller_init(void);
+int simple_controller_init(void);
 void simple_controller_update(void);
 
 

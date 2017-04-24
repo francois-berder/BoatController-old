@@ -263,6 +263,7 @@ static int make_fat_filename(char *fat_filename, char *filename)
     return 0;
 }
 
+#ifndef NDEBUG
 static void dump_root_entry(struct dir_entry e)
 {
     LOG_INFO("filename: %s", e.filename);
@@ -282,6 +283,7 @@ static void dump_root_entry(struct dir_entry e)
     LOG_INFO("starting cluster: %u", e.starting_cluster);
     LOG_INFO("size: %lu", (unsigned long) e.size);
 }
+#endif
 
 static bool is_file_opened(char *filename, bool mode)
 {

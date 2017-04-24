@@ -394,11 +394,6 @@ static long find_root_directory_entry(char *filename)
         }
     }
 
-    if (ret < 0)
-        LOG_ERR("File %s not found.", filename);
-    else
-        LOG_DBG("Found file %s.", filename);
-
     return ret;
 }
 
@@ -421,8 +416,10 @@ static int fat16_open_read(uint8_t handle, char *filename)
     }
 
     /* Find the file in the root directory */
-    if ((entry_index = find_root_directory_entry(filename)) < 0)
+    if ((entry_index = find_root_directory_entry(filename)) < 0) {
+        LOG_ERR("File %s not found.", filename);
         return -1;
+    }
 
     move_to_root_directory_region(entry_index);
     hal_read((uint8_t*) & entry, sizeof(struct dir_entry));

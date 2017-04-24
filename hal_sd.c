@@ -35,12 +35,14 @@ static struct sector sectors[CACHE_ENTRY_COUNT];
 /* Assume that each sector is 512 bytes long */
 static inline uint32_t get_sector_from_address(uint32_t address)
 {
-    return start_sector + (address >> 9);
+    address >>= 9;
+    return start_sector + address;
 }
 
 static inline uint32_t get_offset_from_address(uint32_t address)
 {
-    return current_address & (BLOCK_LENGTH - 1);
+    uint32_t mask = BLOCK_LENGTH - 1;
+    return address & mask;
 }
 
 static void update_last_usage(uint8_t index)

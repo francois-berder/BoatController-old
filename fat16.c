@@ -5,6 +5,8 @@
 #include "hal_sd.h"
 #include "log.h"
 
+#define NDEBUG          (1)
+
 #define INVALID_HANDLE  (255)
 #define HANDLE_COUNT    (16)        /* Must not be greater than 254 */
 #define READ_MODE       (true)

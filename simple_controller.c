@@ -2,6 +2,7 @@
 #include <string.h>
 #include "fat16.h"
 #include "radio.h"
+#include "rng.h"
 #include "output.h"
 #include "log.h"
 #define QUEUE_SIZE      (1)
@@ -66,8 +67,22 @@ static void compute_output(void)
     OUTPUT_set_data(output_data);
 }
 
+static void generate_random_filename(char *filename)
+{
+    uint8_t i;
+    for (i = 0; i < 8; ++i)
+        filename[i] = 'A' + (char) (rng_get_byte() & 0xF);
+
+    filename[8] = '.';
+    filename[9] = 'T';
+    filename[10] = 'X';
+    filename[11] = 'T';
+    filename[12] = '\0';
+}
+
 int simple_controller_init(void)
 {
+    char filename[16];
     uint8_t i = 0;
 
     input_data.value[DIRECTION_CHANNEL] = NEUTRAL_POS;
@@ -80,7 +95,8 @@ int simple_controller_init(void)
 
     compute_output();
 
-    file_handle = fat16_open("DATA.TXT", 'w');
+    generate_random_filename(filename);
+    file_handle = fat16_open(filename, 'w');
     if (file_handle < 0)
         return file_handle;
 

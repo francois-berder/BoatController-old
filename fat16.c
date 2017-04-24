@@ -316,8 +316,11 @@ static uint8_t find_available_handle(void)
  */
 static void move_to_data_region(uint16_t cluster, uint16_t offset)
 {
+    uint32_t tmp = cluster - 2;
+    tmp *= bpb.sectors_per_cluster;
+    tmp *= bpb.bytes_per_sector;
     uint32_t pos = start_data_region;
-    pos += ((cluster - 2) * bpb.sectors_per_cluster) * bpb.bytes_per_sector;
+    pos += tmp;
     pos += offset;
     LOG_DBG("Moving to %08lX", pos);
     hal_seek(pos);

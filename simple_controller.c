@@ -100,7 +100,7 @@ void simple_controller_update(void)
     if (change)
         compute_output();
 
-    sprintf(buffer, "%u,%u,%u,%u,%u,%u\n",
+    sprintf(buffer, "%u,%u,%u,%u,%u,%u\r\n",
         input_data.value[DIRECTION_CHANNEL],
         input_data.value[SPEED_CHANNEL],
         output_data[LEFT_RUDDER_CHANNEL],

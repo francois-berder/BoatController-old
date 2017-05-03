@@ -7,6 +7,7 @@
 #include "log.h"
 #define QUEUE_SIZE      (1)
 #define INPUT_VALID_BIT_MASK    (0xFFF0)
+#define DEFAULT_FLUSH_COUNTER   (8)
 
 static struct {
     uint16_t last[CHANNEL_CNT][QUEUE_SIZE];
@@ -105,6 +106,8 @@ int simple_controller_init(void)
 
 void simple_controller_update(void)
 {
+    static uint8_t flush_counter = DEFAULT_FLUSH_COUNTER;
+
     char buffer[64];
 
     bool change = false;
@@ -124,5 +127,14 @@ void simple_controller_update(void)
         output_data[LEFT_MOTOR_CHANNEL],
         output_data[RIGHT_MOTOR_CHANNEL]);
     fat16_write(file_handle, buffer, strlen(buffer));
-    fat16_flush();
+
+    /*
+     * Do not flush for every write. This prevents the microcontroller spending
+     * too much time writing data to the sd card.
+     */
+    --flush_counter;
+    if (flush_counter == 0) {
+        fat16_flush();
+        flush_counter = DEFAULT_FLUSH_COUNTER;
+    }
 }

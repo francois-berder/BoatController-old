@@ -1,3 +1,21 @@
+/**
+ * SD card driver of the Boat Controller.
+ *
+ * This driver can only read and write entire sectors to an SD card connected
+ * over SPI. In this case, SPI 1 module is used and configured as mode 0, 4MHz.
+ *
+ * The initialization phase takes about 50ms to complete and configures the
+ * SD card to use SPI, its block length (512 bytes) and CRC is disabled.
+ * Any call to read or write blocks are blocking. It takes several milliseconds
+ * to read or write blocks from/to the SD card as this driver waits until the
+ * SD card is ready.
+ * However, this driver will not wait forever. While the driver is waiting for
+ * some specific bytes, a counter gets incremented and if it equals the maximum
+ * iteration allowed, the driver exits the loop and returns an error code.
+ */
+
+
+
 #include "mcc_generated_files/spi1.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "sd.h"

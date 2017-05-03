@@ -116,25 +116,26 @@ void simple_controller_update(void)
     if (get_input(SPEED_CHANNEL))
         change = true;
 
-    if (change)
+    if (change) {
         compute_output();
 
-    sprintf(buffer, "%u,%u,%u,%u,%u,%u\r\n",
-        input_data.value[DIRECTION_CHANNEL],
-        input_data.value[SPEED_CHANNEL],
-        output_data[LEFT_RUDDER_CHANNEL],
-        output_data[RIGHT_RUDDER_CHANNEL],
-        output_data[LEFT_MOTOR_CHANNEL],
-        output_data[RIGHT_MOTOR_CHANNEL]);
-    fat16_write(file_handle, buffer, strlen(buffer));
+        sprintf(buffer, "%u,%u,%u,%u,%u,%u\r\n",
+            input_data.value[DIRECTION_CHANNEL],
+            input_data.value[SPEED_CHANNEL],
+            output_data[LEFT_RUDDER_CHANNEL],
+            output_data[RIGHT_RUDDER_CHANNEL],
+            output_data[LEFT_MOTOR_CHANNEL],
+            output_data[RIGHT_MOTOR_CHANNEL]);
+        fat16_write(file_handle, buffer, strlen(buffer));
 
-    /*
-     * Do not flush for every write. This prevents the microcontroller spending
-     * too much time writing data to the sd card.
-     */
-    --flush_counter;
-    if (flush_counter == 0) {
-        fat16_flush();
-        flush_counter = DEFAULT_FLUSH_COUNTER;
+        /*
+         * Do not flush for every write. This prevents the microcontroller spending
+         * too much time writing data to the sd card.
+         */
+        --flush_counter;
+        if (flush_counter == 0) {
+            fat16_flush();
+            flush_counter = DEFAULT_FLUSH_COUNTER;
+        }
     }
 }

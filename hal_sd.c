@@ -1,3 +1,24 @@
+/**
+ * SD card cache module of the Boat Controller.
+ *
+ * This module is in charge of managing a small cache to reduce the number of
+ * read and write to the SD card because these operations take a lot time to
+ * complete.
+ *
+ * This is a write-back cache, it does not write blocks to the SD card unless:
+ *   - the block is dirty and hal_flush is called
+ *   - the block is dirty and is evicted from the cache
+ *
+ * A block becomes dirty if it has been written at least once. This prevents
+ * unnecessary writes to the SD card.
+ *
+ * This module also stores the current address, enabling users to read/write
+ * data without specifying the address. The address gets incremented after any
+ * of these operations. Also, the address is relative to the start of a FAT16
+ * partition. In other words, address 0 is the first byte of FAT16 partition.
+ * There are no checks if the address is not within the bounds of the partition.
+ */
+
 #include <string.h>
 #include "hal_sd.h"
 #include "log.h"

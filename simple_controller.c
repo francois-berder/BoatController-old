@@ -124,4 +124,5 @@ void simple_controller_update(void)
         output_data[LEFT_MOTOR_CHANNEL],
         output_data[RIGHT_MOTOR_CHANNEL]);
     fat16_write(file_handle, buffer, strlen(buffer));
+    fat16_flush();
 }

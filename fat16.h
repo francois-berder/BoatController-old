@@ -122,6 +122,7 @@ int fat16_delete(char *filename);
  */
 long fat16_ls(long index, char *filename);
 
+void fat16_flush(void);
 
 #ifdef __cplusplus
 }

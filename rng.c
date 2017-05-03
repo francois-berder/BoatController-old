@@ -1,3 +1,10 @@
+/**
+ * Random Number Generator module of the Boat Controller.
+ *
+ * This module uses the Crypto module of the PIC24 to generate random values.
+ * Note that it overwrites any previous configuration of the crypto module.
+ */
+
 #include <xc.h>
 #include "rng.h"
 

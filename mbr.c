@@ -1,3 +1,15 @@
+/**
+ * Master Boot Record driver of the Boat Controller.
+ *
+ * Once the initialization of the SD card is finished, this module gets used
+ * to read the first sector of the SD card and find a FAT16 partition. To
+ * accomplish this task, it reads only the partition table of the MBR and
+ * returns the start sector of the first FAT16 partition it found.
+ *
+ * Note that FAT16 LBA are not supported (default format when formatting SD card
+ * on Windows 10).
+ */
+
 #include "log.h"
 #include "mbr.h"
 #include "sd.h"

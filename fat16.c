@@ -76,7 +76,7 @@ static int fat16_read_bpb(void)
     memset(&bpb, 0, sizeof(struct fat16_bpb));
 
     /* Parse boot sector */
-    LOG_INFO("#######   BPB   #######");
+    LOG_DBG("#######   BPB   #######");
     /* jump instruction on 3 bytes.
      * Either: 0xEB,0x??, 0x90
      * or: 0xE9,0x??,0x??
@@ -95,9 +95,9 @@ static int fat16_read_bpb(void)
     }
 
     hal_read((uint8_t*) & bpb.oem_name, 8);
-    LOG_INFO("OEM NAME: %s", bpb.oem_name);
+    LOG_DBG("OEM NAME: %s", bpb.oem_name);
     hal_read((uint8_t*) & bpb.bytes_per_sector, 2);
-    LOG_INFO("bytes per sector: %u", bpb.bytes_per_sector);
+    LOG_DBG("bytes per sector: %u", bpb.bytes_per_sector);
     if (bpb.bytes_per_sector != 512
         && bpb.bytes_per_sector != 1024
         && bpb.bytes_per_sector != 2048
@@ -105,7 +105,7 @@ static int fat16_read_bpb(void)
         return -INVALID_BYTES_PER_SECTOR;
 
     hal_read(&bpb.sectors_per_cluster, 1);
-    LOG_INFO("sectors per cluster: %u", bpb.sectors_per_cluster);
+    LOG_DBG("sectors per cluster: %u", bpb.sectors_per_cluster);
     if (bpb.sectors_per_cluster != 1
         && bpb.sectors_per_cluster != 2
         && bpb.sectors_per_cluster != 4
@@ -120,15 +120,15 @@ static int fat16_read_bpb(void)
         return -INVALID_BYTES_PER_CLUSTER;
 
     hal_read((uint8_t*) & bpb.reversed_sector_count, 2);
-    LOG_INFO("reserved sector count: %u", bpb.reversed_sector_count);
+    LOG_DBG("reserved sector count: %u", bpb.reversed_sector_count);
     if (bpb.reversed_sector_count != 1)
         return -INVALID_RESERVED_SECTOR_COUNT;
 
     hal_read(&bpb.num_fats, 1);
-    LOG_INFO("num fats: %u", bpb.num_fats);
+    LOG_DBG("num fats: %u", bpb.num_fats);
 
     hal_read((uint8_t*) & bpb.root_entry_count, 2);
-    LOG_INFO("root entry count: %u", bpb.root_entry_count);
+    LOG_DBG("root entry count: %u", bpb.root_entry_count);
     if ((((32 * bpb.root_entry_count) / bpb.bytes_per_sector) & 0x1) != 0)
         return -INVALID_ROOT_ENTRY_COUNT;
 
@@ -139,7 +139,7 @@ static int fat16_read_bpb(void)
     hal_read_byte(&data);
 
     hal_read((uint8_t*) & bpb.fat_size, 2);
-    LOG_INFO("fat size: %u", bpb.fat_size);
+    LOG_DBG("fat size: %u", bpb.fat_size);
 
     /* Skip sector per track for int 0x13 */
     hal_read_byte(&data);
@@ -163,7 +163,7 @@ static int fat16_read_bpb(void)
 
     if (bpb.sector_count == 0)
         bpb.sector_count = sector_count_32b;
-    LOG_INFO("sector count: %lu", (unsigned long) bpb.sector_count);
+    LOG_DBG("sector count: %lu", (unsigned long) bpb.sector_count);
 
     /* Skip drive number */
     hal_read_byte(&data);
@@ -174,13 +174,13 @@ static int fat16_read_bpb(void)
     hal_read_byte(&data);
     if (data == 0x29) {
         hal_read((uint8_t*) & bpb.volume_id, 4);
-        LOG_INFO("volume ID: %lu", bpb.volume_id);
+        LOG_DBG("volume ID: %lu", bpb.volume_id);
 
         hal_read((uint8_t*) & bpb.label, 11);
-        LOG_INFO("label: %s", bpb.label);
+        LOG_DBG("label: %s", bpb.label);
 
         hal_read((uint8_t*) bpb.fs_type, 8);
-        LOG_INFO("fs type: %s", bpb.fs_type);
+        LOG_DBG("fs type: %s", bpb.fs_type);
     }
 
     return 0;
@@ -700,12 +700,12 @@ int fat16_init(void)
         return ret;
 
     root_directory_sector_count = (bpb.root_entry_count * 32) / bpb.bytes_per_sector;
-    LOG_INFO("root directory sector count: %lu", root_directory_sector_count);
+    LOG_DBG("root directory sector count: %lu", root_directory_sector_count);
 
     /* Find number of sectors in data region */
     data_sector_count = bpb.sector_count - (bpb.reversed_sector_count + (bpb.num_fats * bpb.fat_size) + root_directory_sector_count);
     data_cluster_count = data_sector_count / bpb.sectors_per_cluster;
-    LOG_INFO("data cluster count: %lu", data_cluster_count);
+    LOG_DBG("data cluster count: %lu", data_cluster_count);
 
     if (data_cluster_count < 4085
         || data_cluster_count >= 65525)
@@ -717,9 +717,9 @@ int fat16_init(void)
     start_root_directory_region += start_fat_region;
     start_data_region = start_root_directory_region + (root_directory_sector_count * bpb.bytes_per_sector);
 
-    LOG_INFO("start_fat_region=%08lX", start_fat_region);
-    LOG_INFO("start_root_directory_region=%08lX", start_root_directory_region);
-    LOG_INFO("start_data_region=%08lX", start_data_region);
+    LOG_DBG("start_fat_region=%08lX", start_fat_region);
+    LOG_DBG("start_root_directory_region=%08lX", start_root_directory_region);
+    LOG_DBG("start_data_region=%08lX", start_data_region);
 
     /* Make sure that all handles are available */
     memset(handles, 0, sizeof(handles));

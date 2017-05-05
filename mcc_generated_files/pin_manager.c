@@ -61,7 +61,7 @@ void PIN_MANAGER_Initialize(void)
      * Setting the Output Latch SFR(s)
      ***************************************************************************/
     LATA = 0x0000;
-    LATB = 0x0200;
+    LATB = 0x8200;
 
     /****************************************************************************
      * Setting the GPIO Direction SFR(s)

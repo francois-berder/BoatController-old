@@ -2,6 +2,8 @@
 
 The boat controller receives input from the radio and the accelerometer/gyroscope to control two rudders and two motor controllers. It also saves data in a file in CSV format on a microSD card formatted in FAT16.
 
+![interface diagram](interface.png)
+
 <insert diagram>
 
 <insert BoatController photos>

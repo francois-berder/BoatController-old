@@ -23,4 +23,4 @@ The power switch is present on another part of the boat, easily accessible from 
 
 #### LED indicator
 
-The green LED is connected to pin RB13 of the microcontroller. During initialisation, the LED is turned on. If the initialisation fails, the LED blinks at a fast rate (5 times a second). If the initialisation is successful, the LED blinks at slow rate: on during 100ms, off during 1.9s.
+The green LED is connected to pin RB5 of the microcontroller. During initialisation, the LED is turned on. If the initialisation fails, the LED blinks at a fast rate (5 times a second). If the initialisation is successful, the LED blinks at slow rate: on during 100ms, off during 1.9s.

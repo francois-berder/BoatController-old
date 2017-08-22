@@ -9,17 +9,16 @@
     ic1.c
 
   @Summary
-    This is the generated source file for the IC1 driver using MPLAB(c) Code Configurator
+    This is the generated source file for the IC1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This source file provides APIs for driver for IC1.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Driver Version    :  0.5
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB 	          :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB 	          :  MPLAB X 3.60
 */
 
 /*
@@ -48,7 +47,6 @@
 */
 #include <xc.h>
 #include "ic1.h"
-#include "../radio.h"
 
 /**
   IC Mode.
@@ -85,7 +83,6 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _ISR _IC1Interrupt( void )
 {
     if(IFS0bits.IC1IF)
     {
-        RADIO_update(DIRECTION_CHANNEL);
         IFS0bits.IC1IF = 0;
     }
 }

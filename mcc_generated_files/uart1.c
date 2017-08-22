@@ -8,17 +8,16 @@
     uart1.c
 
   @Summary
-    This is the generated driver implementation file for the UART1 driver using MPLAB(c) Code Configurator
+    This is the generated driver implementation file for the UART1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This header file provides implementations for driver APIs for UART1.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB             :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB             :  MPLAB X 3.60
 */
 
 /*
@@ -54,36 +53,32 @@
 
 void UART1_Initialize(void)
 {
-    // Set the UART1 module to the options selected in the user interface.
-
+/**    
+     Set the UART1 module to the options selected in the user interface.
+     Make sure to set LAT bit corresponding to TxPin as high before UART initialization
+*/
     // STSEL 1; IREN disabled; PDSEL 8N; UARTEN enabled; RTSMD disabled; USIDL disabled; WAKE disabled; ABAUD disabled; LPBACK disabled; BRGH enabled; URXINV disabled; UEN TX_RX; 
-    U1MODE = 0x8008;
-
-    // OERR NO_ERROR_cleared; URXISEL RX_ONE_CHAR; UTXBRK COMPLETED; UTXEN disabled; ADDEN disabled; UTXISEL0 TX_ONE_CHAR; UTXINV disabled; 
+    U1MODE = (0x8008 & ~(1<<15));  // disabling UARTEN bit   
+    // UTXISEL0 TX_ONE_CHAR; UTXINV disabled; OERR NO_ERROR_cleared; URXISEL RX_ONE_CHAR; UTXBRK COMPLETED; UTXEN disabled; ADDEN disabled; 
     U1STA = 0x0000;
-
     // BaudRate = 38400; Frequency = 16000000 Hz; U1BRG 103; 
     U1BRG = 0x0067;
-
     // ADMADDR 0; ADMMASK 0; 
     U1ADMD = 0x0000;
-
     // T0PD 1 ETU; PTRCL T0; TXRPT Retransmits the error byte once; CONV Direct; SCEN disabled; 
     U1SCCON = 0x0000;
-
     // TXRPTIF disabled; TXRPTIE disabled; WTCIF disabled; WTCIE disabled; PARIE disabled; GTCIF disabled; GTCIE disabled; RXRPTIE disabled; RXRPTIF disabled; 
     U1SCINT = 0x0000;
-
     // GTC 0; 
     U1GTC = 0x0000;
-
     // WTCL 0; 
     U1WTCL = 0x0000;
-
     // WTCH 0; 
     U1WTCH = 0x0000;
-
-    U1STAbits.UTXEN = 1;
+    
+    U1MODEbits.UARTEN = 1;  // enabling UARTEN bit
+    U1STAbits.UTXEN = 1; 
+   
 }
 
 

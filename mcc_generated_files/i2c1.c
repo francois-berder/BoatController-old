@@ -8,17 +8,17 @@
     i2c1.c
 
   @Summary
-    This is the generated header file for the I2C1 driver using MPLAB(c) Code Configurator
+    This is the generated header file for the I2C1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This header file provides APIs for driver for I2C1.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
         Driver Version    :  1.0
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB 	          :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB 	          :  MPLAB X 3.60
 */
 
 /*
@@ -207,7 +207,7 @@ void I2C1_Initialize(void)
     I2C1BRG = 0x0012;
     // ACKEN disabled; STRICT disabled; STREN disabled; GCEN disabled; SMEN disabled; DISSLW disabled; I2CSIDL disabled; ACKDT Sends ACK; SCLREL Holds; RSEN disabled; A10M 7 Bit; PEN disabled; RCEN disabled; SEN disabled; I2CEN enabled; 
     I2C1CONL = 0x8200;
-    // R_nW disabled; P disabled; S disabled; BCL disabled; I2COV disabled; D_nA disabled; IWCOL disabled; 
+    // BCL disabled; D_nA disabled; R_nW disabled; P disabled; S disabled; I2COV disabled; IWCOL disabled; 
     I2C1STAT = 0x0000;
 
     /* MI2C1 - I2C1 Master Events */

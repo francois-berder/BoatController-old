@@ -1,5 +1,5 @@
 /**
-  @Generated MPLAB(c) Code Configurator Source File
+  @Generated PIC24 / dsPIC33 / PIC32MM MCUs Source File
 
   @Company:
     Microchip Technology Inc.
@@ -8,17 +8,16 @@
     mcc.c
 
   @Summary:
-    This is the mcc.c file generated using MPLAB(c) Code Configurator
+    This is the mcc.c file generated using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Driver Version    :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB             :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB             :  MPLAB X 3.60
 */
 
 /*
@@ -52,7 +51,7 @@
 #pragma config DSWDTEN = ON    // Deep Sleep Watchdog Timer Enable->DSWDT Enabled
 #pragma config DSSWEN = ON    // DSEN Bit Enable->Deep Sleep is controlled by the register bit DSEN
 #pragma config PLLDIV = PLL4X    // USB 96 MHz PLL Prescaler Select bits->4x PLL selected
-#pragma config I2C1SEL = ENABLE    // Alternate I2C1 enable bit->I2C1 uses ASCL1 and ASDA1 pins
+#pragma config I2C1SEL = DISABLE    // Alternate I2C1 enable bit->I2C1 uses SCL1 and SDA1 pins
 #pragma config IOL1WAY = ON    // PPS IOLOCK Set Only Once Enable bit->Once set, the IOLOCK bit cannot be cleared
 
 // CONFIG3
@@ -100,8 +99,8 @@ void SYSTEM_Initialize(void)
     UART1_Initialize();
     TMR3_Initialize();
     TMR4_Initialize();
-    TMR5_Initialize();
     TMR2_Initialize();
+    TMR5_Initialize();
     IC1_Initialize();
 }
 
@@ -119,8 +118,6 @@ void OSCILLATOR_Initialize(void)
     REFOCONH = 0x0000;
     // ROTRIM 0; 
     REFOTRIML = 0x0000;
-    // WDTO disabled; TRAPR disabled; SLEEP disabled; BOR disabled; DPSLP disabled; CM disabled; SWR disabled; SWDTEN disabled; EXTR disabled; POR disabled; IDLE disabled; IOPUWR disabled; VREGS disabled; 
-    RCON = 0x0000;
 }
 
 /**

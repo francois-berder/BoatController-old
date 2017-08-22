@@ -9,17 +9,16 @@
     tmr3.c
 
   @Summary
-    This is the generated source file for the TMR3 driver using MPLAB(c) Code Configurator
+    This is the generated source file for the TMR3 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This source file provides APIs for driver for TMR3. 
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Driver Version    :  0.5
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB 	          :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB 	          :  MPLAB X 3.60
 */
 
 /*
@@ -50,7 +49,7 @@
 
 #include <xc.h>
 #include "tmr3.h"
-#include "../output.h"
+
 /**
   Section: Data Type Definitions
 */
@@ -150,7 +149,7 @@ uint16_t TMR3_Counter16BitGet( void )
 
 void __attribute__ ((weak)) TMR3_CallBack(void)
 {
-    OUTPUT_change_state();
+    // Add your custom callback code here
 }
 
 void TMR3_Start( void )

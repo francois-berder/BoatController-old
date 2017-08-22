@@ -9,17 +9,16 @@
 
   @Summary:
     This is the generated driver implementation file for handling traps
-    using MPLAB(c) Code Configurator
+    using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description:
-    This source file provides implementations for MPLAB(c) Code Configurator traps.
+    This source file provides implementations for PIC24 / dsPIC33 / PIC32MM MCUs traps.
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Version           :  1.00
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB             :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB             :  MPLAB X 3.60
 */
 /*
     (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -93,39 +92,32 @@ inline static void use_failsafe_stack(void)
             - FAILSAFE_STACK_GUARDSIZE);
 }
 
-/** Oscillator Fail Trap vector */
+/** Oscillator Fail Trap vector**/
 void ERROR_HANDLER_NORETURN _OscillatorFail(void)
-{ 
-    INTCON1bits.OSCFAIL = 0;        //Clear the trap flag
+{
+    INTCON1bits.OSCFAIL = 0;  //Clear the trap flag
     TRAPS_halt_on_error(TRAPS_OSC_FAIL);
 }
-
-/** Stack Error Trap Vector */
+/** Stack Error Trap Vector**/
 void ERROR_HANDLER_NORETURN _StackError(void)
-{ 
+{
     /* We use a failsafe stack: the presence of a stack-pointer error
      * means that we cannot trust the stack to operate correctly unless
      * we set the stack pointer to a safe place.
      */
     use_failsafe_stack(); 
-
-    INTCON1bits.STKERR = 0;        //Clear the trap flag
+    INTCON1bits.STKERR = 0;  //Clear the trap flag
     TRAPS_halt_on_error(TRAPS_STACK_ERR);
 }
-
-/** Address Error Trap Vector */
+/** Address Error Trap Vector**/
 void ERROR_HANDLER_NORETURN _AddressError(void)
-{ 
-    INTCON1bits.ADDRERR = 0;        //Clear the trap flag
+{
+    INTCON1bits.ADDRERR = 0;  //Clear the trap flag
     TRAPS_halt_on_error(TRAPS_ADDRESS_ERR);
 }
-
-/** Math Error Trap Vector */
+/** Math Error Trap Vector**/
 void ERROR_HANDLER_NORETURN _MathError(void)
-{ 
-    INTCON1bits.MATHERR = 0;        //Clear the trap flag
+{
+    INTCON1bits.MATHERR = 0;  //Clear the trap flag
     TRAPS_halt_on_error(TRAPS_MATH_ERR);
 }
-
-
-

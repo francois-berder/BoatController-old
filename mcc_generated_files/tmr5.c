@@ -9,17 +9,16 @@
     tmr5.c
 
   @Summary
-    This is the generated source file for the TMR5 driver using MPLAB(c) Code Configurator
+    This is the generated source file for the TMR5 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This source file provides APIs for driver for TMR5. 
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
-        Driver Version    :  0.5
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB 	          :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB 	          :  MPLAB X 3.60
 */
 
 /*

@@ -15,12 +15,11 @@
   @Description:
     This source file provides implementations for MPLAB(c) Code Configurator interrupts.
     Generation Information : 
-        Product Revision  :  MPLAB(c) Code Configurator - 3.15.0
+        Product Revision  :  MPLAB(c) Code Configurator - 4.26
         Device            :  PIC24FJ128GB202
-        Version           :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.26
-        MPLAB             :  MPLAB X 3.20
+        Compiler          :  XC16 1.31
+        MPLAB             :  MPLAB X 3.60
 
     Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
 
@@ -67,7 +66,7 @@ void PIN_MANAGER_Initialize(void)
      * Setting the GPIO Direction SFR(s)
      ***************************************************************************/
     TRISA = 0x0000;
-    TRISB = 0x4D23;
+    TRISB = 0x4F03;
 
     /****************************************************************************
      * Setting the Weak Pull Up and Weak Pull Down SFR(s)
@@ -88,18 +87,18 @@ void PIN_MANAGER_Initialize(void)
     /****************************************************************************
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
-    ANSA = 0x0000;
-    ANSB = 0x8000;
+    ANSA = 0x0003;
+    ANSB = 0x0000;
 
     /****************************************************************************
      * Set the PPS
      ***************************************************************************/
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
 
-    RPOR3bits.RP7R = 0x0007;   //RB7->SPI1:SDO1;
     RPOR7bits.RP15R = 0x0003;   //RB15->UART1:U1TX;
     RPINR18bits.U1RXR = 0x000E;   //RB14->UART1:U1RX;
-    RPINR20bits.SDI1R = 0x0008;   //RB8->SPI1:SDI1;
+    RPOR6bits.RP13R = 0x0007;   //RB13->SPI1:SDO1;
+    RPINR20bits.SDI1R = 0x0004;   //RB4->SPI1:SDI1;
     RPINR7bits.IC1R = 0x0000;   //RB0->IC1:IC1;
     RPOR3bits.RP6R = 0x0008;   //RB6->SPI1:SCK1OUT;
     RPINR7bits.IC2R = 0x0001;   //RB1->IC2:IC2;

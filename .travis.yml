@@ -1,0 +1,17 @@
+dist: trusty
+language: c
+before_script:
+ - sudo dpkg --add-architecture i386
+ - sudo apt-get -yq update
+ - sudo apt-get -yq install --no-install-recommends libc6:i386 libstdc++6:i386
+ - COMPILER_BASE_URL=http://ww1.microchip.com/downloads/en/DeviceDoc/
+ - COMPILER_VERSION=v1.31
+ - COMPILER_INSTALLER=xc16-${COMPILER_VERSION}-full-install-linux-installer.run
+ - WGET="travis_retry wget --continue --tries=20 --waitretry=10 --retry-connrefused --no-dns-cache --timeout 300"
+ - $WGET ${COMPILER_BASE_URL}${COMPILER_INSTALLER}
+ - chmod +x ${COMPILER_INSTALLER}
+ - sudo ./${COMPILER_INSTALLER} --mode unattended --netservername localhost
+ - export PATH=$PATH:/opt/microchip/xc16/${COMPILER_VERSION}/bin
+
+script:
+ - make

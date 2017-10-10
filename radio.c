@@ -43,10 +43,7 @@ static struct
     uint8_t entries_cnt;
     uint8_t first_entry_index;
     uint16_t entries[BUFFER_SIZE];
-} buffer[CHANNEL_CNT] = {
-    { 0, 0 },
-    { 0, 0 }
-};
+} buffer[CHANNEL_CNT];
 
 static void RADIO_enable_interrupts(const uint8_t channel)
 {
@@ -120,7 +117,7 @@ void RADIO_update(const uint8_t channel)
         else
             IC2CON1bits.ICM = 0x2;
     } else {
-        uint16_t end, entry;
+        uint16_t end = 0, entry = 0;
 		if(channel == DIRECTION_CHANNEL) {
 			while (!IC1_IsCaptureBufferEmpty())
 				end = RADIO_read_ic(channel);

@@ -12,7 +12,7 @@ TARGET_ELF := $(BIN_DIR)/$(TARGET_NAME).elf
 TARGET := $(BIN_DIR)/$(TARGET_NAME).hex
 CFLAGS += -Wall -Wextra
 CFLAGS += -mcpu=$(DEVICE)
-LDFLAGS := -T p$(DEVICE).gld
+LDFLAGS := -Wl,-Map,$(BIN_DIR)/output.map,--report-mem -T p$(DEVICE).gld
 DEPFLAGS = -MMD -MP -MF $(@:$(BUILD_DIR)/%.o=$(DEP_DIR)/%.d)
 
 SRCS := fat16.c hal_sd.c main.c mbr.c mpu6050.c output.c radio.c rng.c \

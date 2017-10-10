@@ -11,6 +11,8 @@ BIN_DIR ?= bin
 TARGET_ELF := $(BIN_DIR)/$(TARGET_NAME).elf
 TARGET := $(BIN_DIR)/$(TARGET_NAME).hex
 CFLAGS += -Wall -Wextra -Werror
+release: CFLAGS += -O1
+debug: CFLAGS += -g
 CFLAGS += -mcpu=$(DEVICE)
 LDFLAGS := -Wl,-Map,$(BIN_DIR)/output.map,--report-mem -T p$(DEVICE).gld
 DEPFLAGS = -MMD -MP -MF $(@:$(BUILD_DIR)/%.o=$(DEP_DIR)/%.d)
@@ -35,7 +37,13 @@ OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:$(BUILD_DIR)/%.o=$(DEP_DIR)/%.d)
 
 .PHONY: all
-all: $(TARGET)
+all: release
+
+.PHONY: release
+release: $(TARGET)
+
+.PHONY: debug
+debug: $(TARGET)
 
 .PHONY: build-dirs
 build-dirs:

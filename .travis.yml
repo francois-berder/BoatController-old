@@ -1,8 +1,10 @@
 dist: trusty
 language: c
-before_script:
+before_install:
  - sudo dpkg --add-architecture i386
  - sudo apt-get -yq update
+
+install:
  - sudo apt-get -yq install --no-install-recommends libc6:i386 libstdc++6:i386
  - COMPILER_BASE_URL=http://ww1.microchip.com/downloads/en/DeviceDoc/
  - COMPILER_VERSION=v1.31

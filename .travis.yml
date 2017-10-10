@@ -15,5 +15,9 @@ install:
  - sudo ./${COMPILER_INSTALLER} --mode unattended --netservername localhost
  - export PATH=$PATH:/opt/microchip/xc16/${COMPILER_VERSION}/bin
 
+env:
+  - VARIANT=release
+  - VARIANT=debug
+
 script:
- - make
+ - make ${VARIANT}

@@ -8,6 +8,16 @@ The boat controller receives input from the radio and the accelerometer/gyroscop
 
 <insert BoatController photos>
 
+## Build instructions
+
+You need XC16 installed on your machine and the compiler location must be specified in PATH variable.
+
+```sh
+$ make
+```
+
+This creates the firmware at location ```bin/boatcontroller.hex```.
+
 #### Components
 
 |**name**|**description**|

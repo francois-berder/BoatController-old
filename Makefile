@@ -10,7 +10,7 @@ DEP_DIR ?= $(BUILD_DIR)/deps
 BIN_DIR ?= bin
 TARGET_ELF := $(BIN_DIR)/$(TARGET_NAME).elf
 TARGET := $(BIN_DIR)/$(TARGET_NAME).hex
-CFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wextra -Werror
 CFLAGS += -mcpu=$(DEVICE)
 LDFLAGS := -Wl,-Map,$(BIN_DIR)/output.map,--report-mem -T p$(DEVICE).gld
 DEPFLAGS = -MMD -MP -MF $(@:$(BUILD_DIR)/%.o=$(DEP_DIR)/%.d)

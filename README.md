@@ -1,4 +1,4 @@
-# Boat controller
+# Boat controller [![Build Status](https://travis-ci.org/francois-berder/BoatController.svg?branch=master)](https://travis-ci.org/francois-berder/BoatController)
 
 The boat controller receives input from the radio and the accelerometer/gyroscope to control two rudders and two motor controllers. It also saves data in a file in CSV format on a microSD card formatted in FAT16.
 

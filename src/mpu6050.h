@@ -6,7 +6,7 @@
  */
 
 #ifndef MPU6050_H
-#define    MPU6050_H
+#define MPU6050_H
 
 #ifdef    __cplusplus
 extern "C" {
@@ -52,4 +52,3 @@ void MPU6050_clear_fifo(void);
 #endif
 
 #endif    /* MPU6050_H */
-

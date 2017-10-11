@@ -41,14 +41,14 @@ static uint32_t current_address = 0; /* In byte */
 static uint32_t start_sector = INVALID_SECTOR_INDEX;
 
 struct sector {
-    uint8_t data[BLOCK_LENGTH];
-    uint32_t index;
-    uint16_t last_usage; /**
+    uint8_t     data[BLOCK_LENGTH];
+    uint32_t    index;
+    uint16_t    last_usage; /**
                              * This variable is used to determine which entry
                              * is the oldest. A low value means the sector was
                              * used not long ago.
                              */
-    uint8_t flags;
+    uint8_t     flags;
 };
 
 static struct sector sectors[CACHE_ENTRY_COUNT];
@@ -63,6 +63,7 @@ static inline uint32_t get_sector_from_address(uint32_t address)
 static inline uint32_t get_offset_from_address(uint32_t address)
 {
     uint32_t mask = BLOCK_LENGTH - 1;
+
     return address & mask;
 }
 
@@ -83,16 +84,14 @@ static uint8_t get_entry_index(uint32_t sector_index)
     uint8_t i;
 
     /* Check if the sector is already loaded*/
-    for (i = 0; i < CACHE_ENTRY_COUNT; ++i) {
+    for (i = 0; i < CACHE_ENTRY_COUNT; ++i)
         if (sectors[i].index == sector_index)
             return i;
-    }
 
     /* Try to find empty slot in cache */
-    for (i = 0; i < CACHE_ENTRY_COUNT; ++i) {
+    for (i = 0; i < CACHE_ENTRY_COUNT; ++i)
         if (sectors[i].index == INVALID_SECTOR_INDEX)
             break;
-    }
 
     /* If the cache is full, evict one entry */
     if (i == CACHE_ENTRY_COUNT) {
@@ -137,6 +136,7 @@ void hal_init(uint32_t _start_sector)
 int hal_read(uint8_t *buffer, uint32_t length)
 {
     uint32_t count = 0;
+
     LOG_DBG("hal_sd: Reading %lu bytes at address %08lX.", length, current_address);
     while (count < length) {
         uint32_t chunk = 0, bytes_remaining_sector = 0;
@@ -176,6 +176,7 @@ int hal_seek(uint32_t address)
 int hal_write(uint8_t *buffer, uint32_t length)
 {
     uint32_t count = 0;
+
     LOG_DBG("hal_sd: Writing %lu bytes at address %08lX.", length, current_address);
     while (count < length) {
         uint32_t chunk = 0, bytes_remaining_sector = 0;

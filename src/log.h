@@ -6,7 +6,7 @@
  */
 
 #ifndef LOG_H
-#define    LOG_H
+#define LOG_H
 
 #ifdef    __cplusplus
 extern "C" {
@@ -14,8 +14,7 @@ extern "C" {
 
 #include <stdio.h>
 
-enum LOG_LEVEL
-{
+enum LOG_LEVEL {
     DEBUG,
     INFO,
     WARNING,
@@ -28,12 +27,12 @@ extern char log_level;
         if (log_level > LOG_LEVEL) \
             break; \
         if (log_level > DEBUG) \
-            printf("[%s]: ", #LOG_LEVEL); \
+            printf("[%s]: ", # LOG_LEVEL); \
         else \
-            printf("[%s] %s,%d: ", #LOG_LEVEL, __FILE__, __LINE__);  \
+            printf("[%s] %s,%d: ", # LOG_LEVEL, __FILE__, __LINE__);  \
         printf(__VA_ARGS__); \
         printf("\n"); \
-    }while(0)
+    } while (0)
 
 #define LOG_DBG(...)    LOG(DEBUG, __VA_ARGS__)
 #define LOG_INFO(...)   LOG(INFO, __VA_ARGS__)
@@ -45,4 +44,3 @@ extern char log_level;
 #endif
 
 #endif    /* LOG_H */
-

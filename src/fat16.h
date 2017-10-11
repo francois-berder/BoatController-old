@@ -7,8 +7,7 @@
 extern "C" {
 #endif
 
-enum FAT_ERROR
-{
+enum FAT_ERROR {
     NO_ERROR,
     INVALID_JUMP_INSTRUCTION,
     INVALID_BYTES_PER_SECTOR,

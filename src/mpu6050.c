@@ -44,11 +44,12 @@ static uint8_t read_8bit_reg(uint8_t reg_address)
 {
     I2C1_MESSAGE_STATUS status;
     uint8_t value;
+
     I2C1_MasterWrite(&reg_address, 1, MPU6050_ADDRESS, &status);
-    while(status == I2C1_MESSAGE_PENDING);
+    while (status == I2C1_MESSAGE_PENDING) ;
 
     I2C1_MasterRead(&value, 1, MPU6050_ADDRESS, &status);
-    while(status == I2C1_MESSAGE_PENDING);
+    while (status == I2C1_MESSAGE_PENDING) ;
 
     return value;
 }
@@ -57,13 +58,15 @@ static void write_8bit_reg(uint8_t reg_address, uint8_t value)
 {
     I2C1_MESSAGE_STATUS status;
     uint8_t buffer[2] = { reg_address, value };
+
     I2C1_MasterWrite(buffer, sizeof(buffer), MPU6050_ADDRESS, &status);
-    while(status == I2C1_MESSAGE_PENDING);
+    while (status == I2C1_MESSAGE_PENDING) ;
 }
 
 void MPU6050_init(void)
 {
     uint8_t device_ID;
+
     __delay_ms(100);
 
     device_ID = read_8bit_reg(WHO_AM_I);
@@ -105,10 +108,10 @@ uint16_t MPU6050_get_samples_cnt(void)
 
     buffer[0] = FIFO_COUNT_HIGH;
     I2C1_MasterWrite(buffer, 1, MPU6050_ADDRESS, &status);
-    while(status == I2C1_MESSAGE_PENDING);
+    while (status == I2C1_MESSAGE_PENDING) ;
 
     I2C1_MasterRead(buffer, sizeof(buffer), MPU6050_ADDRESS, &status);
-    while(status == I2C1_MESSAGE_PENDING);
+    while (status == I2C1_MESSAGE_PENDING) ;
 
     cnt = buffer[0];
     cnt <<= 8;
@@ -126,36 +129,36 @@ void MPU6050_read_fifo(int16_t *samples, uint16_t samples_cnt)
         uint8_t buffer[12];
         uint8_t reg = FIFO_DATA;
         I2C1_MasterWrite(&reg, 1, MPU6050_ADDRESS, &status);
-        while(status == I2C1_MESSAGE_PENDING);
+        while (status == I2C1_MESSAGE_PENDING) ;
 
         I2C1_MasterRead(buffer, sizeof(buffer), MPU6050_ADDRESS, &status);
-        while(status == I2C1_MESSAGE_PENDING);
+        while (status == I2C1_MESSAGE_PENDING) ;
 
         /* Fill accelerometer data */
-        samples[i*6] = buffer[0];
-        samples[i*6] <<= 8;
-        samples[i*6] |= buffer[1];
+        samples[i * 6] = buffer[0];
+        samples[i * 6] <<= 8;
+        samples[i * 6] |= buffer[1];
 
-        samples[i*6+1] = buffer[2];
-        samples[i*6+1] <<= 8;
-        samples[i*6+1] |= buffer[3];
+        samples[i * 6 + 1] = buffer[2];
+        samples[i * 6 + 1] <<= 8;
+        samples[i * 6 + 1] |= buffer[3];
 
-        samples[i*6+2] = buffer[4];
-        samples[i*6+2] <<= 8;
-        samples[i*6+2] |= buffer[5];
+        samples[i * 6 + 2] = buffer[4];
+        samples[i * 6 + 2] <<= 8;
+        samples[i * 6 + 2] |= buffer[5];
 
         /* Fill gyroscope data */
-        samples[i*6+3] = buffer[6];
-        samples[i*6+3] <<= 8;
-        samples[i*6+3] |= buffer[7];
+        samples[i * 6 + 3] = buffer[6];
+        samples[i * 6 + 3] <<= 8;
+        samples[i * 6 + 3] |= buffer[7];
 
-        samples[i*6+4] = buffer[8];
-        samples[i*6+4] <<= 8;
-        samples[i*6+4] |= buffer[9];
+        samples[i * 6 + 4] = buffer[8];
+        samples[i * 6 + 4] <<= 8;
+        samples[i * 6 + 4] |= buffer[9];
 
-        samples[i*6+5] = buffer[10];
-        samples[i*6+5] <<= 8;
-        samples[i*6+5] |= buffer[11];
+        samples[i * 6 + 5] = buffer[10];
+        samples[i * 6 + 5] <<= 8;
+        samples[i * 6 + 5] |= buffer[11];
     }
 }
 

@@ -23,27 +23,27 @@
 #define CLUSTER_OFFSET_ROOT_DIR_ENTRY   (26)
 
 static struct fat16_bpb {
-    char oem_name[8];
-    uint16_t bytes_per_sector;
-    uint8_t sectors_per_cluster;
-    uint16_t reversed_sector_count;
-    uint8_t num_fats;
-    uint16_t root_entry_count;
-    uint32_t sector_count;
-    uint16_t fat_size; /* in sectors */
-    uint32_t volume_id;
-    char label[11];
-    char fs_type[8];
+    char        oem_name[8];
+    uint16_t    bytes_per_sector;
+    uint8_t     sectors_per_cluster;
+    uint16_t    reversed_sector_count;
+    uint8_t     num_fats;
+    uint16_t    root_entry_count;
+    uint32_t    sector_count;
+    uint16_t    fat_size; /* in sectors */
+    uint32_t    volume_id;
+    char        label[11];
+    char        fs_type[8];
 } bpb;
 
 struct dir_entry {
-    char filename[11];
-    uint8_t attribute;
-    uint8_t reserved[10];
-    uint8_t time[2];
-    uint8_t date[2];
-    uint16_t starting_cluster;
-    uint32_t size;
+    char        filename[11];
+    uint8_t     attribute;
+    uint8_t     reserved[10];
+    uint8_t     time[2];
+    uint8_t     date[2];
+    uint16_t    starting_cluster;
+    uint32_t    size;
 };
 
 enum FILE_ATTRIBUTE {
@@ -56,18 +56,18 @@ enum FILE_ATTRIBUTE {
 };
 
 static struct {
-    char filename[11]; /* If handle is not used, filename[0] == 0 */
-    bool read_mode; /* True if reading from file, false if writing to file */
-    uint16_t entry_index; /* Index of the entry in the root directory */
-    uint16_t cluster; /* Current cluster reading/writing */
-    uint16_t offset; /* Offset in bytes in cluster */
-    uint32_t remaining_bytes; /* Remaining bytes to be read in bytes in the file, only used in read mode */
+    char        filename[11];       /* If handle is not used, filename[0] == 0 */
+    bool        read_mode;          /* True if reading from file, false if writing to file */
+    uint16_t    entry_index;        /* Index of the entry in the root directory */
+    uint16_t    cluster;            /* Current cluster reading/writing */
+    uint16_t    offset;             /* Offset in bytes in cluster */
+    uint32_t    remaining_bytes;    /* Remaining bytes to be read in bytes in the file, only used in read mode */
 } handles[HANDLE_COUNT];
 
-static uint32_t start_fat_region = 0; /* offset in bytes of first FAT */
-static uint32_t start_root_directory_region = 0; /* offset in bytes of root directory */
-static uint32_t start_data_region = 0; /* offset in bytes of data region */
-static uint32_t data_cluster_count = 0; /* Number of clusters in data region */
+static uint32_t start_fat_region = 0;               /* offset in bytes of first FAT */
+static uint32_t start_root_directory_region = 0;    /* offset in bytes of root directory */
+static uint32_t start_data_region = 0;              /* offset in bytes of data region */
+static uint32_t data_cluster_count = 0;             /* Number of clusters in data region */
 
 static int fat16_read_bpb(void)
 {
@@ -94,9 +94,9 @@ static int fat16_read_bpb(void)
         return -INVALID_JUMP_INSTRUCTION;
     }
 
-    hal_read((uint8_t*) & bpb.oem_name, 8);
+    hal_read((uint8_t *)&bpb.oem_name, 8);
     LOG_DBG("OEM NAME: %s", bpb.oem_name);
-    hal_read((uint8_t*) & bpb.bytes_per_sector, 2);
+    hal_read((uint8_t *)&bpb.bytes_per_sector, 2);
     LOG_DBG("bytes per sector: %u", bpb.bytes_per_sector);
     if (bpb.bytes_per_sector != 512
         && bpb.bytes_per_sector != 1024
@@ -119,7 +119,7 @@ static int fat16_read_bpb(void)
     if (bpb.bytes_per_sector * bpb.sectors_per_cluster > MAX_BYTES_PER_CLUSTER)
         return -INVALID_BYTES_PER_CLUSTER;
 
-    hal_read((uint8_t*) & bpb.reversed_sector_count, 2);
+    hal_read((uint8_t *)&bpb.reversed_sector_count, 2);
     LOG_DBG("reserved sector count: %u", bpb.reversed_sector_count);
     if (bpb.reversed_sector_count != 1)
         return -INVALID_RESERVED_SECTOR_COUNT;
@@ -127,18 +127,18 @@ static int fat16_read_bpb(void)
     hal_read(&bpb.num_fats, 1);
     LOG_DBG("num fats: %u", bpb.num_fats);
 
-    hal_read((uint8_t*) & bpb.root_entry_count, 2);
+    hal_read((uint8_t *)&bpb.root_entry_count, 2);
     LOG_DBG("root entry count: %u", bpb.root_entry_count);
     if ((((32 * bpb.root_entry_count) / bpb.bytes_per_sector) & 0x1) != 0)
         return -INVALID_ROOT_ENTRY_COUNT;
 
-    hal_read((uint8_t*) & bpb.sector_count, 2);
+    hal_read((uint8_t *)&bpb.sector_count, 2);
 
 
     /* Skip media */
     hal_read_byte(&data);
 
-    hal_read((uint8_t*) & bpb.fat_size, 2);
+    hal_read((uint8_t *)&bpb.fat_size, 2);
     LOG_DBG("fat size: %u", bpb.fat_size);
 
     /* Skip sector per track for int 0x13 */
@@ -156,14 +156,14 @@ static int fat16_read_bpb(void)
     hal_read_byte(&data);
 
     uint32_t sector_count_32b;
-    hal_read((uint8_t*) & sector_count_32b, 4);
+    hal_read((uint8_t *)&sector_count_32b, 4);
     if ((bpb.sector_count != 0 && sector_count_32b != 0)
         || (bpb.sector_count == 0 && sector_count_32b == 0))
         return -INVALID_SECTOR_COUNT;
 
     if (bpb.sector_count == 0)
         bpb.sector_count = sector_count_32b;
-    LOG_DBG("sector count: %lu", (unsigned long) bpb.sector_count);
+    LOG_DBG("sector count: %lu", (unsigned long)bpb.sector_count);
 
     /* Skip drive number */
     hal_read_byte(&data);
@@ -173,13 +173,13 @@ static int fat16_read_bpb(void)
 
     hal_read_byte(&data);
     if (data == 0x29) {
-        hal_read((uint8_t*) & bpb.volume_id, 4);
+        hal_read((uint8_t *)&bpb.volume_id, 4);
         LOG_DBG("volume ID: %lu", bpb.volume_id);
 
-        hal_read((uint8_t*) & bpb.label, 11);
+        hal_read((uint8_t *)&bpb.label, 11);
         LOG_DBG("label: %s", bpb.label);
 
-        hal_read((uint8_t*) bpb.fs_type, 8);
+        hal_read((uint8_t *)bpb.fs_type, 8);
         LOG_DBG("fs type: %s", bpb.fs_type);
     }
 
@@ -188,18 +188,18 @@ static int fat16_read_bpb(void)
 
 static bool is_character_valid(char c)
 {
-    return('a' <= c && c <= 'z')
-        || ('A' <= c && c <= 'Z')
-        || ('0' <= c && c <= '9')
-        || c == '#'
-        || c == '$'
-        || c == '%'
-        || c == '&'
-        || c == '\''
-        || c == '('
-        || c == ')'
-        || c == '-'
-        || c == '@';
+    return ('a' <= c && c <= 'z')
+           || ('A' <= c && c <= 'Z')
+           || ('0' <= c && c <= '9')
+           || c == '#'
+           || c == '$'
+           || c == '%'
+           || c == '&'
+           || c == '\''
+           || c == '('
+           || c == ')'
+           || c == '-'
+           || c == '@';
 }
 
 /**
@@ -281,21 +281,21 @@ static void dump_root_entry(struct dir_entry e)
     if (e.attribute & ARCHIVE)
         LOG_INFO("archive ");
     LOG_INFO("starting cluster: %u", e.starting_cluster);
-    LOG_INFO("size: %lu", (unsigned long) e.size);
+    LOG_INFO("size: %lu", (unsigned long)e.size);
 }
 #endif
 
 static bool is_file_opened(char *filename, bool mode)
 {
     uint8_t i = 0;
+
     for (; i < HANDLE_COUNT; ++i) {
         if (handles[i].filename[0] == 0)
             continue;
 
-        if (memcmp(filename, handles[i].filename, sizeof(handles[i].filename)) == 0) {
+        if (memcmp(filename, handles[i].filename, sizeof(handles[i].filename)) == 0)
             if (handles[i].read_mode == mode)
                 return true;
-        }
     }
 
     return false;
@@ -304,10 +304,10 @@ static bool is_file_opened(char *filename, bool mode)
 static uint8_t find_available_handle(void)
 {
     uint8_t i = 0;
-    for (; i < HANDLE_COUNT; ++i) {
+
+    for (; i < HANDLE_COUNT; ++i)
         if (handles[i].filename[0] == 0)
             return i;
-    }
 
     return INVALID_HANDLE;
 }
@@ -321,6 +321,7 @@ static uint8_t find_available_handle(void)
 static void move_to_data_region(uint16_t cluster, uint16_t offset)
 {
     uint32_t tmp = cluster - 2;
+
     tmp *= bpb.sectors_per_cluster;
     tmp *= bpb.bytes_per_sector;
     uint32_t pos = start_data_region;
@@ -338,6 +339,7 @@ static void move_to_data_region(uint16_t cluster, uint16_t offset)
 static void move_to_root_directory_region(uint16_t entry_index)
 {
     uint32_t pos = entry_index * 32;
+
     pos += start_root_directory_region;
     LOG_DBG("Moving to %08lX\n", pos);
     hal_seek(pos);
@@ -371,13 +373,13 @@ static long find_root_directory_entry(char *filename)
     move_to_root_directory_region(0);
     for (i = 0; i < bpb.root_entry_count; ++i) {
         struct dir_entry e;
-        hal_read((uint8_t*) & e, sizeof(struct dir_entry));
+        hal_read((uint8_t *)&e, sizeof(struct dir_entry));
 #ifndef NDEBUG
         dump_root_entry(e);
 #endif
 
         /* Skip available entry */
-        if ((uint8_t) (e.filename[0]) == ROOT_DIR_AVAILABLE_ENTRY)
+        if ((uint8_t)(e.filename[0]) == ROOT_DIR_AVAILABLE_ENTRY)
             continue;
 
         /* Check if we reach end of list of root directory entries */
@@ -422,7 +424,7 @@ static int fat16_open_read(uint8_t handle, char *filename)
     }
 
     move_to_root_directory_region(entry_index);
-    hal_read((uint8_t*) & entry, sizeof(struct dir_entry));
+    hal_read((uint8_t *)&entry, sizeof(struct dir_entry));
 
     /* Create handle */
     memcpy(handles[handle].filename, filename, sizeof(handles[handle].filename));
@@ -443,6 +445,7 @@ static int fat16_open_read(uint8_t handle, char *filename)
 static long find_available_entry_in_root_directory(void)
 {
     uint16_t i = 0;
+
     do {
         uint8_t tmp;
         move_to_root_directory_region(i);
@@ -474,7 +477,7 @@ static bool last_entry_in_root_directory(uint16_t entry_index)
      * root directory list.
      */
     move_to_root_directory_region(entry_index + 1);
-    hal_read((uint8_t*) & tmp, sizeof(tmp));
+    hal_read((uint8_t *)&tmp, sizeof(tmp));
     return tmp == 0;
 }
 
@@ -489,6 +492,7 @@ static bool last_entry_in_root_directory(uint16_t entry_index)
 static void mark_root_entry_as_available(uint16_t entry_index)
 {
     uint8_t entry_marker = 0;
+
     if (!last_entry_in_root_directory(entry_index))
         entry_marker = ROOT_DIR_AVAILABLE_ENTRY;
     move_to_root_directory_region(entry_index);
@@ -507,11 +511,11 @@ static void free_cluster_chain(uint16_t cluster)
         uint16_t free_cluster = 0;
         uint16_t next_cluster;
         move_to_fat_region(cluster);
-        hal_read((uint8_t*) & next_cluster, sizeof(next_cluster));
+        hal_read((uint8_t *)&next_cluster, sizeof(next_cluster));
 
         move_to_fat_region(cluster);
 
-        hal_write((uint8_t*) & free_cluster, sizeof(free_cluster));
+        hal_write((uint8_t *)&free_cluster, sizeof(free_cluster));
 
         if (next_cluster >= 0xFFF8)
             break;
@@ -546,7 +550,7 @@ static int delete_file(char *fat_filename)
     pos += CLUSTER_OFFSET_ROOT_DIR_ENTRY;
     LOG_INFO("Moving to %08lX\n", pos);
     hal_seek(pos);
-    hal_read((uint8_t*) & starting_cluster, sizeof(starting_cluster));
+    hal_read((uint8_t *)&starting_cluster, sizeof(starting_cluster));
     free_cluster_chain(starting_cluster);
 
     return 0;
@@ -598,7 +602,7 @@ static int fat16_open_write(uint8_t handle, char *filename)
     entry.size = 0;
 
     move_to_root_directory_region(entry_index);
-    hal_write((uint8_t*) & entry, sizeof(struct dir_entry));
+    hal_write((uint8_t *)&entry, sizeof(struct dir_entry));
 
     /* Create a handle */
     memcpy(handles[handle].filename, filename, sizeof(handles[handle].filename));
@@ -629,8 +633,9 @@ static bool check_handle(uint8_t handle)
 static uint16_t read_fat_entry(uint16_t cluster)
 {
     uint16_t fat_entry = 0;
+
     move_to_fat_region(cluster);
-    hal_read((uint8_t*) & fat_entry, sizeof(fat_entry));
+    hal_read((uint8_t *)&fat_entry, sizeof(fat_entry));
 
     return fat_entry;
 }
@@ -638,19 +643,20 @@ static uint16_t read_fat_entry(uint16_t cluster)
 static long allocate_cluster(uint16_t cluster)
 {
     uint16_t next_cluster = FIRST_CLUSTER_INDEX_IN_FAT;
+
     /* Find an empty location in the FAT, skip first 3 entries in the FAT,
      * because they are reserved.
      */
     move_to_fat_region(next_cluster);
     for (; next_cluster < data_cluster_count - FIRST_CLUSTER_INDEX_IN_FAT; ++next_cluster) {
         uint16_t fat_entry;
-        hal_read((uint8_t*) & fat_entry, sizeof(fat_entry));
+        hal_read((uint8_t *)&fat_entry, sizeof(fat_entry));
 
         /* Mark it as end of file */
         if (fat_entry == 0) {
             fat_entry = 0xFFFF;
             move_to_fat_region(next_cluster);
-            hal_write((uint8_t*) & fat_entry, sizeof(fat_entry));
+            hal_write((uint8_t *)&fat_entry, sizeof(fat_entry));
             break;
         }
     }
@@ -663,7 +669,7 @@ static long allocate_cluster(uint16_t cluster)
     /* Update current cluster to point to next one */
     if (cluster != 0) {
         move_to_fat_region(cluster);
-        hal_write((uint8_t*) & next_cluster, sizeof(next_cluster));
+        hal_write((uint8_t *)&next_cluster, sizeof(next_cluster));
     }
 
     return next_cluster;
@@ -680,22 +686,24 @@ static void update_size_file(uint16_t entry_index, uint32_t bytes_written_count)
 {
     uint32_t file_size = 0;
     uint32_t pos = start_root_directory_region;
+
     pos += entry_index * 32;
     pos += 28; /* Offset in bytes of the file size in the entry */
 
     hal_seek(pos);
-    hal_read((uint8_t*) & file_size, sizeof(file_size));
+    hal_read((uint8_t *)&file_size, sizeof(file_size));
 
     file_size += bytes_written_count;
 
     hal_seek(pos);
-    hal_write((uint8_t*) & file_size, sizeof(file_size));
+    hal_write((uint8_t *)&file_size, sizeof(file_size));
 }
 
 int fat16_init(void)
 {
     uint32_t data_sector_count, root_directory_sector_count;
     int ret = fat16_read_bpb();
+
     if (ret < 0)
         return ret;
 
@@ -794,7 +802,7 @@ int fat16_read(uint8_t handle, char *buffer, uint32_t count)
         if (chunk_length > handles[handle].remaining_bytes)
             chunk_length = handles[handle].remaining_bytes;
 
-        hal_read((uint8_t*) buffer, chunk_length);
+        hal_read((uint8_t *)buffer, chunk_length);
 
         handles[handle].remaining_bytes -= chunk_length;
         handles[handle].offset += chunk_length;
@@ -863,7 +871,7 @@ int fat16_write(uint8_t handle, char *buffer, uint32_t count)
                 pos += handles[handle].entry_index * 32;
                 pos += CLUSTER_OFFSET_ROOT_DIR_ENTRY;
                 hal_seek(pos);
-                hal_write((uint8_t*) & new_cluster, sizeof(new_cluster));
+                hal_write((uint8_t *)&new_cluster, sizeof(new_cluster));
             }
 
             handles[handle].cluster = new_cluster;
@@ -877,7 +885,7 @@ int fat16_write(uint8_t handle, char *buffer, uint32_t count)
         if (chunk_length > bytes_remaining_in_cluster)
             chunk_length = bytes_remaining_in_cluster;
 
-        hal_write((uint8_t*) buffer, chunk_length);
+        hal_write((uint8_t *)buffer, chunk_length);
 
         count -= chunk_length;
         buffer += chunk_length;
@@ -935,11 +943,11 @@ long fat16_ls(long index, char *filename)
 
     fat_filename[0] = 0;
     while (fat_filename[0] == 0
-        || ((uint8_t) fat_filename[0]) == ROOT_DIR_AVAILABLE_ENTRY) {
+           || ((uint8_t)fat_filename[0]) == ROOT_DIR_AVAILABLE_ENTRY) {
         uint8_t attribute = 0;
 
         move_to_root_directory_region(index);
-        hal_read((uint8_t*) fat_filename, 11);
+        hal_read((uint8_t *)fat_filename, 11);
         ++index;
 
         /* If this condition is true, the end of the root directory is reached.
@@ -952,8 +960,8 @@ long fat16_ls(long index, char *filename)
         hal_read(&attribute, 1);
         if ((attribute & ROOT_DIR_VFAT_ENTRY) == ROOT_DIR_VFAT_ENTRY) {
             fat_filename[0] = 0; /* Make sure that the condition of the loop
-                                     * remains true.
-                                     */
+                                  * remains true.
+                                  */
             continue;
         }
     }

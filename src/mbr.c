@@ -25,6 +25,7 @@
 static uint32_t read_32bit_le(uint8_t *buffer)
 {
     uint32_t res;
+
     res = buffer[3];
     res <<= 8;
     res |= buffer[2];

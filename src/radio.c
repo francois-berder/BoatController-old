@@ -38,11 +38,10 @@
 static uint16_t start[CHANNEL_CNT] = { 0, 0 };
 static bool pin_high[CHANNEL_CNT] = { false, false };
 
-static struct
-{
-    uint8_t entries_cnt;
-    uint8_t first_entry_index;
-    uint16_t entries[BUFFER_SIZE];
+static struct {
+    uint8_t     entries_cnt;
+    uint8_t     first_entry_index;
+    uint16_t    entries[BUFFER_SIZE];
 } buffer[CHANNEL_CNT];
 
 static void RADIO_enable_interrupts(const uint8_t channel)
@@ -75,10 +74,9 @@ static uint16_t RADIO_read_ic(const uint8_t channel)
 {
     if (channel == DIRECTION_CHANNEL) {
         return IC1_CaptureDataRead();
-    }
-    else if (channel == SPEED_CHANNEL)
+    } else if (channel == SPEED_CHANNEL) {
         return IC2_CaptureDataRead();
-    else {
+    } else {
         LOG_ERR("radio: Cannot read from IC with invalid channel");
         return 0;
     }
@@ -95,6 +93,7 @@ static uint16_t RADIO_read_ic(const uint8_t channel)
 static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 {
     uint8_t index = (buffer[channel].first_entry_index + buffer[channel].entries_cnt) % BUFFER_SIZE;
+
     buffer[channel].entries[index] = data;
     ++buffer[channel].entries_cnt;
 }
@@ -102,36 +101,34 @@ static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 void RADIO_update(const uint8_t channel)
 {
     if (pin_high[channel] == false) {
-        if(channel == DIRECTION_CHANNEL) {
+        if (channel == DIRECTION_CHANNEL)
             while (!IC1_IsCaptureBufferEmpty())
                 start[channel] = RADIO_read_ic(channel);
-        } else {
+        else
             while (!IC2_IsCaptureBufferEmpty())
                 start[channel] = RADIO_read_ic(channel);
-        }
         pin_high[channel] = true;
 
         /* interrupt on falling edge */
-        if(channel == DIRECTION_CHANNEL)
+        if (channel == DIRECTION_CHANNEL)
             IC1CON1bits.ICM = 0x2;
         else
             IC2CON1bits.ICM = 0x2;
     } else {
         uint16_t end = 0, entry = 0;
-        if(channel == DIRECTION_CHANNEL) {
+        if (channel == DIRECTION_CHANNEL)
             while (!IC1_IsCaptureBufferEmpty())
                 end = RADIO_read_ic(channel);
-        } else {
+        else
             while (!IC2_IsCaptureBufferEmpty())
                 end = RADIO_read_ic(channel);
-        }
         entry = end - start[channel];
         //LOG_DBG("entry%u= %u, start= %u, end= %u\n", channel, entry, start[channel], end);
 
         pin_high[channel] = false;
 
         /* interrupt on rising edge */
-        if(channel == DIRECTION_CHANNEL)
+        if (channel == DIRECTION_CHANNEL)
             IC1CON1bits.ICM = 0x3;
         else
             IC2CON1bits.ICM = 0x3;

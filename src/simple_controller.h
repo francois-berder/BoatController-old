@@ -6,7 +6,7 @@
  */
 
 #ifndef SIMPLE_CONTROLLER_H
-#define    SIMPLE_CONTROLLER_H
+#define SIMPLE_CONTROLLER_H
 
 #ifdef    __cplusplus
 extern "C" {
@@ -21,4 +21,3 @@ void simple_controller_update(void);
 #endif
 
 #endif    /* SIMPLE_CONTROLLER_H */
-

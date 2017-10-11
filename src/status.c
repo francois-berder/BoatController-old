@@ -31,22 +31,22 @@ void STATUS_set_mode(char new_mode)
 void STATUS_update(void)
 {
     switch (mode) {
-        case STATUS_OFF:
-            STATUS_LED_SetLow();
-            break;
-        case STATUS_ON:
-            STATUS_LED_SetHigh();
-            break;
-        case STATUS_SLOW_BLINK:
-            ++period;
-            if ((period == 1 && STATUS_LED_GetValue())
-             || (period == SLOW_BLINK_PERIOD && STATUS_LED_GetValue() == 0)) {
-                STATUS_LED_Toggle();
-                period = 0;
-            }
-            break;
-        case STATUS_FAST_BLINK:
+    case STATUS_OFF:
+        STATUS_LED_SetLow();
+        break;
+    case STATUS_ON:
+        STATUS_LED_SetHigh();
+        break;
+    case STATUS_SLOW_BLINK:
+        ++period;
+        if ((period == 1 && STATUS_LED_GetValue())
+            || (period == SLOW_BLINK_PERIOD && STATUS_LED_GetValue() == 0)) {
             STATUS_LED_Toggle();
-            break;
+            period = 0;
+        }
+        break;
+    case STATUS_FAST_BLINK:
+        STATUS_LED_Toggle();
+        break;
     }
 }

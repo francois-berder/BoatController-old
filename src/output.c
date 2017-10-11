@@ -63,42 +63,42 @@ static void OUTPUT_disable_interrupts(void)
 
 void OUTPUT_set_pin_low(void)
 {
-    switch(state) {
-        case LEFT_RUDDER:
-            LEFT_RUDDER_SetLow();
-            break;
-        case RIGHT_RUDDER:
-            RIGHT_RUDDER_SetLow();
-            break;
-        case LEFT_MOTOR:
-            LEFT_MOTOR_SetLow();
-            break;
-        case RIGHT_MOTOR:
-            RIGHT_MOTOR_SetLow();
-            break;
-        default:
-            break;
+    switch (state) {
+    case LEFT_RUDDER:
+        LEFT_RUDDER_SetLow();
+        break;
+    case RIGHT_RUDDER:
+        RIGHT_RUDDER_SetLow();
+        break;
+    case LEFT_MOTOR:
+        LEFT_MOTOR_SetLow();
+        break;
+    case RIGHT_MOTOR:
+        RIGHT_MOTOR_SetLow();
+        break;
+    default:
+        break;
     }
     TMR4_Stop();
 }
 
 static void OUTPUT_set_pin_high(void)
 {
-    switch(state) {
-        case LEFT_RUDDER:
-            LEFT_RUDDER_SetHigh();
-            break;
-        case RIGHT_RUDDER:
-            RIGHT_RUDDER_SetHigh();
-            break;
-        case LEFT_MOTOR:
-            LEFT_MOTOR_SetHigh();
-            break;
-        case RIGHT_MOTOR:
-            RIGHT_MOTOR_SetHigh();
-            break;
-        default:
-            break;
+    switch (state) {
+    case LEFT_RUDDER:
+        LEFT_RUDDER_SetHigh();
+        break;
+    case RIGHT_RUDDER:
+        RIGHT_RUDDER_SetHigh();
+        break;
+    case LEFT_MOTOR:
+        LEFT_MOTOR_SetHigh();
+        break;
+    case RIGHT_MOTOR:
+        RIGHT_MOTOR_SetHigh();
+        break;
+    default:
+        break;
     }
 }
 

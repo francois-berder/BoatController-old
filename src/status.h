@@ -6,14 +6,13 @@
  */
 
 #ifndef STATUS_H
-#define    STATUS_H
+#define STATUS_H
 
 #ifdef    __cplusplus
 extern "C" {
 #endif
 
-enum
-{
+enum {
     STATUS_OFF,
     STATUS_ON,
     STATUS_SLOW_BLINK,      /* Switch on LED for 100 ms every 2 seconds */
@@ -42,4 +41,3 @@ void STATUS_update(void);
 #endif
 
 #endif    /* STATUS_H */
-

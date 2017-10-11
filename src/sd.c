@@ -39,6 +39,7 @@ static inline void flush_spi_buffer(void)
 static uint8_t wait_for(uint8_t byte)
 {
     uint8_t attempt_count = RESPONSE_ATTEMPT_COUNT_MAX;
+
     while (attempt_count && SPI1_Exchange8bit(0xFF) != byte)
         --attempt_count;
 
@@ -96,7 +97,7 @@ static uint8_t send_cmd(uint8_t index, uint32_t arg, uint8_t crc)
             }
         }
     }
-        break;
+    break;
 
     default:
         ret = SD_IO_ERROR;

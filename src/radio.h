@@ -6,7 +6,7 @@
  */
 
 #ifndef RADIO_H
-#define    RADIO_H
+#define RADIO_H
 
 #ifdef    __cplusplus
 extern "C" {
@@ -56,4 +56,3 @@ uint16_t RADIO_buffer_read(const uint8_t channel);
 #endif
 
 #endif    /* RADIO_H */
-

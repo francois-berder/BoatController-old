@@ -6,7 +6,7 @@
  */
 
 #ifndef OUTPUT_H
-#define    OUTPUT_H
+#define OUTPUT_H
 
 #ifdef    __cplusplus
 extern "C" {
@@ -53,4 +53,3 @@ void OUTPUT_set_pin_low(void);
 #endif
 
 #endif    /* OUTPUT_H */
-

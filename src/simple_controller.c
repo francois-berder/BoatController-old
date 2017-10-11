@@ -10,8 +10,8 @@
 #define DEFAULT_FLUSH_COUNTER   (8)
 
 static struct {
-    uint16_t last[CHANNEL_CNT][QUEUE_SIZE];
-    uint16_t value[CHANNEL_CNT];
+    uint16_t    last[CHANNEL_CNT][QUEUE_SIZE];
+    uint16_t    value[CHANNEL_CNT];
 } input_data;
 static uint16_t output_data[OUTPUT_CHANNEL_CNT];
 
@@ -71,8 +71,9 @@ static void compute_output(void)
 static void generate_random_filename(char *filename)
 {
     uint8_t i;
+
     for (i = 0; i < 8; ++i)
-        filename[i] = 'A' + (char) (rng_get_byte() & 0xF);
+        filename[i] = 'A' + (char)(rng_get_byte() & 0xF);
 
     filename[8] = '.';
     filename[9] = 'T';
@@ -111,6 +112,7 @@ void simple_controller_update(void)
     char buffer[64];
 
     bool change = false;
+
     if (get_input(DIRECTION_CHANNEL))
         change = true;
     if (get_input(SPEED_CHANNEL))
@@ -120,12 +122,12 @@ void simple_controller_update(void)
         compute_output();
 
         sprintf(buffer, "%u,%u,%u,%u,%u,%u\r\n",
-            input_data.value[DIRECTION_CHANNEL],
-            input_data.value[SPEED_CHANNEL],
-            output_data[LEFT_RUDDER_CHANNEL],
-            output_data[RIGHT_RUDDER_CHANNEL],
-            output_data[LEFT_MOTOR_CHANNEL],
-            output_data[RIGHT_MOTOR_CHANNEL]);
+                input_data.value[DIRECTION_CHANNEL],
+                input_data.value[SPEED_CHANNEL],
+                output_data[LEFT_RUDDER_CHANNEL],
+                output_data[RIGHT_RUDDER_CHANNEL],
+                output_data[LEFT_MOTOR_CHANNEL],
+                output_data[RIGHT_MOTOR_CHANNEL]);
         fat16_write(file_handle, buffer, strlen(buffer));
 
         /*

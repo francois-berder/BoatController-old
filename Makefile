@@ -5,6 +5,7 @@ MKDIR := mkdir -p
 DEVICE := 24FJ128GB202
 TARGET_NAME := boatcontroller
 
+SRC_DIR ?= src
 BUILD_DIR ?= build
 DEP_DIR ?= $(BUILD_DIR)/deps
 BIN_DIR ?= bin
@@ -32,6 +33,7 @@ SRCS := fat16.c hal_sd.c main.c mbr.c mpu6050.c output.c radio.c rng.c \
 		mcc_generated_files/tmr5.c \
 		mcc_generated_files/traps.c \
 		mcc_generated_files/uart1.c
+SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:$(BUILD_DIR)/%.o=$(DEP_DIR)/%.d)

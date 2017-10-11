@@ -6,9 +6,9 @@
  */
 
 #ifndef RADIO_H
-#define	RADIO_H
+#define    RADIO_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -51,9 +51,9 @@ bool RADIO_is_buffer_empty(const uint8_t channel);
  */
 uint16_t RADIO_buffer_read(const uint8_t channel);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* RADIO_H */
+#endif    /* RADIO_H */
 

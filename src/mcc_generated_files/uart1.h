@@ -79,7 +79,7 @@ typedef enum
     /* Indicates that Receive buffer has data, at least one more character can be read */
     UART1_RX_DATA_AVAILABLE
         /*DOM-IGNORE-BEGIN*/  = (1 << 0) /*DOM-IGNORE-END*/,
-    
+
     /* Indicates that Receive buffer has overflowed */
     UART1_RX_OVERRUN_ERROR
         /*DOM-IGNORE-BEGIN*/  = (1 << 1) /*DOM-IGNORE-END*/,
@@ -134,7 +134,7 @@ typedef enum
     None
 
   @Comment
-    
+
 */
 void UART1_Initialize(void);
 
@@ -184,22 +184,22 @@ void UART1_Write(uint8_t txData);
     Returns the transmitter and receiver status
 
   @Description
-    This returns the transmitter and receiver status. The returned status may 
+    This returns the transmitter and receiver status. The returned status may
     contain a value with more than one of the bits
-    specified in the UART1_STATUS enumeration set.  
+    specified in the UART1_STATUS enumeration set.
     The caller should perform an "AND" with the bit of interest and verify if the
     result is non-zero (as shown in the example) to verify the desired status
     bit.
 
   @Preconditions
-    UART1_Initializer function should have been called 
+    UART1_Initializer function should have been called
     before calling this function
 
   @Param
     None.
 
   @Returns
-    A UART1_STATUS value describing the current status 
+    A UART1_STATUS value describing the current status
     of the transfer.
 
   @Example

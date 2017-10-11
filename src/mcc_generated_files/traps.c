@@ -1,5 +1,5 @@
 /**
-  System Traps Generated Driver File 
+  System Traps Generated Driver File
 
   @Company:
     Microchip Technology Inc.
@@ -13,7 +13,7 @@
 
   @Description:
     This source file provides implementations for PIC24 / dsPIC33 / PIC32MM MCUs traps.
-    Generation Information : 
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
@@ -58,19 +58,19 @@
 static uint16_t TRAPS_error_code = -1;
 
 /**
- * Halts 
- * 
+ * Halts
+ *
  * @param code error code
  */
 void __attribute__((naked, noreturn, weak)) TRAPS_halt_on_error(uint16_t code)
 {
     TRAPS_error_code = code;
-#ifdef __DEBUG    
+#ifdef __DEBUG
     __builtin_software_breakpoint();
     /* If we are in debug mode, cause a software breakpoint in the debugger */
 #endif
     while(1);
-    
+
 }
 
 /**
@@ -87,8 +87,8 @@ inline static void use_failsafe_stack(void)
     );
 /* Controls where the stack pointer limit is, relative to the end of the
  * failsafe stack
- */    
-    SPLIM = (uint16_t)(((uint8_t *)failsafe_stack) + sizeof(failsafe_stack) 
+ */
+    SPLIM = (uint16_t)(((uint8_t *)failsafe_stack) + sizeof(failsafe_stack)
             - FAILSAFE_STACK_GUARDSIZE);
 }
 
@@ -105,7 +105,7 @@ void ERROR_HANDLER_NORETURN _StackError(void)
      * means that we cannot trust the stack to operate correctly unless
      * we set the stack pointer to a safe place.
      */
-    use_failsafe_stack(); 
+    use_failsafe_stack();
     INTCON1bits.STKERR = 0;  //Clear the trap flag
     TRAPS_halt_on_error(TRAPS_STACK_ERR);
 }

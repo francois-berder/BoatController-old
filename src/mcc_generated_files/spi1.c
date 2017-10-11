@@ -80,23 +80,23 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
 
 void SPI1_Initialize (void)
 {
-    // AUDEN disabled; FRMEN disabled; AUDMOD I2S; FRMSYPW One clock wide; AUDMONO stereo; FRMCNT 0; MSSEN disabled; FRMPOL disabled; IGNROV disabled; SPISGNEXT not sign-extended; FRMSYNC disabled; URDTEN disabled; IGNTUR disabled; 
+    // AUDEN disabled; FRMEN disabled; AUDMOD I2S; FRMSYPW One clock wide; AUDMONO stereo; FRMCNT 0; MSSEN disabled; FRMPOL disabled; IGNROV disabled; SPISGNEXT not sign-extended; FRMSYNC disabled; URDTEN disabled; IGNTUR disabled;
     SPI1CON1H = 0x0000;
-    // WLENGTH 0; 
+    // WLENGTH 0;
     SPI1CON2L = 0x0000;
-    // SPIROV disabled; FRMERR disabled; 
+    // SPIROV disabled; FRMERR disabled;
     SPI1STATL = 0x0000;
-    // SPI1BRGL 1; 
+    // SPI1BRGL 1;
     SPI1BRGL = 0x0001;
-    // SPITBFEN disabled; SPITUREN disabled; FRMERREN disabled; SRMTEN disabled; SPIRBEN disabled; BUSYEN disabled; SPITBEN disabled; SPIROVEN disabled; SPIRBFEN disabled; 
+    // SPITBFEN disabled; SPITUREN disabled; FRMERREN disabled; SRMTEN disabled; SPIRBEN disabled; BUSYEN disabled; SPITBEN disabled; SPIROVEN disabled; SPIRBFEN disabled;
     SPI1IMSKL = 0x0000;
-    // RXMSK 0; TXWIEN disabled; TXMSK 0; RXWIEN disabled; 
+    // RXMSK 0; TXWIEN disabled; TXMSK 0; RXWIEN disabled;
     SPI1IMSKH = 0x0000;
-    // SPI1URDTL 0; 
+    // SPI1URDTL 0;
     SPI1URDTL = 0x0000;
-    // SPI1URDTH 0; 
+    // SPI1URDTH 0;
     SPI1URDTH = 0x0000;
-    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN disabled; MSTEN Master; MODE16 disabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Active to Idle; MODE32 disabled; SPISIDL disabled; ENHBUF enabled; DISSDI disabled; 
+    // SPIEN enabled; DISSDO disabled; MCLKEN FOSC/2; CKP Idle:Low, Active:High; SSEN disabled; MSTEN Master; MODE16 disabled; SMP Middle; DISSCK disabled; SPIFE Frame Sync pulse precedes; CKE Active to Idle; MODE32 disabled; SPISIDL disabled; ENHBUF enabled; DISSDI disabled;
     SPI1CON1L = 0x8121;
 
 }
@@ -126,7 +126,7 @@ void SPI1_Exchange( uint8_t *pTransmitData, uint8_t *pReceiveData )
 
     while ( SPI1STATLbits.SPIRBE == true)
     {
-    
+
     }
 
 
@@ -153,7 +153,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
     uint16_t count = 0;
     uint16_t dummyDataReceived = 0;
     uint16_t dummyDataTransmit = SPI1_DUMMY_DATA;
-    
+
     uint8_t fifoMultiplier = 1;
 
     uint8_t  *pSend, *pReceived;
@@ -169,20 +169,20 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
         addressIncrement = 4;
         byteCount >>= 2;
         fifoMultiplier = 1;
-    }  
+    }
     else if (spiModeStatus == SPI1_TRANSFER_MODE_16BIT)
     {
         addressIncrement = 2;
         byteCount >>= 1;
         fifoMultiplier = 2;
-    }        
+    }
     else
     {
         addressIncrement = 1;
         fifoMultiplier = 4;
     }
 
-    // set the pointers and increment delta 
+    // set the pointers and increment delta
     // for transmit and receive operations
     if (pTransmitData == NULL)
     {
@@ -194,7 +194,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
         sendAddressIncrement = addressIncrement;
         pSend = (uint8_t*)pTransmitData;
     }
-        
+
     if (pReceiveData == NULL)
     {
        receiveAddressIncrement = 0;
@@ -202,7 +202,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
     }
     else
     {
-       receiveAddressIncrement = addressIncrement;        
+       receiveAddressIncrement = addressIncrement;
        pReceived = (uint8_t*)pReceiveData;
     }
 
@@ -284,7 +284,7 @@ uint16_t SPI1_ExchangeBuffer(uint8_t *pTransmitData, uint16_t byteCount, uint8_t
 uint8_t SPI1_Exchange8bit( uint8_t data )
 {
     uint8_t receiveData;
-    
+
     SPI1_Exchange(&data, &receiveData);
 
     return (receiveData);

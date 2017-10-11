@@ -64,23 +64,23 @@
 /**
  Section: Data Type Definitions
 */
-        
+
 /**
-  SPI1_DUMMY_DATA 
+  SPI1_DUMMY_DATA
 
   @Summary
-    Dummy data to be sent. 
+    Dummy data to be sent.
 
   @Description
     Dummy data to be sent, when no input buffer is specified in the buffer APIs.
  */
 #define SPI1_DUMMY_DATA 0x0
-        
+
 /**
   SPI1_FIFO_FILL_LIMIT
 
   @Summary
-    FIFO fill limit for data transmission. 
+    FIFO fill limit for data transmission.
 
   @Description
     The amount of data to be filled in the FIFO during transmission. The maximum limit allowed is 8.
@@ -125,7 +125,7 @@ typedef enum {
 
     This routine must be called before any other SPI1 routine is called.
     This routine should only be called once during system initialization.
- 
+
   @Preconditions
     None.
 
@@ -144,7 +144,7 @@ typedef enum {
     SPI1_STATUS status;
     unsigned int    total;
     SPI1_Initialize;
- 
+
     total = 0;
     do
     {
@@ -185,10 +185,10 @@ void SPI1_Initialize (void);
   @Param
     data         - Data to be written onto SPI1.
 
-  @Example 
-    Refer to SPI1_Initialize() for an example    
+  @Example
+    Refer to SPI1_Initialize() for an example
 */
-        
+
 uint8_t SPI1_Exchange8bit( uint8_t data );
 
 /**
@@ -208,16 +208,16 @@ uint8_t SPI1_Exchange8bit( uint8_t data );
 
   @Param
     dataTransmitted         - Buffer of data to be written onto SPI1.
- 
+
   @Param
     byteCount         - Number of bytes to be exchanged.
- 
+
   @Param
     dataReceived         - Buffer of data to be read from SPI1.
 
-  @Example 
-    Refer to SPI1_Initialize() for an example    
- 
+  @Example
+    Refer to SPI1_Initialize() for an example
+
 */
 
 uint16_t SPI1_Exchange8bitBuffer(uint8_t *dataTransmitted, uint16_t byteCount, uint8_t *dataReceived);
@@ -238,9 +238,9 @@ uint16_t SPI1_Exchange8bitBuffer(uint8_t *dataTransmitted, uint16_t byteCount, u
   @Param
     None.
 
-  @Example 
-    Refer to SPI1_Initialize() for an example    
- 
+  @Example
+    Refer to SPI1_Initialize() for an example
+
 */
 
 SPI1_STATUS SPI1_StatusGet(void);
@@ -253,7 +253,7 @@ SPI1_STATUS SPI1_StatusGet(void);
 #endif
 
 #endif //_SPI1_H
-    
+
 /*******************************************************************************
  End of File
 */

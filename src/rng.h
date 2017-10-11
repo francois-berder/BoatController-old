@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   rng.h
  * Author: francois
  *
@@ -6,12 +6,12 @@
  */
 
 #ifndef RNG_H
-#define	RNG_H
+#define    RNG_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
-    
+
 #include <stdint.h>
 
     /**
@@ -35,9 +35,9 @@ extern "C" {
      */
     void rng_get_bytes(uint8_t *buffer, uint32_t length);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* RNG_H */
+#endif    /* RNG_H */
 

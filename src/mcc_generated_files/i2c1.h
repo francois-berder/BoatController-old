@@ -18,7 +18,7 @@
         Driver Version    :  1.0
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -113,7 +113,7 @@ typedef struct
     uint8_t   length;           // the # of bytes in the buffer
     uint8_t   *pbuffer;         // a pointer to a buffer of length bytes
 } I2C1_TRANSACTION_REQUEST_BLOCK;
-        
+
 /**
   Section: Interface Routines
 */
@@ -139,18 +139,18 @@ typedef struct
   @Example
     <code>
         #define SLAVE_I2C_GENERIC_RETRY_MAX           100
-        #define SLAVE_I2C_GENERIC_DEVICE_TIMEOUT      50   // define slave timeout 
- 
+        #define SLAVE_I2C_GENERIC_DEVICE_TIMEOUT      50   // define slave timeout
+
         // initialize the module
         I2C1_Initialize();
 
         // write to an EEPROM Device
-        
+
         uint16_t        dataAddress;
-        uint8_t         sourceData[16] = {  0xA0, 0xA1, 0xA2, 0xA3, 
-                                            0xA4, 0xA5, 0xA6, 0xA7, 
-                                            0xA8, 0xA9, 0xAA, 0xAB, 
-                                            0xAC, 0xAD, 0xAE, 0xAF }; 
+        uint8_t         sourceData[16] = {  0xA0, 0xA1, 0xA2, 0xA3,
+                                            0xA4, 0xA5, 0xA6, 0xA7,
+                                            0xA8, 0xA9, 0xAA, 0xAB,
+                                            0xAC, 0xAD, 0xAE, 0xAF };
         uint8_t         *pData;
         uint16_t        nCount;
 
@@ -160,7 +160,7 @@ typedef struct
 
         I2C1_MESSAGE_STATUS status = I2C1_MESSAGE_PENDING;
 
-        dataAddress = 0x10;             // starting EEPROM address 
+        dataAddress = 0x10;             // starting EEPROM address
         pD = sourceData;                // initialize the source of the data
         nCount = 16;                    // number of bytes to write
 
@@ -180,7 +180,7 @@ typedef struct
             // retry sending the transaction
             timeOut = 0;
             slaveTimeOut = 0;
- 
+
             while(status != I2C1_MESSAGE_FAIL)
             {
                 // write one byte to EEPROM (3 is the number of bytes to write)
@@ -200,8 +200,8 @@ typedef struct
                         break;
                     else
                         slaveTimeOut++;
-                } 
-                if ((slaveTimeOut == SLAVE_I2C_GENERIC_DEVICE_TIMEOUT) || 
+                }
+                if ((slaveTimeOut == SLAVE_I2C_GENERIC_DEVICE_TIMEOUT) ||
                     (status == I2C1_MESSAGE_COMPLETE))
                     break;
 
@@ -229,7 +229,7 @@ typedef struct
     </code>
 
 */
-       
+
 void I2C1_Initialize(void);
 
 
@@ -251,10 +251,10 @@ void I2C1_Initialize(void);
 
     @Param
         length - The length of the data block to be sent
-    
+
     @Param
         *pdata - A pointer to the block of data to be sent
-    
+
     @Param
         *pstatus - A pointer to the status variable that the i2c driver
             updates during the execution of the message.
@@ -264,8 +264,8 @@ void I2C1_Initialize(void);
 
      @Example
         <code>
-            Refer to I2C1_Initialize() and 
-            I2C1_MasterRead() for an examples	
+            Refer to I2C1_Initialize() and
+            I2C1_MasterRead() for an examples
         </code>
 
 */
@@ -291,10 +291,10 @@ void I2C1_MasterWrite(
 
     @Param
         address - The address of the i2c peripheral to be accessed
-    
+
     @Param
         length - The length of the data block to be sent
-    
+
     @Param
         *pdata - A pointer to the memory location where received data will
                  be stored
@@ -308,10 +308,10 @@ void I2C1_MasterWrite(
 
     @Example
         <code>
- 
+
             #define MCHP24AA512_RETRY_MAX       100  // define the retry count
             #define MCHP24AA512_ADDRESS         0x50 // slave device address
-            #define MCHP24AA512_DEVICE_TIMEOUT  50   // define slave timeout 
+            #define MCHP24AA512_DEVICE_TIMEOUT  50   // define slave timeout
 
 
             uint8_t MCHP24AA512_Read(
@@ -437,8 +437,8 @@ void I2C1_MasterWrite(
                 return(1);
 
             }
-   
-  
+
+
         </code>
 
 */
@@ -448,7 +448,7 @@ void I2C1_MasterRead(
                                 uint8_t length,
                                 uint16_t address,
                                 I2C1_MESSAGE_STATUS *pstatus);
-                                
+
 /**
     @Summary
         Inserts a list of i2c transaction requests into the i2c
@@ -478,7 +478,7 @@ void I2C1_MasterRead(
     @Param
         *ptrb_list - A pointer to an array of transaction requests (TRB).
             See I2C1_TRANSACTION_REQUEST_BLOCK definition for details.
-    
+
     @Param
         *pflag - A pointer to a completion flag.
 
@@ -488,7 +488,7 @@ void I2C1_MasterRead(
     @Example
         <code>
 
-  
+
             uint8_t EMULATED_EEPROM_Read(
                                            uint16_t slaveDeviceAddress,
                                            uint16_t dataAddress,
@@ -559,8 +559,8 @@ void I2C1_MasterRead(
                 }
                 return (1);
 
-            }   
-  
+            }
+
         </code>
 
 */
@@ -569,7 +569,7 @@ void I2C1_MasterTRBInsert(
                                 uint8_t count,
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
                                 I2C1_MESSAGE_STATUS *pflag);
-                                
+
 /**
     @Summary
         This function populates a trb supplied by the calling function
@@ -604,7 +604,7 @@ void I2C1_MasterTRBInsert(
 
     @Example
         <code>
-            Refer to I2C1_MasterTRBInsert() for an example	
+            Refer to I2C1_MasterTRBInsert() for an example
         </code>
 
 */
@@ -613,8 +613,8 @@ void I2C1_MasterReadTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
                                 uint8_t length,
-                                uint16_t address);                               
-                                
+                                uint16_t address);
+
 /**
     @Summary
         This function populates a trb supplied by the calling function
@@ -649,7 +649,7 @@ void I2C1_MasterReadTRBBuild(
 
     @Example
         <code>
-            Refer to I2C1_MasterTRBInsert() for an example	
+            Refer to I2C1_MasterTRBInsert() for an example
         </code>
 
 */
@@ -658,8 +658,8 @@ void I2C1_MasterWriteTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
                                 uint8_t length,
-                                uint16_t address);                           
-                                
+                                uint16_t address);
+
 /**
     @Summary
         This function returns the empty status of the Master
@@ -685,18 +685,18 @@ void I2C1_MasterWriteTRBBuild(
 
             // check until queue is empty
             while(I2C1_MasterQueueIsEmpty() == false);
-            
+
             // now send more data (assume readBuffer is initialized)
             I2C1_MasterRead(   readBuffer,
                                     3,
                                     MCHP24AA512_ADDRESS,
-                                    &status);   
-  
+                                    &status);
+
         </code>
 
 */
 
-bool I2C1_MasterQueueIsEmpty(void);                              
+bool I2C1_MasterQueueIsEmpty(void);
 
 /**
     @Summary
@@ -721,20 +721,20 @@ bool I2C1_MasterQueueIsEmpty(void);
     @Example
         <code>
             #define MCHP24AA512_ADDRESS    0x50 // slave device address
- 
+
             // check until queue has space
             while(I2C1_MasterQueueIsFull() == true);
-            
+
             // now send more data (assume readBuffer is initialized)
             I2C1_MasterRead(   readBuffer,
                                     3,
                                     MCHP24AA512_ADDRESS,
-                                    &status); 
+                                    &status);
         </code>
 
 */
 
-bool I2C1_MasterQueueIsFull(void);             
+bool I2C1_MasterQueueIsFull(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -743,7 +743,7 @@ bool I2C1_MasterQueueIsFull(void);
 #endif
 
 #endif //_I2C1_H
-    
+
 /**
  End of File
 */

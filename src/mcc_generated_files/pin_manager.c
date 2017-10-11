@@ -1,5 +1,5 @@
 /**
-  System Interrupts Generated Driver File 
+  System Interrupts Generated Driver File
 
   @Company:
     Microchip Technology Inc.
@@ -14,7 +14,7 @@
 
   @Description:
     This source file provides implementations for MPLAB(c) Code Configurator interrupts.
-    Generation Information : 
+    Generation Information :
         Product Revision  :  MPLAB(c) Code Configurator - 4.26
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:

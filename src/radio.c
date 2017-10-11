@@ -102,13 +102,13 @@ static void RADIO_add_entry(const uint8_t channel, const uint16_t data)
 void RADIO_update(const uint8_t channel)
 {
     if (pin_high[channel] == false) {
-		if(channel == DIRECTION_CHANNEL) {
-			while (!IC1_IsCaptureBufferEmpty())
-				start[channel] = RADIO_read_ic(channel);
-		} else {
-			while (!IC2_IsCaptureBufferEmpty())
-				start[channel] = RADIO_read_ic(channel);
-		}
+        if(channel == DIRECTION_CHANNEL) {
+            while (!IC1_IsCaptureBufferEmpty())
+                start[channel] = RADIO_read_ic(channel);
+        } else {
+            while (!IC2_IsCaptureBufferEmpty())
+                start[channel] = RADIO_read_ic(channel);
+        }
         pin_high[channel] = true;
 
         /* interrupt on falling edge */
@@ -118,13 +118,13 @@ void RADIO_update(const uint8_t channel)
             IC2CON1bits.ICM = 0x2;
     } else {
         uint16_t end = 0, entry = 0;
-		if(channel == DIRECTION_CHANNEL) {
-			while (!IC1_IsCaptureBufferEmpty())
-				end = RADIO_read_ic(channel);
-		} else {
-			while (!IC2_IsCaptureBufferEmpty())
-				end = RADIO_read_ic(channel);
-		}
+        if(channel == DIRECTION_CHANNEL) {
+            while (!IC1_IsCaptureBufferEmpty())
+                end = RADIO_read_ic(channel);
+        } else {
+            while (!IC2_IsCaptureBufferEmpty())
+                end = RADIO_read_ic(channel);
+        }
         entry = end - start[channel];
         //LOG_DBG("entry%u= %u, start= %u, end= %u\n", channel, entry, start[channel], end);
 
@@ -138,7 +138,7 @@ void RADIO_update(const uint8_t channel)
 
         /* Ignore any invalid inputs */
         if (!(entry < 2000 || entry > 4000))
-			RADIO_add_entry(channel, entry);
+            RADIO_add_entry(channel, entry);
     }
 }
 
@@ -157,7 +157,7 @@ uint16_t RADIO_buffer_read(const uint8_t channel)
     }
     index = buffer[channel].first_entry_index;
 
-	/* first_entry_index = (first_entry_index + 1) % BUFFER_SIZE */
+    /* first_entry_index = (first_entry_index + 1) % BUFFER_SIZE */
     buffer[channel].first_entry_index = (buffer[channel].first_entry_index + 1) & (BUFFER_SIZE - 1);
 
     /* Prevent an interrupt to add an entry and increment entries_cnt */

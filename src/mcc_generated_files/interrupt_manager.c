@@ -1,5 +1,5 @@
 /**
-  System Interrupts Generated Driver File 
+  System Interrupts Generated Driver File
 
   @Company:
     Microchip Technology Inc.
@@ -13,7 +13,7 @@
 
   @Description:
     This source file provides implementations for PIC24 / dsPIC33 / PIC32MM MCUs interrupts.
-    Generation Information : 
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:

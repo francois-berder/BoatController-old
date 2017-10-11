@@ -49,7 +49,7 @@ uint32_t mbr_read(void)
      * There are 4 entries in the partition table.
      * Iterate over each entry and return the start
      * sector of the first FAT16 partition.
-     * 
+     *
      * If no FAT16 partition is found, return 0.
      */
     for (i = 0; i < PARTITION_ENTRY_COUNT; ++i) {
@@ -63,7 +63,7 @@ uint32_t mbr_read(void)
         /* Check type */
         if (entry[4] != FAT16_PARTITION)
             continue;
-        
+
         start_sector = read_32bit_le(&entry[8]);
         partition_size = read_32bit_le(&entry[12]);
         partition_size *= BLOCK_LENGTH;

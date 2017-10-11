@@ -6,9 +6,9 @@
  */
 
 #ifndef STATUS_H
-#define	STATUS_H
+#define    STATUS_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -37,9 +37,9 @@ void STATUS_set_mode(char new_mode);
 void STATUS_update(void);
 
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* STATUS_H */
+#endif    /* STATUS_H */
 

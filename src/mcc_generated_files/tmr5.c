@@ -1,6 +1,6 @@
 
 /**
-  TMR5 Generated Driver API Source File 
+  TMR5 Generated Driver API Source File
 
   @Company
     Microchip Technology Inc.
@@ -12,13 +12,13 @@
     This is the generated source file for the TMR5 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This source file provides APIs for driver for TMR5. 
-    Generation Information : 
+    This source file provides APIs for driver for TMR5.
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -85,15 +85,15 @@ static TMR_OBJ tmr5_obj;
 
 void TMR5_Initialize (void)
 {
-    //TMR5 0; 
+    //TMR5 0;
     TMR5 = 0x0000;
-    //Period = 0.0327675 s; Frequency = 16000000 Hz; PR5 65535; 
+    //Period = 0.0327675 s; Frequency = 16000000 Hz; PR5 65535;
     PR5 = 0xFFFF;
-    //TCKPS 1:8; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled; 
+    //TCKPS 1:8; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled;
     T5CON = 0x8010;
 
-    
-	
+
+
     tmr5_obj.timerElapsed = false;
 
 }
@@ -161,7 +161,7 @@ void TMR5_Stop( void )
 bool TMR5_GetElapsedThenClear(void)
 {
     bool status;
-    
+
     status = tmr5_obj.timerElapsed;
 
     if(status == true)
@@ -178,7 +178,7 @@ int TMR5_SoftwareCounterGet(void)
 
 void TMR5_SoftwareCounterClear(void)
 {
-    tmr5_obj.count = 0; 
+    tmr5_obj.count = 0;
 }
 
 /**

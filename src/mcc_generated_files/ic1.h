@@ -17,7 +17,7 @@
         Device            :  PIC24FJ128GB202
      The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -72,13 +72,13 @@
     This routine initializes the IC driver instance for : 1
     index, making it ready for clients to open and use it.
     This routine must be called before any other IC1 routine is called.
-	
+
   @Preconditions
     None.
 
   @Param
     None
- 
+
   @Returns
     None.
 
@@ -86,11 +86,11 @@
     <code>
     bool bufferStatus;
     uint16_t data;
- 
+
     IC1_Initialize();
-    
+
     IC1_Start();
- 
+
     while(1)
     {
         bufferStatus = IC1_IsCaptureBufferEmpty( void );
@@ -100,7 +100,7 @@
         }
     }
     IC1_Stop();
- 
+
     </code>
 
 */
@@ -116,21 +116,21 @@ void IC1_Initialize (void);
     This routine enables the IC module with the corresponding operation mode.
 
   @Preconditions
-    IC1_Initialize function should have been called 
+    IC1_Initialize function should have been called
 
   @Param
     None
- 
+
   @Returns
     None.
 
-  @Example 
-    Refer to IC1_Initialize() for an example	
- 
+  @Example
+    Refer to IC1_Initialize() for an example
+
 */
 
 void IC1_Start( void );
-  /** 
+  /**
   @Summary
     Disables the IC module.
 
@@ -138,17 +138,17 @@ void IC1_Start( void );
     This routine disables the IC module.
 
   @Preconditions
-    IC1_Initialize function should have been called 
+    IC1_Initialize function should have been called
 
   @Param
     None
- 
+
   @Returns
     None.
 
-  @Example 
-    Refer to IC1_Initialize() for an example	
-  	
+  @Example
+    Refer to IC1_Initialize() for an example
+
 */
 
 void IC1_Stop( void );
@@ -160,17 +160,17 @@ void IC1_Stop( void );
     This routine reads the captured data from buffer.
 
   @Preconditions
-    IC1_Initialize function should have been called 
+    IC1_Initialize function should have been called
 
   @Param
     None
- 
+
   @Returns
     Read data from buffer.
 
-  @Example 
-    Refer to IC1_Initialize() for an example	
-  	
+  @Example
+    Refer to IC1_Initialize() for an example
+
 */
 
 uint16_t IC1_CaptureDataRead( void );
@@ -181,19 +181,19 @@ uint16_t IC1_CaptureDataRead( void );
 
   @Description
     This routine sets the manual trigger
-	
+
   @Preconditions
-    IC1_Initialize function should have been called 
+    IC1_Initialize function should have been called
 
   @Param
     None
- 
+
   @Returns
     None.
-	
-  @Example 
-    Refer to IC1_TriggerStatusGet() for an example	
- 
+
+  @Example
+    Refer to IC1_TriggerStatusGet() for an example
+
 */
 void IC1_ManualTriggerSet( void );
 
@@ -203,25 +203,25 @@ void IC1_ManualTriggerSet( void );
 
   @Description
     This routine gets the status of the timer trigger source if it has been triggered.
-	
+
   @Preconditions
     IC1_Initialize function should have been called
-	
+
   @Param
     None
- 
+
   @Returns
     Boolean value describing the timer trigger status.
-    true  : When the timer source has triggered and is running 
-    false : When the timer has not triggered and being held clear 
+    true  : When the timer source has triggered and is running
+    false : When the timer has not triggered and being held clear
 
-  @Example 
-    <\code>	
+  @Example
+    <\code>
     if(IC1_TriggerStatusGet())
     {
         IC1_TriggerStatusClear();
     }
-    <\code>	
+    <\code>
 */
 
 bool IC1_TriggerStatusGet( void );
@@ -231,19 +231,19 @@ bool IC1_TriggerStatusGet( void );
 
   @Description
     This routine clears the status of the timer trigger.
-	
+
   @Preconditions
-    IC1_Initialize function should have been called 
+    IC1_Initialize function should have been called
 
   @Param
     None
- 
+
   @Returns
     None.
-	
-  @Example 
-    Refer to IC1_TriggerStatusGet() for an example	
- 
+
+  @Example
+    Refer to IC1_TriggerStatusGet() for an example
+
 */
 
 void IC1_TriggerStatusClear( void );
@@ -253,37 +253,37 @@ void IC1_TriggerStatusClear( void );
 
   @Description
     This routine gets the buffer overflow status.
-	
+
   @Preconditions
-    IC1_Initialize function should have been called 
-	
+    IC1_Initialize function should have been called
+
   @Param
     None
- 
+
   @Returns
     Boolean value describing the buffer overflow status.
     true  : When the capture buffer has overflowed
     false : When the capture buffer has not overflowed
 
-   @Example 
-    <\code>	
+   @Example
+    <\code>
     bool status;
 
     status = IC1_HasCaptureBufferOverflowed();
-    <\code>	
+    <\code>
 */
 
 bool IC1_HasCaptureBufferOverflowed( void );
-/**  
+/**
 @Summary
     Gets the buffer empty status.
 
   @Description
     This routine gets the buffer empty status.
-	
+
   @Preconditions
-    IC1_Initialize function should have been called 
-	
+    IC1_Initialize function should have been called
+
   @Param
     None
 
@@ -292,8 +292,8 @@ bool IC1_HasCaptureBufferOverflowed( void );
     True- If buffer empty
     False-If buffer not empty
 
-   @Example 
-    Refer to IC1_Initialize() for an example	
+   @Example
+    Refer to IC1_Initialize() for an example
  */
 
 bool IC1_IsCaptureBufferEmpty( void );
@@ -305,7 +305,7 @@ bool IC1_IsCaptureBufferEmpty( void );
 #endif
 
 #endif //_IC1_H
-    
+
 /**
  End of File
 */

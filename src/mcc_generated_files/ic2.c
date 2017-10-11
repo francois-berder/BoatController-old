@@ -18,7 +18,7 @@
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -67,13 +67,13 @@ static uint16_t         gIC2Mode;
 
 void IC2_Initialize (void)
 {
-    // ICSIDL disabled; ICM Simple Capture mode: Rising; ICTSEL TMR5; ICI Every; 
+    // ICSIDL disabled; ICM Simple Capture mode: Rising; ICTSEL TMR5; ICI Every;
     IC2CON1 = 0x0C03;
-    // SYNCSEL TMR5; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync; 
+    // SYNCSEL TMR5; TRIGSTAT disabled; IC32 disabled; ICTRIG Sync;
     IC2CON2 = 0x000F;
-    
+
     gIC2Mode = IC2CON1bits.ICM;
-    
+
     IFS0bits.IC2IF = false;
     IEC0bits.IC2IE = true;
 }
@@ -103,7 +103,7 @@ uint16_t IC2_CaptureDataRead( void )
 
 void IC2_ManualTriggerSet( void )
 {
-    IC2CON2bits.TRIGSTAT= true; 
+    IC2CON2bits.TRIGSTAT= true;
 }
 
 bool IC2_TriggerStatusGet( void )

@@ -1,5 +1,5 @@
 /**
-  TMR5 Generated Driver API Header File 
+  TMR5 Generated Driver API Header File
 
   @Company
     Microchip Technology Inc.
@@ -11,13 +11,13 @@
     This is the generated header file for the TMR5 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This header file provides APIs for driver for TMR5. 
-    Generation Information : 
+    This header file provides APIs for driver for TMR5.
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -78,8 +78,8 @@
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     <code>
     bool statusTimer1;
     uint16_t period;
@@ -122,8 +122,8 @@ void TMR5_Initialize (void);
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -141,8 +141,8 @@ void TMR5_Tasks_16BitOperation( void );
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -161,8 +161,8 @@ void TMR5_Period16BitSet( uint16_t value );
 
   @Returns
     Timer 16-bit period value
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -181,7 +181,7 @@ uint16_t TMR5_Period16BitGet( void );
   @Returns
     None
 
-  @Example 
+  @Example
     <code>
     uint16_t value=0xF0F0;
 
@@ -212,8 +212,8 @@ void TMR5_Counter16BitSet ( uint16_t value );
 
   @Returns
     16-bit current counter value
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Counter16BitSet();
 */
 
@@ -232,8 +232,8 @@ uint16_t TMR5_Counter16BitGet( void );
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -251,8 +251,8 @@ void TMR5_Start( void );
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -263,7 +263,7 @@ void TMR5_Stop( void );
     Returns the elapsed status of the timer and clears if flag is set.
 
   @Description
-    This routine returns the elapsed status of the timer and clears 
+    This routine returns the elapsed status of the timer and clears
     flag if its set.
 
   @Param
@@ -272,8 +272,8 @@ void TMR5_Stop( void );
   @Returns
     True - Timer has elapsed.
     False - Timer has not elapsed.
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -291,8 +291,8 @@ bool TMR5_GetElapsedThenClear(void);
 
   @Returns
     Software counter value.
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -310,8 +310,8 @@ int TMR5_SoftwareCounterGet(void);
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR5_Initialize();
 */
 
@@ -324,7 +324,7 @@ void TMR5_SoftwareCounterClear(void);
 #endif
 
 #endif //_TMR5_H
-    
+
 /**
  End of File
 */

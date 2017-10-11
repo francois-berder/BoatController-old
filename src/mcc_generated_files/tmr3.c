@@ -1,6 +1,6 @@
 
 /**
-  TMR3 Generated Driver API Source File 
+  TMR3 Generated Driver API Source File
 
   @Company
     Microchip Technology Inc.
@@ -12,13 +12,13 @@
     This is the generated source file for the TMR3 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This source file provides APIs for driver for TMR3. 
-    Generation Information : 
+    This source file provides APIs for driver for TMR3.
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -85,17 +85,17 @@ static TMR_OBJ tmr3_obj;
 
 void TMR3_Initialize (void)
 {
-    //TMR3 0; 
+    //TMR3 0;
     TMR3 = 0x0000;
-    //Period = 0.004 s; Frequency = 16000000 Hz; PR3 8000; 
+    //Period = 0.004 s; Frequency = 16000000 Hz; PR3 8000;
     PR3 = 0x1F40;
-    //TCKPS 1:8; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled; 
+    //TCKPS 1:8; TON enabled; TSIDL disabled; TCS FOSC/2; TECS SOSC; TGATE disabled;
     T3CON = 0x8010;
 
-    
+
     IFS0bits.T3IF = false;
     IEC0bits.T3IE = true;
-	
+
     tmr3_obj.timerElapsed = false;
 
 }
@@ -176,7 +176,7 @@ void TMR3_Stop( void )
 bool TMR3_GetElapsedThenClear(void)
 {
     bool status;
-    
+
     status = tmr3_obj.timerElapsed;
 
     if(status == true)
@@ -193,7 +193,7 @@ int TMR3_SoftwareCounterGet(void)
 
 void TMR3_SoftwareCounterClear(void)
 {
-    tmr3_obj.count = 0; 
+    tmr3_obj.count = 0;
 }
 
 /**

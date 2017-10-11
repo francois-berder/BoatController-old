@@ -106,17 +106,17 @@ void SYSTEM_Initialize(void)
 
 void OSCILLATOR_Initialize(void)
 {
-    // CF no clock failure; NOSC FRCPLL; SOSCEN disabled; POSCEN disabled; CLKLOCK unlocked; OSWEN Switch is Complete; IOLOCK not-active; 
+    // CF no clock failure; NOSC FRCPLL; SOSCEN disabled; POSCEN disabled; CLKLOCK unlocked; OSWEN Switch is Complete; IOLOCK not-active;
     __builtin_write_OSCCONL((uint8_t) (0x0100 & 0x00FF));
-    // CPDIV 1:1; PLLEN enabled; RCDIV FRC/1; DOZE 1:8; DOZEN disabled; ROI disabled; 
+    // CPDIV 1:1; PLLEN enabled; RCDIV FRC/1; DOZE 1:8; DOZEN disabled; ROI disabled;
     CLKDIV = 0x3020;
-    // STOR disabled; STORPOL Interrupt when STOR is 1; STSIDL disabled; STLPOL Interrupt when STLOCK is 1; STLOCK disabled; STSRC SOSC; STEN disabled; TUN Center frequency; 
+    // STOR disabled; STORPOL Interrupt when STOR is 1; STSIDL disabled; STLPOL Interrupt when STLOCK is 1; STLOCK disabled; STSRC SOSC; STEN disabled; TUN Center frequency;
     OSCTUN = 0x0000;
-    // ROEN disabled; ROSEL FOSC; ROSIDL disabled; ROSWEN disabled; ROOUT disabled; ROSLP disabled; 
+    // ROEN disabled; ROSEL FOSC; ROSIDL disabled; ROSWEN disabled; ROOUT disabled; ROSLP disabled;
     REFOCONL = 0x0000;
-    // RODIV 0; 
+    // RODIV 0;
     REFOCONH = 0x0000;
-    // ROTRIM 0; 
+    // ROTRIM 0;
     REFOTRIML = 0x0000;
 }
 

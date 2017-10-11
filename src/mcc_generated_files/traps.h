@@ -1,5 +1,5 @@
 /**
-  System Traps Generated Driver File 
+  System Traps Generated Driver File
 
   @Company:
     Microchip Technology Inc.
@@ -13,7 +13,7 @@
 
   @Description:
     This source file provides implementations for PIC24 / dsPIC33 / PIC32MM MCUs traps.
-    Generation Information : 
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
@@ -50,7 +50,7 @@
 /**
  * Error codes
  */
-typedef enum 
+typedef enum
 {
     /* ----- Traps ----- */
     TRAPS_OSC_FAIL = 0, /** Oscillator Fail Trap vector */

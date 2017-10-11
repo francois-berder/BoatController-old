@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   simple_controller.h
  * Author: francois
  *
@@ -6,9 +6,9 @@
  */
 
 #ifndef SIMPLE_CONTROLLER_H
-#define	SIMPLE_CONTROLLER_H
+#define    SIMPLE_CONTROLLER_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -16,9 +16,9 @@ int simple_controller_init(void);
 void simple_controller_update(void);
 
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* SIMPLE_CONTROLLER_H */
+#endif    /* SIMPLE_CONTROLLER_H */
 

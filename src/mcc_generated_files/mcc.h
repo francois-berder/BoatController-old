@@ -43,7 +43,7 @@
 */
 
 #ifndef MCC_H
-#define	MCC_H
+#define    MCC_H
 #include <xc.h>
 #include "pin_manager.h"
 #include <stdint.h>
@@ -89,7 +89,7 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 
 
-#endif	/* MCC_H */
+#endif    /* MCC_H */
 /**
  End of File
 */

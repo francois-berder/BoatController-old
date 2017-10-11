@@ -18,7 +18,7 @@
         Driver Version    :  1.0
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -139,7 +139,7 @@ typedef enum
     S_MASTER_NOACK_STOP,
     S_MASTER_SEND_ADDR_10BIT_LSB,
     S_MASTER_10BIT_RESTART,
-    
+
 } I2C_MASTER_STATES;
 
 /**
@@ -194,20 +194,20 @@ static I2C_TR_QUEUE_ENTRY            *p_i2c1_current = NULL;
 
 void I2C1_Initialize(void)
 {
-    
+
     i2c1_object.pTrHead = i2c1_tr_queue;
     i2c1_object.pTrTail = i2c1_tr_queue;
     i2c1_object.trStatus.s.empty = true;
     i2c1_object.trStatus.s.full = false;
 
     i2c1_object.i2cErrors = 0;
-    
+
     // initialize the hardware
-    // Baud Rate Generator Value: I2CBRG 18;   
+    // Baud Rate Generator Value: I2CBRG 18;
     I2C1BRG = 0x0012;
-    // ACKEN disabled; STRICT disabled; STREN disabled; GCEN disabled; SMEN disabled; DISSLW disabled; I2CSIDL disabled; ACKDT Sends ACK; SCLREL Holds; RSEN disabled; A10M 7 Bit; PEN disabled; RCEN disabled; SEN disabled; I2CEN enabled; 
+    // ACKEN disabled; STRICT disabled; STREN disabled; GCEN disabled; SMEN disabled; DISSLW disabled; I2CSIDL disabled; ACKDT Sends ACK; SCLREL Holds; RSEN disabled; A10M 7 Bit; PEN disabled; RCEN disabled; SEN disabled; I2CEN enabled;
     I2C1CONL = 0x8200;
-    // BCL disabled; D_nA disabled; R_nW disabled; P disabled; S disabled; I2COV disabled; IWCOL disabled; 
+    // BCL disabled; D_nA disabled; R_nW disabled; P disabled; S disabled; I2COV disabled; IWCOL disabled;
     I2C1STAT = 0x0000;
 
     /* MI2C1 - I2C1 Master Events */
@@ -229,14 +229,14 @@ uint8_t I2C1_ErrorCountGet(void)
 
 void __attribute__ ( ( interrupt, no_auto_psv ) ) _MI2C1Interrupt ( void )
 {
-  
+
     static uint8_t  *pi2c_buf_ptr;
     static uint16_t i2c_address;
     static uint8_t  i2c_bytes_left;
     static uint8_t  i2c_10bit_address_restart = 0;
 
     IFS1bits.MI2C1IF = 0;
-            
+
     // Check first if there was a collision.
     // If we have a Write Collision, reset and go to idle state */
     if(I2C1_WRITE_COLLISION_STATUS_BIT)
@@ -366,7 +366,7 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _MI2C1Interrupt ( void )
 
             /* Start has been sent, send the address byte */
 
-            /* Note: 
+            /* Note:
                 On a 10-bit address resend (done only during a 10-bit
                 device read), the original i2c_address was modified in
                 S_MASTER_10BIT_RESTART state. So the check if this is
@@ -533,7 +533,7 @@ void __attribute__ ( ( interrupt, no_auto_psv ) ) _MI2C1Interrupt ( void )
             I2C1_ACKNOWLEDGE_ENABLE_BIT = 1;
             break;
 
-        case S_MASTER_RCV_STOP:                
+        case S_MASTER_RCV_STOP:
         case S_MASTER_SEND_STOP:
 
             // Send the stop flag
@@ -583,7 +583,7 @@ static void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
 
     // Done, back to idle
     i2c1_state = S_MASTER_IDLE;
-    
+
 }
 
 void I2C1_MasterWrite(
@@ -605,7 +605,7 @@ void I2C1_MasterWrite(
         *pstatus = I2C1_MESSAGE_FAIL;
     }
 
-}                           
+}
 
 void I2C1_MasterRead(
                                 uint8_t *pdata,
@@ -627,7 +627,7 @@ void I2C1_MasterRead(
         *pstatus = I2C1_MESSAGE_FAIL;
     }
 
-}       
+}
 
 void I2C1_MasterTRBInsert(
                                 uint8_t count,
@@ -665,20 +665,20 @@ void I2C1_MasterTRBInsert(
 
         // for interrupt based
         if(i2c1_state == S_MASTER_IDLE)
-        {    
+        {
             // force the task to run since we know that the queue has
             // something that needs to be sent
             IFS1bits.MI2C1IF = 1;
-        }           
-        
+        }
+
     }
     else
     {
         *pflag = I2C1_MESSAGE_FAIL;
     }
 
-}      
-                                
+}
+
 void I2C1_MasterReadTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
@@ -691,7 +691,7 @@ void I2C1_MasterReadTRBBuild(
     ptrb->length   = length;
     ptrb->pbuffer  = pdata;
 }
-                                
+
 void I2C1_MasterWriteTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,

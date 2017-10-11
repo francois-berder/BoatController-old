@@ -6,9 +6,9 @@
  */
 
 #ifndef OUTPUT_H
-#define	OUTPUT_H
+#define    OUTPUT_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -48,9 +48,9 @@ void OUTPUT_set_data(uint16_t *data);
  */
 void OUTPUT_set_pin_low(void);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* OUTPUT_H */
+#endif    /* OUTPUT_H */
 

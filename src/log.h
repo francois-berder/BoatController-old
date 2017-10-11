@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   log.h
  * Author: francois
  *
@@ -6,14 +6,14 @@
  */
 
 #ifndef LOG_H
-#define	LOG_H
+#define    LOG_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
-    
+
 #include <stdio.h>
-    
+
 enum LOG_LEVEL
 {
     DEBUG,
@@ -40,9 +40,9 @@ extern char log_level;
 #define LOG_WARN(...)   LOG(WARNING, __VA_ARGS__)
 #define LOG_ERR(...)    LOG(ERROR, __VA_ARGS__)
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* LOG_H */
+#endif    /* LOG_H */
 

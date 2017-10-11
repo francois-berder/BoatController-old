@@ -6,9 +6,9 @@
  */
 
 #ifndef MPU6050_H
-#define	MPU6050_H
+#define    MPU6050_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -47,9 +47,9 @@ void MPU6050_read_fifo(int16_t *samples, uint16_t samples_cnt);
  */
 void MPU6050_clear_fifo(void);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* MPU6050_H */
+#endif    /* MPU6050_H */
 

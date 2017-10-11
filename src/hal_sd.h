@@ -6,9 +6,9 @@
  */
 
 #ifndef HAL_SD_H
-#define	HAL_SD_H
+#define    HAL_SD_H
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -65,9 +65,9 @@ extern "C" {
      */
     void hal_flush(void);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* HAL_SD_H */
+#endif    /* HAL_SD_H */
 

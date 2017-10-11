@@ -5,11 +5,11 @@
  */
 
 #ifndef SD_H
-#define	SD_H
+#define    SD_H
 
 #include <stdint.h>
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 extern "C" {
 #endif
 
@@ -61,8 +61,8 @@ extern "C" {
      */
     uint8_t sd_write_block(uint8_t *buffer, uint32_t sector);
 
-#ifdef	__cplusplus
+#ifdef    __cplusplus
 }
 #endif
 
-#endif	/* SD_H */
+#endif    /* SD_H */

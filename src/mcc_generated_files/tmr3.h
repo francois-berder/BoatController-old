@@ -1,5 +1,5 @@
 /**
-  TMR3 Generated Driver API Header File 
+  TMR3 Generated Driver API Header File
 
   @Company
     Microchip Technology Inc.
@@ -11,13 +11,13 @@
     This is the generated header file for the TMR3 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This header file provides APIs for driver for TMR3. 
-    Generation Information : 
+    This header file provides APIs for driver for TMR3.
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - pic24-dspic-pic32mm : v1.35
         Device            :  PIC24FJ128GB202
     The generated drivers are tested against the following:
         Compiler          :  XC16 1.31
-        MPLAB 	          :  MPLAB X 3.60
+        MPLAB               :  MPLAB X 3.60
 */
 
 /*
@@ -79,8 +79,8 @@
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     <code>
     bool statusTimer1;
     uint16_t period;
@@ -122,8 +122,8 @@ void TMR3_Initialize (void);
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -142,8 +142,8 @@ void TMR3_Period16BitSet( uint16_t value );
 
   @Returns
     Timer 16-bit period value
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -162,7 +162,7 @@ uint16_t TMR3_Period16BitGet( void );
   @Returns
     None
 
-  @Example 
+  @Example
     <code>
     uint16_t value=0xF0F0;
 
@@ -193,8 +193,8 @@ void TMR3_Counter16BitSet ( uint16_t value );
 
   @Returns
     16-bit current counter value
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Counter16BitSet();
 */
 
@@ -212,8 +212,8 @@ uint16_t TMR3_Counter16BitGet( void );
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 void TMR3_CallBack(void);
@@ -230,8 +230,8 @@ void TMR3_CallBack(void);
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -249,8 +249,8 @@ void TMR3_Start( void );
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -261,7 +261,7 @@ void TMR3_Stop( void );
     Returns the elapsed status of the timer and clears if flag is set.
 
   @Description
-    This routine returns the elapsed status of the timer and clears 
+    This routine returns the elapsed status of the timer and clears
     flag if its set.
 
   @Param
@@ -270,8 +270,8 @@ void TMR3_Stop( void );
   @Returns
     True - Timer has elapsed.
     False - Timer has not elapsed.
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -289,8 +289,8 @@ bool TMR3_GetElapsedThenClear(void);
 
   @Returns
     Software counter value.
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -308,8 +308,8 @@ int TMR3_SoftwareCounterGet(void);
 
   @Returns
     None
- 
-  @Example 
+
+  @Example
     Refer to the example of TMR3_Initialize();
 */
 
@@ -322,7 +322,7 @@ void TMR3_SoftwareCounterClear(void);
 #endif
 
 #endif //_TMR3_H
-    
+
 /**
  End of File
 */

@@ -47,20 +47,14 @@ release: $(TARGET)
 .PHONY: debug
 debug: $(TARGET)
 
-.PHONY: build-dirs
-build-dirs:
-	$(MKDIR) $(sort $(addprefix $(BUILD_DIR)/, $(dir $(SRCS))))
-
-.PHONY: dep-dirs
-dep-dirs:
-	$(MKDIR) $(sort $(addprefix $(DEP_DIR)/, $(dir $(SRCS))))
-
-$(TARGET): build-dirs dep-dirs $(OBJS)
-	$(if $(BIN_DIR),$(MKDIR) $(BIN_DIR),)
-	$(CC) $(LDFLAGS) -o $(TARGET_ELF) $(OBJS)
+$(TARGET): $(OBJS)
+	@$(MKDIR) $(BIN_DIR)
+	$(CC) $(LDFLAGS) -o $(TARGET_ELF) $^
 	$(BIN2HEX) $(TARGET_ELF)
 
 $(BUILD_DIR)/%.o: %.c
+	@$(MKDIR)  $(BUILD_DIR)/$(dir $<)
+	@$(MKDIR)  $(DEP_DIR)/$(dir $<)
 	$(CC) $(DEPFLAGS) $(CFLAGS) -c $(realpath $<) -o $@
 
 .PHONY: clean
